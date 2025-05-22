@@ -6,8 +6,8 @@ public class Equipamentos {
     private int numeroSerie;
     private double preco;
     private int quantidade;
-    private String local;
-    private String responsavel;
+    private Locais local;
+    private Responsavel responsavel;
 
     public String getNome() {
         return nome;
@@ -57,24 +57,24 @@ public class Equipamentos {
         }
     }
 
-    public String getLocal() {
+    public Locais getLocal() {
         return local;
     }
 
-    public void setLocal(String local) {
-        if (!local.isBlank()) {
+    public void setLocal(Locais local) {
+        if (local != null) {
             this.local = local;
         } else {
             System.out.println("Erro! Não pode estar em branco.");
         }
     }
 
-    public String getResponsavel() {
+    public Responsavel getResponsavel() {
         return responsavel;
     }
 
-    public void setResponsavel(String responsavel) {
-        if (!responsavel.isBlank()) {
+    public void setResponsavel(Responsavel responsavel) {
+        if (responsavel != null) {
             this.responsavel = responsavel;
         } else {
             System.out.println("Erro! Não pode estar em branco.");
@@ -90,8 +90,8 @@ public class Equipamentos {
         int numeroSerie,
         double preco,
         int quantidade,
-        String local,
-        String responsavel
+        Locais local,
+        Responsavel responsavel
     ) {
         setNome(nome);
         setNumeroSerie(numeroSerie);
