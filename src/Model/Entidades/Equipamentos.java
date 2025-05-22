@@ -1,6 +1,7 @@
 package Entidades;
 
 public class Equipamentos {
+
     private String nome;
     private int numeroSerie;
     private double preco;
@@ -25,7 +26,7 @@ public class Equipamentos {
     }
 
     public void setNumeroSerie(int numeroSerie) {
-        if ( numeroSerie > 0) {
+        if (numeroSerie > 0) {
             this.numeroSerie = numeroSerie;
         } else {
             System.out.println("Erro! Não pode ser menor que zero.");
@@ -84,7 +85,14 @@ public class Equipamentos {
         //construtor vazio
     }
 
-    public Equipamentos(String nome, int numeroSerie, double preco, int quantidade, String local, String responsavel) {
+    public Equipamentos(
+        String nome,
+        int numeroSerie,
+        double preco,
+        int quantidade,
+        String local,
+        String responsavel
+    ) {
         setNome(nome);
         setNumeroSerie(numeroSerie);
         setPreco(preco);

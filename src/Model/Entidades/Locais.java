@@ -1,4 +1,4 @@
-package Entidades;
+package Entidades.;
 
 public class Locais {
     private String nomeCasa;

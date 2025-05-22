@@ -1,6 +1,7 @@
 package Entidades;
 
 public class Responsavel {
+
     private String nome;
     private String endereco;
     private String telefone;
