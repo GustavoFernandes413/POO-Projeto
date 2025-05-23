@@ -1,6 +1,7 @@
 package Entidades;
 
 public class Vendas {
+
     private int codigoVenda;
     private Cliente cliente;
     private Equipamentos equipamento;
@@ -14,7 +15,7 @@ public class Vendas {
     }
 
     public void setCodigoVenda(int codigoVenda) {
-        if (codigoVenda > 0) {
+        if (validarVendas(codigoVenda)) {
             this.codigoVenda = codigoVenda;
         } else {
             System.out.println("Erro! Não pode ser menor que zero.");
@@ -26,7 +27,8 @@ public class Vendas {
     }
 
     public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+        if (validarVendas(cliente)) this.cliente = cliente;
+        else System.out.println("Erro! Objeto não pode estar indefinido");
     }
 
     public Equipamentos getEquipamento() {
@@ -34,7 +36,8 @@ public class Vendas {
     }
 
     public void setEquipamento(Equipamentos equipamento) {
-        this.equipamento = equipamento;
+        if (validarVendas(equipamento)) this.equipamento = equipamento;
+        else System.out.println("Erro! Objeto não pode estar indefinido");
     }
 
     public Locais getLocal() {
@@ -42,7 +45,8 @@ public class Vendas {
     }
 
     public void setLocal(Locais local) {
-        this.local = local;
+        if (validarVendas(local)) this.local = local;
+        else System.out.println("Erro! Objeto não pode estar indefinido");
     }
 
     public Responsavel getResponsavel() {
@@ -50,7 +54,8 @@ public class Vendas {
     }
 
     public void setResponsavel(Responsavel responsavel) {
-        this.responsavel = responsavel;
+        if (validarVendas(responsavel)) this.responsavel = responsavel;
+        else System.out.println("Erro! Objeto não pode estar indefinido");
     }
 
     public String getStatus() {
@@ -58,7 +63,7 @@ public class Vendas {
     }
 
     public void setStatus(String status) {
-        if (!status.isBlank()) {
+        if (validarVendas(status)) {
             this.status = status;
         } else {
             System.out.println("Erro! Não pode estar em branco.");
@@ -70,7 +75,7 @@ public class Vendas {
     }
 
     public void setData(String data) {
-        if (data.isBlank()) {
+        if (validarVendasData(data)) {
             this.data = data;
         } else {
             System.out.println("Erro! Não pode estar em branco.");
@@ -81,7 +86,15 @@ public class Vendas {
         //construtor vazio
     }
 
-    public Vendas(int codigoVenda, Cliente cliente, Equipamentos equipamento, Locais local, Responsavel responsavel, String status, String data) {
+    public Vendas(
+        int codigoVenda,
+        Cliente cliente,
+        Equipamentos equipamento,
+        Locais local,
+        Responsavel responsavel,
+        String status,
+        String data
+    ) {
         setCodigoVenda(codigoVenda);
         setCliente(cliente);
         setEquipamento(equipamento);
@@ -89,5 +102,70 @@ public class Vendas {
         setResponsavel(responsavel);
         setStatus(status);
         setData(data);
+    }
+
+    // precisa dar atenção à estrutura a ser utilizada aqui
+    public void relatorio(int inicio, int fim) {
+        System.out.println("Relatório criado com sucesso!");
+    }
+
+    public void notaVenda(
+        int codigoVenda,
+        Cliente cliente,
+        Equipamentos equipamento,
+        Locais local,
+        Responsavel responsavel,
+        String status,
+        String data
+    ) {
+        if (
+            validarVendas(codigoVenda) &&
+            validarVendas(status) &&
+            validarVendasData(data)
+        ) {
+            System.out.println("Nota da venda criada com sucesso!");
+        }
+    }
+
+    public void cancelamentoVenda(int codigoVenda) {
+        if (validarVendas(codigoVenda)) System.out.println(
+            "Cancelamento feito com sucesso!"
+        );
+        else System.out.println("Erro ao cancelar venda!");
+    }
+
+    public static boolean validarVendas(String status) {
+        if (!status.isBlank()) return true;
+        else return false;
+    }
+
+    public static boolean validarVendas(Equipamentos equipamento) {
+        if (equipamento != null) return true;
+        else return false;
+    }
+
+    public static boolean validarVendas(Cliente cliente) {
+        if (cliente != null) return true;
+        else return false;
+    }
+
+    public static boolean validarVendas(Responsavel responsavel) {
+        if (responsavel != null) return true;
+        else return false;
+    }
+
+    public static boolean validarVendas(Locais locais) {
+        if (locais != null) return true;
+        else return false;
+    }
+
+    public static boolean validarVendasData(String data) {
+        if (!data.isBlank()) return true;
+        else return false;
+    }
+
+    public static boolean validarVendas(int codigoVenda) {
+        if (codigoVenda > 0) return true;
+        else return false;
     }
 }
