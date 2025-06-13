@@ -1,33 +1,12 @@
 package java.br.com.ufersa.model.entities;
 
-public class Cliente {
+public class Cliente extends Pessoa {
 
-    private String nome;
     private String cpf;
-    private String endereco;
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        if (!nome.isBlank()) {
-            this.nome = nome;
-        } else {
-            System.out.println("Erro! Não pode estar em branco.");
-        }
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        if (!endereco.isBlank()) {
-            this.endereco = endereco;
-        } else {
-            System.out.println("Erro! Não pode estar em branco.");
-        }
+    public Cliente(String nome, String endereco, String cpf) {
+        super(nome, endereco);
+        setCpf(cpf);
     }
 
     public String getCpf() {
@@ -35,45 +14,15 @@ public class Cliente {
     }
 
     public void setCpf(String cpf) {
-        if (!cpf.isBlank()) {
+        if (validarAttrString(cpf)) {
             this.cpf = cpf;
         } else {
             System.out.println("Erro! Não pode estar em branco.");
         }
     }
 
-    public Cliente() {
-        //construtor vazio
-    }
-
-    public Cliente(String nome, String endereco, String cpf) {
-        setNome(nome);
-        setEndereco(endereco);
-        setCpf(cpf);
-    }
-
     public void editarCpf(String cpf) {
-        if (!cpf.isBlank()) {
-            System.out.println("Edição feita com sucesso");
-        } else {
-            System.out.println(
-                "O atributo a ser editado não pode ser deixado em branco"
-            );
-        }
-    }
-
-    public void editarEnd(String endereco) {
-        if (!endereco.isBlank()) {
-            System.out.println("Edição feita com sucesso");
-        } else {
-            System.out.println(
-                "O atributo a ser editado não pode ser deixado em branco"
-            );
-        }
-    }
-
-    public void editarNome(String nome) {
-        if (!nome.isBlank()) {
+        if (validarAttrString(cpf)) {
             System.out.println("Edição feita com sucesso");
         } else {
             System.out.println(
