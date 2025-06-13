@@ -1,4 +1,4 @@
-package Entidades;
+package java.br.com.ufersa.model.entities;
 
 public class Equipamentos {
 
