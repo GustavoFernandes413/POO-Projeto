@@ -1,54 +1,23 @@
 package java.br.com.ufersa.model.entities;
 
-public class Responsavel {
+public class Responsavel extends Pessoa {
 
-    private String nome;
-    private String endereco;
     private String telefone;
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        if (!nome.isBlank()) {
-            this.nome = nome;
-        } else {
-            System.out.println("Erro! Não pode estar em branco.");
-        }
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        if (!endereco.isBlank()) {
-            this.endereco = endereco;
-        } else {
-            System.out.println("Erro! Não pode estar em branco.");
-        }
-    }
 
     public String getTelefone() {
         return telefone;
     }
 
     public void setTelefone(String telefone) {
-        if (!telefone.isBlank()) {
+        if (validarAttrString(telefone)) {
             this.telefone = telefone;
         } else {
             System.out.println("Erro! Não pode estar em branco.");
         }
     }
 
-    public Responsavel() {
-        //construtor vazio
-    }
-
     public Responsavel(String nome, String endereco, String telefone) {
-        setNome(nome);
-        setEndereco(endereco);
+        super(nome, endereco);
         setTelefone(telefone);
     }
 
@@ -58,27 +27,9 @@ public class Responsavel {
         );
     }
 
-    public void editarNome(String nome) {
-        if (!nome.isBlank()) System.out.println(
-            "Nome do responsável editado com sucesso!"
-        );
-        else System.out.println(
-            "O atributo a ser editado não pode ser deixado em branco!"
-        );
-    }
-
     public void editarTel(String telefone) {
-        if (!telefone.isBlank()) System.out.println(
+        if (validarAttrString(telefone)) System.out.println(
             "Telefone do responsável editado com sucesso!"
-        );
-        else System.out.println(
-            "O atributo a ser editado não pode ser deixado em branco!"
-        );
-    }
-
-    public void editarEnd(String endereco) {
-        if (!endereco.isBlank()) System.out.println(
-            "Endereço do responsável editado com sucesso!"
         );
         else System.out.println(
             "O atributo a ser editado não pode ser deixado em branco!"
