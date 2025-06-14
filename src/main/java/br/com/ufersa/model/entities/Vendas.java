@@ -3,12 +3,12 @@ package java.br.com.ufersa.model.entities;
 public class Vendas {
 
     private int codigoVenda;
+    private String status;
+    private String data;
     private Cliente cliente;
     private Equipamentos equipamento;
     private Locais local;
     private Responsavel responsavel;
-    private String status;
-    private String data;
 
     public int getCodigoVenda() {
         return codigoVenda;
@@ -75,7 +75,7 @@ public class Vendas {
     }
 
     public void setData(String data) {
-        if (validarVendasData(data)) {
+        if (validarVendas(data)) {
             this.data = data;
         } else {
             System.out.println("Erro! Não pode estar em branco.");
@@ -121,7 +121,7 @@ public class Vendas {
         if (
             validarVendas(codigoVenda) &&
             validarVendas(status) &&
-            validarVendasData(data)
+            validarVendas(data)
         ) {
             System.out.println("Nota da venda criada com sucesso!");
         }
@@ -134,33 +134,14 @@ public class Vendas {
         else System.out.println("Erro ao cancelar venda!");
     }
 
-    public static boolean validarVendas(String status) {
-        if (!status.isBlank()) return true;
+    // mesmo método é usado para os tipos Responsavel, Local e Equipamentos, por isso o uso de generics.
+    public static <T> boolean validarVendas(T objeto) {
+        if (objeto != null) return true;
         else return false;
     }
 
-    public static boolean validarVendas(Equipamentos equipamento) {
-        if (equipamento != null) return true;
-        else return false;
-    }
-
-    public static boolean validarVendas(Cliente cliente) {
-        if (cliente != null) return true;
-        else return false;
-    }
-
-    public static boolean validarVendas(Responsavel responsavel) {
-        if (responsavel != null) return true;
-        else return false;
-    }
-
-    public static boolean validarVendas(Locais locais) {
-        if (locais != null) return true;
-        else return false;
-    }
-
-    public static boolean validarVendasData(String data) {
-        if (!data.isBlank()) return true;
+    public static boolean validarVendas(String str) {
+        if (!str.isBlank()) return true;
         else return false;
     }
 
