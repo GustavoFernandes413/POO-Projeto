@@ -241,32 +241,27 @@ public class Equipamentos {
     // os metodos de validação foram feitos pois estavam sendo chamados muitas vezes, por isso o reaproveitamento.
     public static boolean validarEqui(double preco) {
         if (preco >= 0) return true;
-        else return false;
+        return false;
     }
 
     public static boolean validarEqui(String nome) {
         if (!nome.isBlank()) return true;
-        else return false;
+        return false;
     }
 
     public static boolean validarEquiSerie(int numeroSerie) {
         if (numeroSerie > 0) return true;
-        else return false;
+        return false;
     }
 
     public static boolean validarEqui(int quantidade) {
         if (quantidade >= 0) return true;
-        else return false;
+        return false;
     }
 
-    public static boolean validarEqui(Locais local) {
-        if (local != null) return true;
-        else return false;
-    }
-
-    public static boolean validarEqui(Responsavel responsavel) {
-        if (responsavel != null) return true;
-        else return false;
+    public static <T> boolean validarEqui(T obj) {
+        if (obj != null) return true;
+        return false;
     }
 
     public static boolean validarEqui(
