@@ -10,6 +10,29 @@ public class Vendas {
     private Locais local;
     private Responsavel responsavel;
 
+    public String toString() {
+        return (
+            "Venda: " +
+            "codigoVenda: " +
+            getCodigoVenda() +
+            ", status:" +
+            getStatus() +
+            '\'' +
+            ", data: " +
+            getData() +
+            '\'' +
+            ", cliente: " +
+            getCliente() +
+            ", equipamento: " +
+            getEquipamento().toString() +
+            ", local: " +
+            getLocal().toString() +
+            ", responsavel: " +
+            getResponsavel().toString() +
+            '}'
+        );
+    }
+
     public int getCodigoVenda() {
         return codigoVenda;
     }
@@ -136,17 +159,14 @@ public class Vendas {
 
     // mesmo método é usado para os tipos Responsavel, Local e Equipamentos, por isso o uso de generics.
     public static <T> boolean validarVendas(T objeto) {
-        if (objeto != null) return true;
-        else return false;
+        return (objeto != null);
     }
 
     public static boolean validarVendas(String str) {
-        if (!str.isBlank()) return true;
-        else return false;
+        return (!str.isBlank());
     }
 
     public static boolean validarVendas(int codigoVenda) {
-        if (codigoVenda > 0) return true;
-        else return false;
+        return (codigoVenda > 0);
     }
 }

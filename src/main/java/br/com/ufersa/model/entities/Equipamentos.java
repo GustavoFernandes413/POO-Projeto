@@ -240,28 +240,39 @@ public class Equipamentos {
 
     // os metodos de validação foram feitos pois estavam sendo chamados muitas vezes, por isso o reaproveitamento.
     public static boolean validarEqui(double preco) {
-        if (preco >= 0) return true;
-        return false;
+        return (preco >= 0);
     }
 
     public static boolean validarEqui(String nome) {
-        if (!nome.isBlank()) return true;
-        return false;
+        return (!nome.isBlank());
     }
 
     public static boolean validarEquiSerie(int numeroSerie) {
-        if (numeroSerie > 0) return true;
-        return false;
+        return (numeroSerie > 0);
     }
 
     public static boolean validarEqui(int quantidade) {
-        if (quantidade >= 0) return true;
-        return false;
+        return (quantidade >= 0);
     }
 
     public static <T> boolean validarEqui(T obj) {
-        if (obj != null) return true;
-        return false;
+        return (obj != null);
+    }
+
+    @Override
+    public String toString() {
+        return (
+            "Nome:" +
+            nome +
+            "/nNumeroSerie:" +
+            numeroSerie +
+            "/nPreco: " +
+            preco +
+            "/nLocal:  Nome Casa: " +
+            getLocal().toString() +
+            "/nResponsavel: Nome: " +
+            getResponsavel().toString()
+        );
     }
 
     public static boolean validarEqui(
@@ -272,14 +283,13 @@ public class Equipamentos {
         Locais local,
         Responsavel responsavel
     ) {
-        if (
+        return (
             validarEqui(nome) &&
             validarEquiSerie(numeroSerie) &&
             validarEqui(preco) &&
             validarEqui(quantidade) &&
             validarEqui(local) &&
             validarEqui(responsavel)
-        ) return true;
-        else return false;
+        );
     }
 }

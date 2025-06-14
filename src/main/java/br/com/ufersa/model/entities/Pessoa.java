@@ -10,6 +10,11 @@ public class Pessoa {
         setEndereco(endereco);
     }
 
+    @Override
+    public String toString() {
+        return "Nome: " + getNome() + "/nEndereco: " + getEndereco();
+    }
+
     public void editarEnd(String endereco) {
         if (validarAttrString(endereco)) {
             System.out.println("Edição feita com sucesso");
@@ -55,7 +60,6 @@ public class Pessoa {
     }
 
     public static boolean validarAttrString(String str) {
-        if (!str.isBlank()) return true;
-        return false;
+        return (!str.isBlank());
     }
 }

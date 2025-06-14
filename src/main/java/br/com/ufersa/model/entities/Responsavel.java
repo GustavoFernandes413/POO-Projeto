@@ -4,6 +4,11 @@ public class Responsavel extends Pessoa {
 
     private String telefone;
 
+    @Override
+    public String toString() {
+        return super.toString() + "/nTelefone: " + getTelefone();
+    }
+
     public String getTelefone() {
         return telefone;
     }
@@ -50,9 +55,6 @@ public class Responsavel extends Pessoa {
         String endereco,
         String telefone
     ) {
-        if (
-            !nome.isBlank() && !endereco.isBlank() && !telefone.isBlank()
-        ) return true;
-        else return false;
+        if (!nome.isBlank() && !endereco.isBlank() && !telefone.isBlank());
     }
 }

@@ -5,6 +5,16 @@ public class Locais {
     private String nomeCasa;
     private String nomeCompartimento;
 
+    @Override
+    public String toString() {
+        return (
+            "Nome da Casa: " +
+            getNomeCasa() +
+            "Compartimento: " +
+            getNomeCompartimento()
+        );
+    }
+
     public String getNomeCasa() {
         return nomeCasa;
     }
@@ -76,7 +86,6 @@ public class Locais {
         String nomeCompartimento,
         String nomeCasa
     ) {
-        if (!nomeCasa.isBlank() && !nomeCompartimento.isBlank()) return true;
-        else return false;
+        return (!nomeCasa.isBlank() && !nomeCompartimento.isBlank());
     }
 }

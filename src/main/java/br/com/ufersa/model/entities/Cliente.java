@@ -4,6 +4,11 @@ public class Cliente extends Pessoa {
 
     private String cpf;
 
+    @Override
+    public String toString() {
+        return super.toString() + "/nCPF: " + getCpf();
+    }
+
     public Cliente(String nome, String endereco, String cpf) {
         super(nome, endereco);
         setCpf(cpf);
@@ -53,9 +58,6 @@ public class Cliente extends Pessoa {
         String endereco,
         String cpf
     ) {
-        if (
-            !nome.isBlank() && !endereco.isBlank() && cpf.isBlank()
-        ) return true;
-        else return false;
+        return (!nome.isBlank() && !endereco.isBlank() && cpf.isBlank());
     }
 }
