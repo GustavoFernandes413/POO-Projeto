@@ -1,7 +1,16 @@
 package br.com.ufersa.model.entities;
 
-public class Cliente extends Pessoa {
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "Clientes")
+@PrimaryKeyJoinColumn(name = "idPessoa")
+
+public class Cliente extends Pessoa {
+    @Column(nullable = false)
     private String cpf;
 
     @Override
@@ -12,6 +21,9 @@ public class Cliente extends Pessoa {
     public Cliente(String nome, String endereco, String cpf) {
         super(nome, endereco);
         setCpf(cpf);
+    }
+
+    public Cliente() {
     }
 
     public String getCpf() {

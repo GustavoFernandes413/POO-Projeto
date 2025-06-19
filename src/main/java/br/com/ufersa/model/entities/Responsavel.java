@@ -1,7 +1,13 @@
 package br.com.ufersa.model.entities;
 
-public class Responsavel extends Pessoa {
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "Responsaveis")
+@PrimaryKeyJoinColumn(name = "idPessoa")
+
+public class Responsavel extends Pessoa {
+    @Column(nullable = false)
     private String telefone;
 
     @Override
@@ -24,6 +30,8 @@ public class Responsavel extends Pessoa {
     public Responsavel(String nome, String endereco, String telefone) {
         super(nome, endereco);
         setTelefone(telefone);
+    }
+    public Responsavel() {
     }
 
     public void cadastrar(String nome, String endereco, String telefone) {
@@ -55,6 +63,6 @@ public class Responsavel extends Pessoa {
         String endereco,
         String telefone
     ) {
-        if (!nome.isBlank() && !endereco.isBlank() && !telefone.isBlank());
+        return (!nome.isBlank() && !endereco.isBlank() && !telefone.isBlank());
     }
 }

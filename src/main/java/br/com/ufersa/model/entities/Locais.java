@@ -8,7 +8,7 @@ public class Locais {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "nomeLocal")
+    @Column(name = "nomeCasa")
     private String nomeCasa;
     @Column(name = "nomeCompartimento")
     private String nomeCompartimento;
