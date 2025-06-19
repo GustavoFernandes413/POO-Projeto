@@ -1,4 +1,4 @@
-package java.br.com.ufersa.model.entities;
+package main.java.br.com.ufersa.model.entities;
 
 public class Cliente extends Pessoa {
 
