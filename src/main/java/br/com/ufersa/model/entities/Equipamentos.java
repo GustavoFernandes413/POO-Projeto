@@ -120,7 +120,6 @@ public class Equipamentos {
         );
         else System.out.println(
             "Dado para pesquisa do equipamento não pode ser deixado em branco ou menor que zero!"
-        );
     }
 
     public void pesquisar(String nome) {
