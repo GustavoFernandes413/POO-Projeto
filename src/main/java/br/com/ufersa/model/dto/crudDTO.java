@@ -1,4 +1,4 @@
-package main.java.br.com.ufersa.model.dto;
+package br.com.ufersa.model.dto;
 
 public interface crudDTO<T> {
     T findById(int id);

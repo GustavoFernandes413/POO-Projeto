@@ -1,4 +1,4 @@
-package main.java.br.com.ufersa.model.entities;
+package br.com.ufersa.model.entities;
 
 public class Equipamentos {
 
@@ -119,7 +119,7 @@ public class Equipamentos {
             "Pesquisa pelo equipamento feita com sucesso!"
         );
         else System.out.println(
-            "Dado para pesquisa do equipamento não pode ser deixado em branco ou menor que zero!"
+            "Dado para pesquisa do equipamento não pode ser deixado em branco ou menor que zero!");
     }
 
     public void pesquisar(String nome) {

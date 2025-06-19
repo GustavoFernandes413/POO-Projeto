@@ -1,4 +1,4 @@
-package main.java.br.com.ufersa.model.entities;
+package br.com.ufersa.model.entities;
 
 public class Responsavel extends Pessoa {
 

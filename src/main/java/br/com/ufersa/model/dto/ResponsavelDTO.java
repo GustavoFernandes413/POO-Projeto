@@ -1,6 +1,8 @@
+package br.com.ufersa.model.dto;
+
+import br.com.ufersa.model.dto.crudDTO;
+import br.com.ufersa.model.entities.Responsavel;
 import java.util.List;
-import main.java.br.com.ufersa.model.dto.crudDTO;
-import main.java.br.com.ufersa.model.entities.Responsavel;
 
 public interface ResponsavelDTO extends crudDTO {
     Responsavel findByTelefone(Responsavel responsavel);

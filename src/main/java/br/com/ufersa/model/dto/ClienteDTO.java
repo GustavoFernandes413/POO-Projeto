@@ -1,6 +1,8 @@
+package br.com.ufersa.model.dto;
+
 import java.util.List;
-import main.java.br.com.ufersa.model.dto.crudDTO;
-import main.java.br.com.ufersa.model.entities.Cliente;
+import br.com.ufersa.model.dto.crudDTO;
+import br.com.ufersa.model.entities.Cliente;
 
 public interface ClienteDTO extends crudDTO {
     Cliente findByCPF(Cliente cliente);

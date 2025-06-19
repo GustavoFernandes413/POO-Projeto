@@ -1,1 +1,1 @@
-package java;
+package br.com.ufersa;

@@ -1,8 +1,16 @@
-package main.java.br.com.ufersa.model.entities;
+package br.com.ufersa.model.entities;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "Locais")
 public class Locais {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "nomeLocal")
     private String nomeCasa;
+    @Column(name = "nomeCompartimento")
     private String nomeCompartimento;
 
     @Override
