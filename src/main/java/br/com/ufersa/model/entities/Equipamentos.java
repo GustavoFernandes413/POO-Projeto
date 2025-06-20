@@ -1,12 +1,25 @@
 package br.com.ufersa.model.entities;
+import br.com.ufersa.model.entities.Locais;
+import br.com.ufersa.model.entities.Responsavel;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "Equipamentos")
 public class Equipamentos {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long numeroSerie;
+    @Column(nullable = false, name = "nome")
     private String nome;
-    private int numeroSerie;
+    @Column(nullable = false, name = "preco")
     private double preco;
+    @Column(nullable = false, name= "quantidade")
     private int quantidade;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_locais")
     private Locais local;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_responsavel")
     private Responsavel responsavel;
 
     public String getNome() {
@@ -21,11 +34,11 @@ public class Equipamentos {
         }
     }
 
-    public int getNumeroSerie() {
+    public Long getNumeroSerie() {
         return numeroSerie;
     }
 
-    public void setNumeroSerie(int numeroSerie) {
+    public void setNumeroSerie(Long numeroSerie) {
         if (validarEquiSerie(numeroSerie)) {
             this.numeroSerie = numeroSerie;
         } else {
@@ -87,7 +100,7 @@ public class Equipamentos {
 
     public Equipamentos(
         String nome,
-        int numeroSerie,
+        Long numeroSerie,
         double preco,
         int quantidade,
         Locais local,
@@ -141,7 +154,7 @@ public class Equipamentos {
     }
 
     // métodos para editar Equipamentos
-    public void editar(int numeroSerie) {
+    public void editar(Long numeroSerie) {
         if (validarEquiSerie(numeroSerie)) System.out.println(
             "Numero de série do equipamento alterado com sucesso!"
         );
@@ -197,7 +210,7 @@ public class Equipamentos {
 
     public void editar(
         String nome,
-        int numeroSerie,
+        Long numeroSerie,
         double preco,
         int quantidade,
         Locais local,
@@ -218,7 +231,7 @@ public class Equipamentos {
 
     public void cadastrar(
         String nome,
-        int numeroSerie,
+        Long numeroSerie,
         double preco,
         int quantidade,
         Locais local,
@@ -246,7 +259,7 @@ public class Equipamentos {
         return (!nome.isBlank());
     }
 
-    public static boolean validarEquiSerie(int numeroSerie) {
+    public static boolean validarEquiSerie(Long numeroSerie) {
         return (numeroSerie > 0);
     }
 
@@ -276,7 +289,7 @@ public class Equipamentos {
 
     public static boolean validarEqui(
         String nome,
-        int numeroSerie,
+        Long numeroSerie,
         double preco,
         int quantidade,
         Locais local,

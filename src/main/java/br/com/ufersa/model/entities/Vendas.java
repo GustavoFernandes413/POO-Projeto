@@ -1,13 +1,31 @@
 package br.com.ufersa.model.entities;
 
+import jakarta.persistence.*;
+
+import java.sql.Timestamp;
+
+@Entity
+@Table(name = "Vendas")
 public class Vendas {
 
-    private int codigoVenda;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long codigoVenda;
+    @Column(name = "status", nullable = false)
     private String status;
-    private String data;
+    @Column(name = "data")
+    private Timestamp data;
+    @OneToOne(cascade =  CascadeType.ALL)
+    @JoinColumn(name= "fk_cliente")
     private Cliente cliente;
+    @OneToOne(cascade =  CascadeType.ALL)
+    @JoinColumn(name = "fk_equipamentos")
     private Equipamentos equipamento;
+    @OneToOne(cascade =  CascadeType.ALL)
+    @JoinColumn(name = "fk_locais")
     private Locais local;
+    @OneToOne(cascade =  CascadeType.ALL)
+    @JoinColumn(name="fk_responsavel")
     private Responsavel responsavel;
 
     public String toString() {
@@ -33,11 +51,11 @@ public class Vendas {
         );
     }
 
-    public int getCodigoVenda() {
+    public Long getCodigoVenda() {
         return codigoVenda;
     }
 
-    public void setCodigoVenda(int codigoVenda) {
+    public void setCodigoVenda(Long codigoVenda) {
         if (validarVendas(codigoVenda)) {
             this.codigoVenda = codigoVenda;
         } else {
@@ -93,11 +111,11 @@ public class Vendas {
         }
     }
 
-    public String getData() {
+    public Timestamp getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(Timestamp data) {
         if (validarVendas(data)) {
             this.data = data;
         } else {
@@ -110,13 +128,13 @@ public class Vendas {
     }
 
     public Vendas(
-        int codigoVenda,
+        Long codigoVenda,
         Cliente cliente,
         Equipamentos equipamento,
         Locais local,
         Responsavel responsavel,
         String status,
-        String data
+        Timestamp data
     ) {
         setCodigoVenda(codigoVenda);
         setCliente(cliente);
@@ -139,7 +157,7 @@ public class Vendas {
         Locais local,
         Responsavel responsavel,
         String status,
-        String data
+        Timestamp data
     ) {
         if (
             validarVendas(codigoVenda) &&
@@ -166,7 +184,7 @@ public class Vendas {
         return (!str.isBlank());
     }
 
-    public static boolean validarVendas(int codigoVenda) {
+    public static boolean validarVendas(Long codigoVenda) {
         return (codigoVenda > 0);
     }
 }
