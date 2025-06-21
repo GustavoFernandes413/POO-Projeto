@@ -4,7 +4,6 @@ import br.com.ufersa.model.dto.crudDTO;
 import br.com.ufersa.model.entities.Locais;
 import java.util.List;
 
-public interface LocaisDTO extends crudDTO {
-    List<Locais> getAll();
-    Locais findByName(Locais local);
+public interface LocaisDTO extends crudDTO<Locais> {
+    Locais findByName(String nomeLocal);
 }
