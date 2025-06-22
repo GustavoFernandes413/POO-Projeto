@@ -10,7 +10,6 @@ public class PessoaDTOImpl implements PessoaDTO {
 
     private final EntityManager em = JPAUtil.getEntityManagerFactory();
 
-
     @Override
     public Pessoa findById(Long id) {
         return em.find(Pessoa.class, id);
