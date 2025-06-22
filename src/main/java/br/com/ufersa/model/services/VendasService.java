@@ -1,7 +1,7 @@
 package br.com.ufersa.model.services;
 
-import br.com.ufersa.model.entities.Equipamentos;
 import br.com.ufersa.model.entities.Vendas;
+import java.sql.Timestamp;
 import java.util.List;
 
 public interface VendasService {
