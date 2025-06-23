@@ -10,5 +10,5 @@ public interface EquipamentosService {
     Equipamentos getEquipamentoById(Long id);
     List<Equipamentos> getAllEquipamentos();
     Equipamentos findByNomeEquipamento(String nome);
-    void alterarPreco(Long id);
+    void alterarPreco(Equipamentos id);
 }

@@ -61,7 +61,7 @@ public class VendasDTOImpl implements VendasDTO {
     @Override
     public void update(Vendas vendas) {
         EntityTransaction ts = em.getTransaction();
-        try {
+        try   {
             ts.begin();
             em.merge(vendas);
             ts.commit();
