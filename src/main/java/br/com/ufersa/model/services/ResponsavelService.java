@@ -1,5 +1,7 @@
 package br.com.ufersa.model.services;
 
-public interface ResponsavelService extends PessoaService {
+import br.com.ufersa.model.entities.Responsavel;
+
+public interface ResponsavelService  {
     void mudarTelefone(Long id, String novoT);
 }

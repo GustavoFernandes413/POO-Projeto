@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public interface VendasService {
-    void getVendaById(Long id);
+    Vendas getVendaById(Long id);
     Vendas gerarNotaVenda(Vendas venda);
     List<Vendas> relatorio(Timestamp dataInicio, Timestamp dataFim);
     Vendas cancelamento(Long id);
