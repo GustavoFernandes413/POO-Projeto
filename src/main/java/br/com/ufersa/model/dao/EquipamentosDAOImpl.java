@@ -13,7 +13,8 @@ public class EquipamentosDAOImpl implements EquipamentosDAO {
 
 
     @Override
-    public Equipamentos findByName(String nomeEquipamentos) {
+    public Equipamentos findByName(Equipamentos equipamentos) {
+        String nome = equipamentos.getNome();
         TypedQuery<Equipamentos> query = em.createQuery("SELECT e FROM Equipamento e WHERE e.nome = :nome", Equipamentos.class);
         query.setParameter("nome", nomeEquipamentos);
         return query.getSingleResult();

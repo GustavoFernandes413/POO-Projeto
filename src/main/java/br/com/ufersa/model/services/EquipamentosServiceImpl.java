@@ -14,12 +14,14 @@ public class EquipamentosServiceImpl implements EquipamentosService{
 
     @Override
     public void comprarEquipamento(Equipamentos equip, int quantidade) {
-
+        equip.setQuantidade(equip.getQuantidade() +  quantidade);
+        equipamentosDTO.update(equip);
     }
 
     @Override
     public void venderEquipamento(Equipamentos equip, int quantidade) {
-
+        equip.setQuantidade(equip.getQuantidade() -  quantidade);
+        equipamentosDTO.update(equip);
     }
 
     @Override
@@ -33,8 +35,8 @@ public class EquipamentosServiceImpl implements EquipamentosService{
     }
 
     @Override
-    public Equipamentos findByNomeEquipamento(String nome) {
-        return equipamentosDTO.findByName(nome);
+    public Equipamentos findByNomeEquipamento(Equipamentos equipamentos) {
+        return equipamentosDTO.findByName(equipamentos);
     }
 
     @Override

@@ -9,6 +9,6 @@ public interface EquipamentosService {
     void venderEquipamento(Equipamentos equip, int quantidade);
     Equipamentos getEquipamentoById(Long id);
     List<Equipamentos> getAllEquipamentos();
-    Equipamentos findByNomeEquipamento(String nome);
+    Equipamentos findByNomeEquipamento(Equipamentos equipamentos);
     void alterarPreco(Equipamentos id);
 }
