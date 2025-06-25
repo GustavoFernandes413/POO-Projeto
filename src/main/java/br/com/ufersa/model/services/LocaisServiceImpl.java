@@ -16,13 +16,13 @@ public class LocaisServiceImpl implements LocaisService{
     }
 
     @Override
-    public void mudarLocal(Locais local, Long id) {
+    public void mudarLocal(Locais local) {
         locaisDAO.update(local);
     }
 
     @Override
-    public Locais getLocalById(Long id) {
-        return locaisDAO.findById(id);
+    public Locais getLocalById(Locais  local) {
+        return locaisDAO.findById(local);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class LocaisServiceImpl implements LocaisService{
     }
 
     @Override
-    public Locais findByNomeCasa(String nome) {
-        return locaisDAO.findByName(nome);
+    public Locais findByNomeCasa(Locais  local) {
+        return locaisDAO.findByName(local);
     }
 }

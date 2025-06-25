@@ -15,10 +15,8 @@ public class ResponsavelServiceImpl implements ResponsavelService {
     }
 
     @Override
-    public void mudarTelefone(Long id, String telefoneR) {
-        if (id > 0 && !telefoneR.isBlank()) {
-            Responsavel responsavel = new Responsavel();
-            responsavel.setTelefone(telefoneR);
+    public void mudarTelefone(Responsavel responsavel) {
+        if (responsavel != null) {
             responsavelDTO.update(responsavel);
         } else {
             throw new IllegalArgumentException("Telefone informado é inválido");
@@ -26,14 +24,14 @@ public class ResponsavelServiceImpl implements ResponsavelService {
     }
 
 
-    public void mudarNome(long id, String nome){
-        pessoaService.mudarNome( id,  nome);
+    public void mudarNome(Pessoa pessoa){
+        pessoaService.mudarNome( pessoa);
     }
-    public void mudarEndereco(long id, String enderecoP){
-        pessoaService.mudarEndereco(id,  enderecoP);
+    public void mudarEndereco(Pessoa pessoa){
+        pessoaService.mudarEndereco(pessoa);
     }
-    public Pessoa getPessoaById(long id) {
-        return pessoaService.getPessoaById(id);
+    public Pessoa getPessoaById(Pessoa pessoa) {
+        return pessoaService.getPessoaById(pessoa);
     }
     public List<Pessoa> getAllPessoas() {
         return pessoaService.getAllPessoas();

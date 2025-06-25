@@ -5,8 +5,8 @@ import br.com.ufersa.model.entities.Pessoa;
 import java.util.List;
 
 public interface PessoaService  {
-    void mudarNome(Long id, String nomeP);
-    void mudarEndereco(Long id, String enderecoP);
-    Pessoa getPessoaById(Long id);
+    void mudarNome(Pessoa pessoa);
+    void mudarEndereco(Pessoa pessoa);
+    Pessoa getPessoaById(Pessoa pessoa);
     List<Pessoa> getAllPessoas();
 }

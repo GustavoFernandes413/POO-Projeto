@@ -1,5 +1,6 @@
 package br.com.ufersa.model.services;
 
+import br.com.ufersa.model.entities.Cliente;
 import br.com.ufersa.model.entities.Pessoa;
 
 import java.util.List;
@@ -12,14 +13,14 @@ public class ClienteServiceImpl  {
             this.pessoaService = pessoaService;
         }
     
-        public void mudarNome(long id, String nome){
-            pessoaService.mudarNome( id,  nome);
+        public void mudarNome(Cliente cliente){
+            pessoaService.mudarNome( cliente);
         }
-        public void mudarEndereco(long id, String enderecoP){
-            pessoaService.mudarEndereco(id,  enderecoP);
+        public void mudarEndereco(Cliente cliente){
+            pessoaService.mudarEndereco(cliente);
         }
-        public Pessoa  getPessoaById(long id) {
-           return pessoaService.getPessoaById(id);
+        public Pessoa  getPessoaById(Cliente cliente) {
+           return pessoaService.getPessoaById(cliente);
         }
         public List<Pessoa> getAllPessoas() {
             return pessoaService.getAllPessoas();
