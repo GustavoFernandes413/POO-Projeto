@@ -1,10 +1,8 @@
-package br.com.ufersa.model.dto;
-
-import br.com.ufersa.model.entities.Cliente;
+package br.com.ufersa.model.dao;
 
 import java.util.List;
 
-public interface crudDTO<T> {
+public interface crudDAO<T> {
     T findById(Long id);
     List<T> getAll();
     void save(T obj);

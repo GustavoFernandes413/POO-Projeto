@@ -28,26 +28,6 @@ public class Pessoa {
         return "Nome: " + getNome() + "/nEndereco: " + getEndereco();
     }
 
-    public void editarEnd(String endereco) {
-        if (validarAttrString(endereco)) {
-            System.out.println("Edição feita com sucesso");
-        } else {
-            System.out.println(
-                "O atributo a ser editado não pode ser deixado em branco"
-            );
-        }
-    }
-
-    public void editarNome(String nome) {
-        if (validarAttrString(nome)) {
-            System.out.println("Edição feita com sucesso");
-        } else {
-            System.out.println(
-                "O atributo a ser editado não pode ser deixado em branco"
-            );
-        }
-    }
-
     public String getEndereco() {
         return endereco;
     }

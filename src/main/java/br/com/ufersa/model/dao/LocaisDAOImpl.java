@@ -1,71 +1,78 @@
-package br.com.ufersa.model.dto;
+package br.com.ufersa.model.dao;
 
-import br.com.ufersa.model.entities.Pessoa;
+import br.com.ufersa.model.entities.Cliente;
+import br.com.ufersa.model.entities.Locais;
 import br.com.ufersa.util.JPAUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
+
 import java.util.List;
 
-public class PessoaDTOImpl implements PessoaDTO {
-
+public class LocaisDAOImpl implements LocaisDAO {
     private final EntityManager em = JPAUtil.getEntityManagerFactory();
 
     @Override
-    public Pessoa findById(Long id) {
-        return em.find(Pessoa.class, id);
+    public Locais findByName(String nomeLocal) {
+            return em.find(Locais.class, nomeLocal);
     }
 
     @Override
-    public List<Pessoa> getAll() {
-        return em.createQuery("FROM Pessoa", Pessoa.class).getResultList();
+    public Locais findById(Long id) {
+        return em.find(Locais.class, id);
     }
 
     @Override
-    public void save(Pessoa cliente) {
+    public List<Locais> getAll() {
+        return em.createQuery("FROM Locais", Locais.class).getResultList();
+    }
+
+    @Override
+    public void save(Locais obj) {
         EntityTransaction ts = em.getTransaction();
         try {
             ts.begin();
-            em.persist(cliente);
+            em.persist(obj);
             ts.commit();
         } catch (RuntimeException e) {
             if (ts.isActive()) {
                 ts.rollback();
             }
-            throw new RuntimeException("Erro ao salvar usuário", e);
+            throw new RuntimeException("Erro ao salvar local", e);
         } finally {
             JPAUtil.shutdown();
         }
     }
 
     @Override
-    public void update(Pessoa cliente) {
+    public void delete(Locais obj) {
         EntityTransaction ts = em.getTransaction();
         try {
             ts.begin();
-            em.merge(cliente);
+            em.remove(obj);
             ts.commit();
         } catch (RuntimeException e) {
             if (ts.isActive()) {
                 ts.rollback();
             }
-            throw new RuntimeException("Erro ao salvar usuário", e);
+            throw new RuntimeException("Erro ao deletar local", e);
         } finally {
             JPAUtil.shutdown(); // encerrando conexao com o BD
         }
     }
 
     @Override
-    public void delete(Pessoa cliente) {
+    public void update(Locais obj) {
         EntityTransaction ts = em.getTransaction();
-        try {
+        try   {
             ts.begin();
-            em.remove(cliente);
+            em.merge(obj);
             ts.commit();
         } catch (RuntimeException e) {
             if (ts.isActive()) {
                 ts.rollback();
             }
-            throw new RuntimeException("Erro ao deletar usuário", e);
+            throw new RuntimeException("Erro ao salvar local", e);
         } finally {
             JPAUtil.shutdown(); // encerrando conexao com o BD
         }

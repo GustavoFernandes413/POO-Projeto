@@ -1,12 +1,12 @@
 package br.com.ufersa.model.services;
 
-import br.com.ufersa.model.dto.PessoaDTOImpl;
 import br.com.ufersa.model.entities.Pessoa;
 
 import java.util.List;
 
 public class ClienteServiceImpl  {
         private final PessoaService pessoaService;
+        // TODO: passar objetos pelas camadas
 
         public ClienteServiceImpl(PessoaService pessoaService) {
             this.pessoaService = pessoaService;

@@ -1,29 +1,27 @@
-package br.com.ufersa.model.dto;
+package br.com.ufersa.model.dao;
 
-import br.com.ufersa.model.entities.Responsavel;
+import br.com.ufersa.model.entities.Pessoa;
 import br.com.ufersa.util.JPAUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import java.util.List;
 
-public class ResponsavelDTOImpl implements ResponsavelDTO {
+public class PessoaDAOImpl implements PessoaDAO {
 
     private final EntityManager em = JPAUtil.getEntityManagerFactory();
 
     @Override
-    public Responsavel findById(Long id) {
-        return em.find(Responsavel.class, id);
+    public Pessoa findById(Long id) {
+        return em.find(Pessoa.class, id);
     }
 
     @Override
-    public List<Responsavel> getAll() {
-        return em
-            .createQuery("FROM Responsavel", Responsavel.class)
-            .getResultList();
+    public List<Pessoa> getAll() {
+        return em.createQuery("FROM Pessoa", Pessoa.class).getResultList();
     }
 
     @Override
-    public void save(Responsavel cliente) {
+    public void save(Pessoa cliente) {
         EntityTransaction ts = em.getTransaction();
         try {
             ts.begin();
@@ -40,7 +38,7 @@ public class ResponsavelDTOImpl implements ResponsavelDTO {
     }
 
     @Override
-    public void update(Responsavel cliente) {
+    public void update(Pessoa cliente) {
         EntityTransaction ts = em.getTransaction();
         try {
             ts.begin();
@@ -57,7 +55,7 @@ public class ResponsavelDTOImpl implements ResponsavelDTO {
     }
 
     @Override
-    public void delete(Responsavel cliente) {
+    public void delete(Pessoa cliente) {
         EntityTransaction ts = em.getTransaction();
         try {
             ts.begin();

@@ -1,36 +1,52 @@
-package br.com.ufersa.model.dto;
+package br.com.ufersa.model.dao;
 
-import br.com.ufersa.model.entities.Cliente;
+import br.com.ufersa.model.entities.Vendas;
 import br.com.ufersa.util.JPAUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import java.sql.Timestamp;
 import java.util.List;
 
-public class ClienteDTOImpl implements ClienteDTO {
+public class VendasDAOImpl implements VendasDAO {
 
     private final EntityManager em = JPAUtil.getEntityManagerFactory();
 
     @Override
-    public Cliente findByCPF(Long cpf) {
-        return em.find(Cliente.class, cpf);
+    public List<Vendas> relatorio(Timestamp inicio, Timestamp fim) {
+        try {
+            return em
+                .createQuery(
+                    "SELECT * FROM Vendas WHERE data BETWEEN " +
+                    inicio +
+                    " AND " +
+                    fim,
+                    Vendas.class
+                )
+                .getResultList();
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(
+                "Argumento passado é invalido ",
+                e
+            );
+        }
     }
 
     @Override
-    public Cliente findById(Long id) {
-        return em.find(Cliente.class, id);
+    public Vendas findById(Long id) {
+        return em.find(Vendas.class, id);
     }
 
     @Override
-    public List<Cliente> getAll() {
-        return em.createQuery("FROM Cliente", Cliente.class).getResultList();
+    public List<Vendas> getAll() {
+        return em.createQuery("FROM Vendas", Vendas.class).getResultList();
     }
 
     @Override
-    public void save(Cliente cliente) {
+    public void save(Vendas vendas) {
         EntityTransaction ts = em.getTransaction();
         try {
             ts.begin();
-            em.persist(cliente);
+            em.persist(vendas);
             ts.commit();
         } catch (RuntimeException e) {
             if (ts.isActive()) {
@@ -43,11 +59,11 @@ public class ClienteDTOImpl implements ClienteDTO {
     }
 
     @Override
-    public void update(Cliente cliente) {
+    public void update(Vendas vendas) {
         EntityTransaction ts = em.getTransaction();
-        try {
+        try   {
             ts.begin();
-            em.merge(cliente);
+            em.merge(vendas);
             ts.commit();
         } catch (RuntimeException e) {
             if (ts.isActive()) {
@@ -60,11 +76,11 @@ public class ClienteDTOImpl implements ClienteDTO {
     }
 
     @Override
-    public void delete(Cliente cliente) {
+    public void delete(Vendas vendas) {
         EntityTransaction ts = em.getTransaction();
         try {
             ts.begin();
-            em.remove(cliente);
+            em.remove(vendas);
             ts.commit();
         } catch (RuntimeException e) {
             if (ts.isActive()) {

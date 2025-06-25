@@ -28,29 +28,6 @@ public class Vendas {
     @JoinColumn(name="fk_responsavel")
     private Responsavel responsavel;
 
-    public String toString() {
-        return (
-            "Venda: " +
-            "codigoVenda: " +
-            getCodigoVenda() +
-            ", status:" +
-            getStatus() +
-            '\'' +
-            ", data: " +
-            getData() +
-            '\'' +
-            ", cliente: " +
-            getCliente() +
-            ", equipamento: " +
-            getEquipamento().toString() +
-            ", local: " +
-            getLocal().toString() +
-            ", responsavel: " +
-            getResponsavel().toString() +
-            '}'
-        );
-    }
-
     public Long getCodigoVenda() {
         return codigoVenda;
     }
@@ -144,37 +121,6 @@ public class Vendas {
         setStatus(status);
         setData(data);
     }
-
-    // precisa dar atenção à estrutura a ser utilizada aqui
-    public void relatorio(int inicio, int fim) {
-        System.out.println("Relatório criado com sucesso!");
-    }
-
-    public void notaVenda(
-        int codigoVenda,
-        Cliente cliente,
-        Equipamentos equipamento,
-        Locais local,
-        Responsavel responsavel,
-        String status,
-        Timestamp data
-    ) {
-        if (
-            validarVendas(codigoVenda) &&
-            validarVendas(status) &&
-            validarVendas(data)
-        ) {
-            System.out.println("Nota da venda criada com sucesso!");
-        }
-    }
-
-    public void cancelamentoVenda(int codigoVenda) {
-        if (validarVendas(codigoVenda)) System.out.println(
-            "Cancelamento feito com sucesso!"
-        );
-        else System.out.println("Erro ao cancelar venda!");
-    }
-
     // mesmo método é usado para os tipos Responsavel, Local e Equipamentos, por isso o uso de generics.
     public static <T> boolean validarVendas(T objeto) {
         return (objeto != null);
@@ -186,5 +132,28 @@ public class Vendas {
 
     public static boolean validarVendas(Long codigoVenda) {
         return (codigoVenda > 0);
+    }
+
+    public String toString() {
+        return (
+                "Venda: " +
+                        "codigoVenda: " +
+                        getCodigoVenda() +
+                        ", status:" +
+                        getStatus() +
+                        '\'' +
+                        ", data: " +
+                        getData() +
+                        '\'' +
+                        ", cliente: " +
+                        getCliente() +
+                        ", equipamento: " +
+                        getEquipamento().toString() +
+                        ", local: " +
+                        getLocal().toString() +
+                        ", responsavel: " +
+                        getResponsavel().toString() +
+                        '}'
+        );
     }
 }

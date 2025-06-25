@@ -1,11 +1,11 @@
 package br.com.ufersa.model.services;
-import br.com.ufersa.model.dto.PessoaDTOImpl;
+import br.com.ufersa.model.dao.PessoaDAOImpl;
 import br.com.ufersa.model.entities.Pessoa;
 
 import java.util.List;
 
 public class PessoaServiceImpl implements PessoaService {
-    private final PessoaDTOImpl pessoaDTO =  new PessoaDTOImpl();
+    private final PessoaDAOImpl pessoaDTO =  new PessoaDAOImpl();
 
     @Override
     public void mudarNome(Long id, String nomeP){

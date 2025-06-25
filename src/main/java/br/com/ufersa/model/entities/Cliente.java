@@ -1,15 +1,15 @@
 package br.com.ufersa.model.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.PrimaryKeyJoinColumn;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Clientes")
 @PrimaryKeyJoinColumn(name = "idPessoa")
 
 public class Cliente extends Pessoa {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long Id;
     @Column(nullable = false)
     private String cpf;
 
@@ -62,6 +62,14 @@ public class Cliente extends Pessoa {
         } else {
             System.out.println("Nenhum dos valores pode ser deixado em branco");
         }
+    }
+
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
     }
 
     // como a validação será usada mais de uma vez, decidi reaproveitá-la

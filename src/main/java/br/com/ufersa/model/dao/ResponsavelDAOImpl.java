@@ -1,52 +1,33 @@
-package br.com.ufersa.model.dto;
+package br.com.ufersa.model.dao;
 
-import br.com.ufersa.model.entities.Vendas;
+import br.com.ufersa.model.entities.Responsavel;
 import br.com.ufersa.util.JPAUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import java.sql.Timestamp;
 import java.util.List;
 
-public class VendasDTOImpl implements VendasDTO {
+public class ResponsavelDAOImpl implements ResponsavelDAO {
 
     private final EntityManager em = JPAUtil.getEntityManagerFactory();
-
+    // TODO: passar objetos pelas camadas
     @Override
-    public List<Vendas> relatorio(Timestamp inicio, Timestamp fim) {
-        try {
-            return em
-                .createQuery(
-                    "SELECT * FROM Vendas WHERE data BETWEEN " +
-                    inicio +
-                    " AND " +
-                    fim,
-                    Vendas.class
-                )
-                .getResultList();
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(
-                "Argumento passado é invalido ",
-                e
-            );
-        }
+    public Responsavel findById(Long id) {
+        return em.find(Responsavel.class, id);
     }
 
     @Override
-    public Vendas findById(Long id) {
-        return em.find(Vendas.class, id);
+    public List<Responsavel> getAll() {
+        return em
+            .createQuery("FROM Responsavel", Responsavel.class)
+            .getResultList();
     }
 
     @Override
-    public List<Vendas> getAll() {
-        return em.createQuery("FROM Vendas", Vendas.class).getResultList();
-    }
-
-    @Override
-    public void save(Vendas vendas) {
+    public void save(Responsavel cliente) {
         EntityTransaction ts = em.getTransaction();
         try {
             ts.begin();
-            em.persist(vendas);
+            em.persist(cliente);
             ts.commit();
         } catch (RuntimeException e) {
             if (ts.isActive()) {
@@ -59,11 +40,11 @@ public class VendasDTOImpl implements VendasDTO {
     }
 
     @Override
-    public void update(Vendas vendas) {
+    public void update(Responsavel cliente) {
         EntityTransaction ts = em.getTransaction();
-        try   {
+        try {
             ts.begin();
-            em.merge(vendas);
+            em.merge(cliente);
             ts.commit();
         } catch (RuntimeException e) {
             if (ts.isActive()) {
@@ -76,11 +57,11 @@ public class VendasDTOImpl implements VendasDTO {
     }
 
     @Override
-    public void delete(Vendas vendas) {
+    public void delete(Responsavel cliente) {
         EntityTransaction ts = em.getTransaction();
         try {
             ts.begin();
-            em.remove(vendas);
+            em.remove(cliente);
             ts.commit();
         } catch (RuntimeException e) {
             if (ts.isActive()) {

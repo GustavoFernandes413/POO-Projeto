@@ -1,13 +1,13 @@
 package br.com.ufersa.model.services;
 
-import br.com.ufersa.model.dto.ResponsavelDTOImpl;
+import br.com.ufersa.model.dao.ResponsavelDAOImpl;
 import br.com.ufersa.model.entities.Pessoa;
 import br.com.ufersa.model.entities.Responsavel;
 import java.util.List;
 
 public class ResponsavelServiceImpl implements ResponsavelService {
 
-    private final ResponsavelDTOImpl responsavelDTO = new ResponsavelDTOImpl();
+    private final ResponsavelDAOImpl responsavelDTO = new ResponsavelDAOImpl();
     private final PessoaService pessoaService;
 
     public ResponsavelServiceImpl(PessoaService pessoaService) {

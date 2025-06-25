@@ -1,8 +1,6 @@
-package br.com.ufersa.model.dto;
+package br.com.ufersa.model.dao;
 
 import br.com.ufersa.model.entities.Equipamentos;
-import br.com.ufersa.model.entities.Locais;
-import br.com.ufersa.model.entities.Pessoa;
 import br.com.ufersa.util.JPAUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -10,28 +8,30 @@ import jakarta.persistence.TypedQuery;
 
 import java.util.List;
 
-public class LocaisDTOImpl implements LocaisDTO{
+public class EquipamentosDAOImpl implements EquipamentosDAO {
     private final EntityManager em = JPAUtil.getEntityManagerFactory();
 
+
     @Override
-    public Locais findByName(String nomeLocal) {
-        TypedQuery<Locais> query = em.createQuery("SELECT l FROM Locais l WHERE l.nome = :nome", Locais.class);
-        query.setParameter("nome", nomeLocal);
+    public Equipamentos findByName(String nomeEquipamentos) {
+        TypedQuery<Equipamentos> query = em.createQuery("SELECT e FROM Equipamento e WHERE e.nome = :nome", Equipamentos.class);
+        query.setParameter("nome", nomeEquipamentos);
         return query.getSingleResult();
+
     }
 
     @Override
-    public Locais findById(Long id) {
-        return em.find(Locais.class, id);
+    public Equipamentos findById(Long id) {
+        return em.find(Equipamentos.class, id);
     }
 
     @Override
-    public List<Locais> getAll() {
-        return em.createQuery("FROM Locais", Locais.class).getResultList();
+    public List<Equipamentos> getAll() {
+        return em.createQuery("FROM Equipamentos", Equipamentos.class).getResultList();
     }
 
     @Override
-    public void save(Locais obj) {
+    public void save(Equipamentos obj) {
         EntityTransaction ts = em.getTransaction();
         try {
             ts.begin();
@@ -41,14 +41,14 @@ public class LocaisDTOImpl implements LocaisDTO{
             if (ts.isActive()) {
                 ts.rollback();
             }
-            throw new RuntimeException("Erro ao salvar local", e);
+            throw new RuntimeException("Erro ao salvar equipamento", e);
         } finally {
             JPAUtil.shutdown();
         }
     }
 
     @Override
-    public void delete(Locais obj) {
+    public void delete(Equipamentos obj) {
         EntityTransaction ts = em.getTransaction();
         try {
             ts.begin();
@@ -58,16 +58,16 @@ public class LocaisDTOImpl implements LocaisDTO{
             if (ts.isActive()) {
                 ts.rollback();
             }
-            throw new RuntimeException("Erro ao deletar local", e);
+            throw new RuntimeException("Erro ao deletar equipamento", e);
         } finally {
             JPAUtil.shutdown(); // encerrando conexao com o BD
         }
     }
 
     @Override
-    public void update(Locais obj) {
+    public void update(Equipamentos obj) {
         EntityTransaction ts = em.getTransaction();
-        try   {
+        try {
             ts.begin();
             em.merge(obj);
             ts.commit();
@@ -75,7 +75,7 @@ public class LocaisDTOImpl implements LocaisDTO{
             if (ts.isActive()) {
                 ts.rollback();
             }
-            throw new RuntimeException("Erro ao salvar local", e);
+            throw new RuntimeException("Erro ao salvar equipamento", e);
         } finally {
             JPAUtil.shutdown(); // encerrando conexao com o BD
         }
