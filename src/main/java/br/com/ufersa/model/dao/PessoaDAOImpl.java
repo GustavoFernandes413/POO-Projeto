@@ -4,6 +4,7 @@ import br.com.ufersa.model.entities.Pessoa;
 import br.com.ufersa.util.JPAUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+
 import java.util.List;
 
 public class PessoaDAOImpl implements PessoaDAO {
@@ -11,8 +12,13 @@ public class PessoaDAOImpl implements PessoaDAO {
     private final EntityManager em = JPAUtil.getEntityManagerFactory();
 
     @Override
-    public Pessoa findById(Long id) {
-        return em.find(Pessoa.class, id);
+    public Pessoa findById(Pessoa pessoa) {
+        Long id = pessoa.getId();
+        try {
+            return em.find(Pessoa.class, id);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Valor passado é incorreto" + e);
+        }
     }
 
     @Override

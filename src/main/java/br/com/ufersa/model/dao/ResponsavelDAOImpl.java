@@ -1,5 +1,6 @@
 package br.com.ufersa.model.dao;
 
+import br.com.ufersa.model.entities.Pessoa;
 import br.com.ufersa.model.entities.Responsavel;
 import br.com.ufersa.util.JPAUtil;
 import jakarta.persistence.EntityManager;
@@ -9,11 +10,17 @@ import java.util.List;
 public class ResponsavelDAOImpl implements ResponsavelDAO {
 
     private final EntityManager em = JPAUtil.getEntityManagerFactory();
+
     // TODO: passar objetos pelas camadas
+    // TODO: Refatorar codigo, pois há muita repeticao de tarefas entre as classes do DAO
     @Override
-    public Responsavel findById(Long id) {
-        return em.find(Responsavel.class, id);
-    }
+    public Responsavel findById(Responsavel responsavel) {
+        Long id = responsavel.getId();
+        try {
+            return em.find(Responsavel.class, id);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Valor passado é incorreto" + e);
+        }    }
 
     @Override
     public List<Responsavel> getAll() {

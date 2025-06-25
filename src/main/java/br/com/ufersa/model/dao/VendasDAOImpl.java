@@ -1,5 +1,6 @@
 package br.com.ufersa.model.dao;
 
+import br.com.ufersa.model.entities.Pessoa;
 import br.com.ufersa.model.entities.Vendas;
 import br.com.ufersa.util.JPAUtil;
 import jakarta.persistence.EntityManager;
@@ -30,12 +31,16 @@ public class VendasDAOImpl implements VendasDAO {
             );
         }
     }
-
     @Override
-    public Vendas findById(Long id) {
-        return em.find(Vendas.class, id);
+    public Vendas findById(Vendas vendas)
+    {
+        Long id = vendas.getId();
+        try {
+            return em.find(Vendas.class, id);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Valor passado é incorreto" + e);
+        }
     }
-
     @Override
     public List<Vendas> getAll() {
         return em.createQuery("FROM Vendas", Vendas.class).getResultList();

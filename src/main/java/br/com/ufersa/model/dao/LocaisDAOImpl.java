@@ -5,6 +5,7 @@ import br.com.ufersa.model.entities.Locais;
 import br.com.ufersa.util.JPAUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 
 import java.util.List;
@@ -13,12 +14,19 @@ public class LocaisDAOImpl implements LocaisDAO {
     private final EntityManager em = JPAUtil.getEntityManagerFactory();
 
     @Override
-    public Locais findByName(String nomeLocal) {
-            return em.find(Locais.class, nomeLocal);
+    public Locais findByName(Locais locais) {
+        String nomeLocal = locais.getNomeCasa();
+        try{
+            return em.createQuery(" FROM Locais WHERE nomeCasa=" + nomeLocal,Locais.class).getSingleResult();
+
+        }catch (NoResultException e){
+            throw  new NoResultException("Nenhum Locais encontrado"+e);
+        }
     }
 
     @Override
-    public Locais findById(Long id) {
+    public Locais findById(Locais locais) {
+        Long id = locais.getId();
         return em.find(Locais.class, id);
     }
 

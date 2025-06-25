@@ -10,6 +10,8 @@ public class Vendas {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "cod_venda")
     private Long codigoVenda;
     @Column(name = "status", nullable = false)
     private String status;
@@ -27,6 +29,14 @@ public class Vendas {
     @OneToOne(cascade =  CascadeType.ALL)
     @JoinColumn(name="fk_responsavel")
     private Responsavel responsavel;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getCodigoVenda() {
         return codigoVenda;
@@ -87,6 +97,7 @@ public class Vendas {
             System.out.println("Erro! Não pode estar em branco.");
         }
     }
+
 
     public Timestamp getData() {
         return data;
