@@ -1,7 +1,16 @@
-package main.java.br.com.ufersa.model.entities;
+package br.com.ufersa.model.entities;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "Clientes")
+@PrimaryKeyJoinColumn(name = "idPessoa")
 
 public class Cliente extends Pessoa {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long Id;
+    @Column(nullable = false)
     private String cpf;
 
     @Override
@@ -12,6 +21,9 @@ public class Cliente extends Pessoa {
     public Cliente(String nome, String endereco, String cpf) {
         super(nome, endereco);
         setCpf(cpf);
+    }
+
+    public Cliente() {
     }
 
     public String getCpf() {
@@ -50,6 +62,14 @@ public class Cliente extends Pessoa {
         } else {
             System.out.println("Nenhum dos valores pode ser deixado em branco");
         }
+    }
+
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
     }
 
     // como a validação será usada mais de uma vez, decidi reaproveitá-la

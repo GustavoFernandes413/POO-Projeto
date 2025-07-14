@@ -1,12 +1,25 @@
-package main.java.br.com.ufersa.model.entities;
-
+package br.com.ufersa.model.entities;
+import br.com.ufersa.model.entities.Locais;
+import br.com.ufersa.model.entities.Responsavel;
+import jakarta.persistence.*;
+// TODO:: usar excessoes dentro dos modificadores de acesso
+@Entity
+@Table(name = "Equipamentos")
 public class Equipamentos {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long numeroSerie;
+    @Column(nullable = false, name = "nome")
     private String nome;
-    private int numeroSerie;
+    @Column(nullable = false, name = "preco")
     private double preco;
+    @Column(nullable = false, name= "quantidade")
     private int quantidade;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_locais")
     private Locais local;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_responsavel")
     private Responsavel responsavel;
 
     public String getNome() {
@@ -21,11 +34,11 @@ public class Equipamentos {
         }
     }
 
-    public int getNumeroSerie() {
+    public Long getNumeroSerie() {
         return numeroSerie;
     }
 
-    public void setNumeroSerie(int numeroSerie) {
+    public void setNumeroSerie(Long numeroSerie) {
         if (validarEquiSerie(numeroSerie)) {
             this.numeroSerie = numeroSerie;
         } else {
@@ -87,7 +100,7 @@ public class Equipamentos {
 
     public Equipamentos(
         String nome,
-        int numeroSerie,
+        Long numeroSerie,
         double preco,
         int quantidade,
         Locais local,
@@ -101,142 +114,6 @@ public class Equipamentos {
         setResponsavel(responsavel);
     }
 
-    // métodos para vender e comprar equipamentos
-    public void comprar(int numeroSerie, int quantidade) {}
-
-    // métodos para pesquisar equipamentos
-    public void pesquisar(Responsavel responsavel) {
-        if (validarEqui(responsavel)) System.out.println(
-            "Pesquisa pelo equipamento feita com sucesso!"
-        );
-        else System.out.println(
-            "Dado para pesquisa do equipamento não pode ser deixado em branco!"
-        );
-    }
-
-    public void pesquisar(double preco) { // pode ser que, no futuro, seja melhor mudar esse metodo para pesquisar em um faixa de valores
-        if (validarEqui(preco)) System.out.println(
-            "Pesquisa pelo equipamento feita com sucesso!"
-        );
-        else System.out.println(
-            "Dado para pesquisa do equipamento não pode ser deixado em branco ou menor que zero!"
-        );
-    }
-
-    public void pesquisar(String nome) {
-        if (validarEqui(nome)) System.out.println(
-            "Pesquisa pelo equipamento feita com sucesso!"
-        );
-        else System.out.println(
-            "Dado para pesquisa do equipamento não pode ser deixado em branco!"
-        );
-    }
-
-    public void pesquisar(int numSerie) {
-        if (numSerie > 0) System.out.println(
-            "Pesquisa pelo equipamento feita com sucesso!"
-        );
-        else System.out.println(
-            "Dado para pesquisa do equipamento não pode ser deixado em branco ou menor que zero!"
-        );
-    }
-
-    // métodos para editar Equipamentos
-    public void editar(int numeroSerie) {
-        if (validarEquiSerie(numeroSerie)) System.out.println(
-            "Numero de série do equipamento alterado com sucesso!"
-        );
-        else System.out.println(
-            "Numero de série do equipamento não pode ser deixado em branco ou menor que zero!"
-        );
-    }
-
-    public void editar(Responsavel responsavel) {
-        if (validarEqui(responsavel)) System.out.println(
-            "Responsavel pelo equipamento alterado com sucesso!"
-        );
-        else System.out.println(
-            "Responsavel pelo equipamento não pode ser deixado em branco ou menor que zero!"
-        );
-    }
-
-    public void editar(Locais local) {
-        if (validarEqui(local)) System.out.println(
-            "Local do equipamento alterado com sucesso!"
-        );
-        else System.out.println(
-            "Local do equipamento não pode ser deixado em branco ou menor que zero!"
-        );
-    }
-
-    public void editarQtd(int quantidade) {
-        if (validarEqui(quantidade)) System.out.println(
-            "Quantidade do equipamento alterado com sucesso!"
-        );
-        else System.out.println(
-            "Quantidade do equipamento não pode ser deixado em branco ou menor que zero!"
-        );
-    }
-
-    public void editar(double preco) {
-        if (validarEqui(preco)) System.out.println(
-            "Preço do equipamento alterado com sucesso!"
-        );
-        else System.out.println(
-            "Preço do equipamento não pode ser deixado em branco ou menor que zero!"
-        );
-    }
-
-    public void editar(String nome) {
-        if (validarEqui(nome)) System.out.println(
-            "Nome do equipamento alterado com sucesso!"
-        );
-        else System.out.println(
-            "o nome da casa não pode ser deixado em branco!"
-        );
-    }
-
-    public void editar(
-        String nome,
-        int numeroSerie,
-        double preco,
-        int quantidade,
-        Locais local,
-        Responsavel responsavel
-    ) {
-        if (
-            validarEqui(
-                nome,
-                numeroSerie,
-                preco,
-                quantidade,
-                local,
-                responsavel
-            )
-        ) System.out.println("Equipamento editado com sucesso!");
-        else System.out.println("Faltam dados para a edição!");
-    }
-
-    public void cadastrar(
-        String nome,
-        int numeroSerie,
-        double preco,
-        int quantidade,
-        Locais local,
-        Responsavel responsavel
-    ) {
-        if (
-            validarEqui(
-                nome,
-                numeroSerie,
-                preco,
-                quantidade,
-                local,
-                responsavel
-            )
-        ) System.out.println("Equipamento criado com sucesso!");
-        else System.out.println("Faltam dados para o cadastro!");
-    }
 
     // os metodos de validação foram feitos pois estavam sendo chamados muitas vezes, por isso o reaproveitamento.
     public static boolean validarEqui(double preco) {
@@ -247,7 +124,7 @@ public class Equipamentos {
         return (!nome.isBlank());
     }
 
-    public static boolean validarEquiSerie(int numeroSerie) {
+    public static boolean validarEquiSerie(Long numeroSerie) {
         return (numeroSerie > 0);
     }
 
@@ -275,21 +152,5 @@ public class Equipamentos {
         );
     }
 
-    public static boolean validarEqui(
-        String nome,
-        int numeroSerie,
-        double preco,
-        int quantidade,
-        Locais local,
-        Responsavel responsavel
-    ) {
-        return (
-            validarEqui(nome) &&
-            validarEquiSerie(numeroSerie) &&
-            validarEqui(preco) &&
-            validarEqui(quantidade) &&
-            validarEqui(local) &&
-            validarEqui(responsavel)
-        );
-    }
+
 }

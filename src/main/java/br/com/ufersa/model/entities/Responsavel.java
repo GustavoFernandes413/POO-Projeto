@@ -1,7 +1,16 @@
-package main.java.br.com.ufersa.model.entities;
+package br.com.ufersa.model.entities;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "Responsaveis")
+@PrimaryKeyJoinColumn(name = "idPessoa")
 
 public class Responsavel extends Pessoa {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long Id;
+    @Column(nullable = false)
     private String telefone;
 
     @Override
@@ -21,40 +30,23 @@ public class Responsavel extends Pessoa {
         }
     }
 
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
+    }
+
     public Responsavel(String nome, String endereco, String telefone) {
         super(nome, endereco);
         setTelefone(telefone);
     }
-
-    public void cadastrar(String nome, String endereco, String telefone) {
-        if (validarResponsavel(nome, endereco, telefone)) System.out.println(
-            "Responsável cadastrado com sucesso!"
-        );
+    public Responsavel() {
     }
 
-    public void editarTel(String telefone) {
-        if (validarAttrString(telefone)) System.out.println(
-            "Telefone do responsável editado com sucesso!"
-        );
-        else System.out.println(
-            "O atributo a ser editado não pode ser deixado em branco!"
-        );
-    }
 
-    public void editar(String nome, String endereco, String telefone) {
-        if (validarResponsavel(nome, endereco, telefone)) System.out.println(
-            "Responsável editado com sucesso!"
-        );
-        else System.out.println(
-            "O atributo a ser editado não pode ser deixado em branco!"
-        );
-    }
 
-    public static boolean validarResponsavel(
-        String nome,
-        String endereco,
-        String telefone
-    ) {
-        if (!nome.isBlank() && !endereco.isBlank() && !telefone.isBlank());
-    }
+
+
 }

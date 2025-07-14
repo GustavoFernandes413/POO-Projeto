@@ -1,43 +1,48 @@
-package main.java.br.com.ufersa.model.entities;
+package br.com.ufersa.model.entities;
 
+import jakarta.persistence.*;
+
+import java.sql.Timestamp;
+
+@Entity
+@Table(name = "Vendas")
 public class Vendas {
 
-    private int codigoVenda;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "cod_venda")
+    private Long codigoVenda;
+    @Column(name = "status", nullable = false)
     private String status;
-    private String data;
+    @Column(name = "data")
+    private Timestamp data;
+    @OneToOne(cascade =  CascadeType.ALL)
+    @JoinColumn(name= "fk_cliente")
     private Cliente cliente;
+    @OneToOne(cascade =  CascadeType.ALL)
+    @JoinColumn(name = "fk_equipamentos")
     private Equipamentos equipamento;
+    @OneToOne(cascade =  CascadeType.ALL)
+    @JoinColumn(name = "fk_locais")
     private Locais local;
+    @OneToOne(cascade =  CascadeType.ALL)
+    @JoinColumn(name="fk_responsavel")
     private Responsavel responsavel;
 
-    public String toString() {
-        return (
-            "Venda: " +
-            "codigoVenda: " +
-            getCodigoVenda() +
-            ", status:" +
-            getStatus() +
-            '\'' +
-            ", data: " +
-            getData() +
-            '\'' +
-            ", cliente: " +
-            getCliente() +
-            ", equipamento: " +
-            getEquipamento().toString() +
-            ", local: " +
-            getLocal().toString() +
-            ", responsavel: " +
-            getResponsavel().toString() +
-            '}'
-        );
+    public Long getId() {
+        return id;
     }
 
-    public int getCodigoVenda() {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getCodigoVenda() {
         return codigoVenda;
     }
 
-    public void setCodigoVenda(int codigoVenda) {
+    public void setCodigoVenda(Long codigoVenda) {
         if (validarVendas(codigoVenda)) {
             this.codigoVenda = codigoVenda;
         } else {
@@ -93,11 +98,12 @@ public class Vendas {
         }
     }
 
-    public String getData() {
+
+    public Timestamp getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(Timestamp data) {
         if (validarVendas(data)) {
             this.data = data;
         } else {
@@ -110,13 +116,13 @@ public class Vendas {
     }
 
     public Vendas(
-        int codigoVenda,
+        Long codigoVenda,
         Cliente cliente,
         Equipamentos equipamento,
         Locais local,
         Responsavel responsavel,
         String status,
-        String data
+        Timestamp data
     ) {
         setCodigoVenda(codigoVenda);
         setCliente(cliente);
@@ -126,37 +132,6 @@ public class Vendas {
         setStatus(status);
         setData(data);
     }
-
-    // precisa dar atenção à estrutura a ser utilizada aqui
-    public void relatorio(int inicio, int fim) {
-        System.out.println("Relatório criado com sucesso!");
-    }
-
-    public void notaVenda(
-        int codigoVenda,
-        Cliente cliente,
-        Equipamentos equipamento,
-        Locais local,
-        Responsavel responsavel,
-        String status,
-        String data
-    ) {
-        if (
-            validarVendas(codigoVenda) &&
-            validarVendas(status) &&
-            validarVendas(data)
-        ) {
-            System.out.println("Nota da venda criada com sucesso!");
-        }
-    }
-
-    public void cancelamentoVenda(int codigoVenda) {
-        if (validarVendas(codigoVenda)) System.out.println(
-            "Cancelamento feito com sucesso!"
-        );
-        else System.out.println("Erro ao cancelar venda!");
-    }
-
     // mesmo método é usado para os tipos Responsavel, Local e Equipamentos, por isso o uso de generics.
     public static <T> boolean validarVendas(T objeto) {
         return (objeto != null);
@@ -166,7 +141,30 @@ public class Vendas {
         return (!str.isBlank());
     }
 
-    public static boolean validarVendas(int codigoVenda) {
+    public static boolean validarVendas(Long codigoVenda) {
         return (codigoVenda > 0);
+    }
+
+    public String toString() {
+        return (
+                "Venda: " +
+                        "codigoVenda: " +
+                        getCodigoVenda() +
+                        ", status:" +
+                        getStatus() +
+                        '\'' +
+                        ", data: " +
+                        getData() +
+                        '\'' +
+                        ", cliente: " +
+                        getCliente() +
+                        ", equipamento: " +
+                        getEquipamento().toString() +
+                        ", local: " +
+                        getLocal().toString() +
+                        ", responsavel: " +
+                        getResponsavel().toString() +
+                        '}'
+        );
     }
 }
