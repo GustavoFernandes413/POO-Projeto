@@ -21,7 +21,7 @@ public class LocaisServiceImpl implements LocaisService{
     }
 
     @Override
-    public Locais getLocalById(Locais  local) {
+    public Locais getLocalById(Long  local) {
         return locaisDAO.findById(local);
     }
 

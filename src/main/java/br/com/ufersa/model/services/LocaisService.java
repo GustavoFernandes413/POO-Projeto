@@ -6,7 +6,7 @@ import java.util.List;
 public interface LocaisService {
     void cadastrarLocal(Locais local);
     void mudarLocal(Locais local);
-    Locais getLocalById(Locais local);
+    Locais getLocalById(Long id);
     List<Locais> getAllLocais();
     Locais findByNomeCasa(Locais locais);
 }

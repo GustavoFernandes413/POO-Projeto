@@ -17,7 +17,9 @@ public class LocaisDAOImpl implements LocaisDAO {
     public Locais findByName(Locais locais) {
         String nomeLocal = locais.getNomeCasa();
         try{
-            return em.createQuery(" FROM Locais WHERE nomeCasa=" + nomeLocal,Locais.class).getSingleResult();
+            TypedQuery<Locais> query =  em.createQuery("select l FROM Locais l WHERE l.nomeCasa =:nomeLocal",Locais.class);
+            query.setParameter("nomeLocal", nomeLocal);
+            return query.getSingleResult();
 
         }catch (NoResultException e){
             throw  new NoResultException("Nenhum Locais encontrado"+e);
@@ -25,8 +27,7 @@ public class LocaisDAOImpl implements LocaisDAO {
     }
 
     @Override
-    public Locais findById(Locais locais) {
-        Long id = locais.getId();
+    public Locais findById(Long id) {
         return em.find(Locais.class, id);
     }
 
@@ -68,7 +69,6 @@ public class LocaisDAOImpl implements LocaisDAO {
             JPAUtil.shutdown(); // encerrando conexao com o BD
         }
     }
-
     @Override
     public void update(Locais obj) {
         EntityTransaction ts = em.getTransaction();
