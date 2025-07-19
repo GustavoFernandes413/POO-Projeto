@@ -24,8 +24,10 @@ public class EquipamentosServiceImpl implements EquipamentosService{
         equipamentosDTO.update(equip);
     }
 
+    // TODO - verificar se essa é a melhor forma de fazer isso
     @Override
     public Equipamentos getEquipamentoById(Long id) {
+
         return equipamentosDTO.findById(id);
     }
 

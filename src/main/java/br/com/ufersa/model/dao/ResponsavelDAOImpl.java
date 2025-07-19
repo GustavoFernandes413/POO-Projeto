@@ -5,17 +5,18 @@ import br.com.ufersa.model.entities.Responsavel;
 import br.com.ufersa.util.JPAUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
+
 import java.util.List;
 
-public class ResponsavelDAOImpl implements ResponsavelDAO {
+public class ResponsavelDAOImpl extends crudDAOImpl<Responsavel> implements ResponsavelDAO {
 
     private final EntityManager em = JPAUtil.getEntityManagerFactory();
 
     // TODO: passar objetos pelas camadas
     // TODO: Refatorar codigo, pois há muita repeticao de tarefas entre as classes do DAO
     @Override
-    public Responsavel findById(Responsavel responsavel) {
-        Long id = responsavel.getId();
+    public Responsavel findById(Long id) {
         try {
             return em.find(Responsavel.class, id);
         } catch (IllegalArgumentException e) {
@@ -28,55 +29,10 @@ public class ResponsavelDAOImpl implements ResponsavelDAO {
             .createQuery("FROM Responsavel", Responsavel.class)
             .getResultList();
     }
-
     @Override
-    public void save(Responsavel cliente) {
-        EntityTransaction ts = em.getTransaction();
-        try {
-            ts.begin();
-            em.persist(cliente);
-            ts.commit();
-        } catch (RuntimeException e) {
-            if (ts.isActive()) {
-                ts.rollback();
-            }
-            throw new RuntimeException("Erro ao salvar usuário", e);
-        } finally {
-            JPAUtil.shutdown();
-        }
-    }
-
-    @Override
-    public void update(Responsavel cliente) {
-        EntityTransaction ts = em.getTransaction();
-        try {
-            ts.begin();
-            em.merge(cliente);
-            ts.commit();
-        } catch (RuntimeException e) {
-            if (ts.isActive()) {
-                ts.rollback();
-            }
-            throw new RuntimeException("Erro ao salvar usuário", e);
-        } finally {
-            JPAUtil.shutdown(); // encerrando conexao com o BD
-        }
-    }
-
-    @Override
-    public void delete(Responsavel cliente) {
-        EntityTransaction ts = em.getTransaction();
-        try {
-            ts.begin();
-            em.remove(cliente);
-            ts.commit();
-        } catch (RuntimeException e) {
-            if (ts.isActive()) {
-                ts.rollback();
-            }
-            throw new RuntimeException("Erro ao deletar usuário", e);
-        } finally {
-            JPAUtil.shutdown(); // encerrando conexao com o BD
-        }
+    public Responsavel findBytelefone(String telefone){
+        TypedQuery<Responsavel> query = em.createQuery("select r from Responsavel r WHERE r.telefone= :telefone", Responsavel.class)
+                .setParameter("telefone", telefone);
+        return query.getSingleResult();
     }
 }

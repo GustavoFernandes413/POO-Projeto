@@ -30,7 +30,7 @@ public class ResponsavelServiceImpl implements ResponsavelService {
     public void mudarEndereco(Pessoa pessoa){
         pessoaService.mudarEndereco(pessoa);
     }
-    public Pessoa getPessoaById(Pessoa pessoa) {
+    public Pessoa getPessoaById(Long pessoa) {
         return pessoaService.getPessoaById(pessoa);
     }
     public List<Pessoa> getAllPessoas() {

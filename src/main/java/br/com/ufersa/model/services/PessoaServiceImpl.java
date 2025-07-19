@@ -23,8 +23,9 @@ public class PessoaServiceImpl implements PessoaService {
             throw  new IllegalArgumentException("Nenhum endereço passado para atualização.");
         }
     }
+    // TODO - mudar atributo de acordo com resposta
     @Override
-   public  Pessoa getPessoaById(Pessoa pessoa){
+   public  Pessoa getPessoaById(Long  pessoa){
         if (validarAttr(pessoa)) return  pessoaDTO.findById(pessoa);
         else throw  new IllegalArgumentException("Nenhum id passado para a busca");
    }
@@ -32,7 +33,7 @@ public class PessoaServiceImpl implements PessoaService {
     public List<Pessoa> getAllPessoas(){
         return pessoaDTO.getAll();
     }
-    public static boolean validarAttr(Pessoa pessoa) {
+    public static <T> boolean validarAttr( T pessoa) {
         return (pessoa != null);
     }
 

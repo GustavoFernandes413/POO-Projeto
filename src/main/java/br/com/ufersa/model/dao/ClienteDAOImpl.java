@@ -8,7 +8,7 @@ import jakarta.persistence.NoResultException;
 
 import java.util.List;
 
-public class ClienteDAOImpl implements ClienteDAO {
+public class ClienteDAOImpl extends crudDAOImpl<Cliente> implements ClienteDAO {
     // TODO: passar objetos pelas camadas
 
     private final EntityManager em = JPAUtil.getEntityManagerFactory();
@@ -24,8 +24,7 @@ public class ClienteDAOImpl implements ClienteDAO {
         }
     }
     @Override
-    public Cliente findById(Cliente cliente) {
-        Long id =  cliente.getId();
+    public Cliente findById(Long id) {
         return em.find(Cliente.class, id);}
 
     @Override
@@ -38,54 +37,8 @@ public class ClienteDAOImpl implements ClienteDAO {
         }
     }
 
-    @Override
-    public void save(Cliente cliente) {
-        EntityTransaction ts = em.getTransaction();
-        try {
-            ts.begin();
-            em.persist(cliente);
-            ts.commit();
-        } catch (RuntimeException e) {
-            if (ts.isActive()) {
-                ts.rollback();
-            }
-            throw new RuntimeException("Erro ao salvar usuário", e);
-        } finally {
-            JPAUtil.shutdown();
-        }
-    }
 
-    @Override
-    public void update(Cliente cliente) {
-        EntityTransaction ts = em.getTransaction();
-        try {
-            ts.begin();
-            em.merge(cliente);
-            ts.commit();
-        } catch (RuntimeException e) {
-            if (ts.isActive()) {
-                ts.rollback();
-            }
-            throw new RuntimeException("Erro ao salvar usuário", e);
-        } finally {
-            JPAUtil.shutdown(); // encerrando conexao com o BD
-        }
-    }
 
-    @Override
-    public void delete(Cliente cliente) {
-        EntityTransaction ts = em.getTransaction();
-        try {
-            ts.begin();
-            em.remove(cliente);
-            ts.commit();
-        } catch (RuntimeException e) {
-            if (ts.isActive()) {
-                ts.rollback();
-            }
-            throw new RuntimeException("Erro ao deletar usuário", e);
-        } finally {
-            JPAUtil.shutdown(); // encerrando conexao com o BD
-        }
-    }
+
+
 }

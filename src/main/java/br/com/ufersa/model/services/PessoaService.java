@@ -7,6 +7,6 @@ import java.util.List;
 public interface PessoaService  {
     void mudarNome(Pessoa pessoa);
     void mudarEndereco(Pessoa pessoa);
-    Pessoa getPessoaById(Pessoa pessoa);
+    Pessoa getPessoaById(Long id);
     List<Pessoa> getAllPessoas();
 }

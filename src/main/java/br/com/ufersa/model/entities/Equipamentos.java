@@ -6,8 +6,12 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "Equipamentos")
 public class Equipamentos {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(nullable = false, name = "numero_serie")
     private Long numeroSerie;
     @Column(nullable = false, name = "nome")
     private String nome;
@@ -21,6 +25,15 @@ public class Equipamentos {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_responsavel")
     private Responsavel responsavel;
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;

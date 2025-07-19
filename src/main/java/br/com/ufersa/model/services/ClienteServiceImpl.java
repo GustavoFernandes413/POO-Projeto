@@ -19,8 +19,9 @@ public class ClienteServiceImpl  {
         public void mudarEndereco(Cliente cliente){
             pessoaService.mudarEndereco(cliente);
         }
-        public Pessoa  getPessoaById(Cliente cliente) {
-           return pessoaService.getPessoaById(cliente);
+        public Pessoa  getPessoaById(Long cliente) {
+
+            return pessoaService.getPessoaById(cliente);
         }
         public List<Pessoa> getAllPessoas() {
             return pessoaService.getAllPessoas();

@@ -8,5 +8,5 @@ public interface VendasService {
     Vendas getVendaById(Long id);
     Vendas gerarNotaVenda(Vendas venda);
     List<Vendas> relatorio(Timestamp dataInicio, Timestamp dataFim);
-    Vendas cancelamento(Long id);
+    Vendas cancelamento(Vendas venda);
 }

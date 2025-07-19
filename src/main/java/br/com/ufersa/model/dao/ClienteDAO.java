@@ -2,6 +2,10 @@ package br.com.ufersa.model.dao;
 
 import br.com.ufersa.model.entities.Cliente;
 
-public interface ClienteDAO extends crudDAO<Cliente> {
+import java.util.List;
+
+public interface ClienteDAO {
     Cliente findByCPF( Cliente cliente);
+    Cliente findById(Long id);
+    List<Cliente> getAll();
 }
