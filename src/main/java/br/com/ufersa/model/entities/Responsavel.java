@@ -3,13 +3,8 @@ package br.com.ufersa.model.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Responsaveis")
 @DiscriminatorValue("Responsavel")
 public class Responsavel extends Pessoa {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
-    @Column(nullable = false)
     private String telefone;
 
     @Override
@@ -29,13 +24,7 @@ public class Responsavel extends Pessoa {
         }
     }
 
-    public Long getId() {
-        return Id;
-    }
 
-    public void setId(Long id) {
-        Id = id;
-    }
 
     public Responsavel(String nome, String endereco, String telefone) {
         super(nome, endereco);

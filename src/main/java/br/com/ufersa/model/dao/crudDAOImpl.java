@@ -21,7 +21,7 @@ public abstract class crudDAOImpl <T> implements crudDAO <T>{
             if (ts.isActive()) {
                 ts.rollback();
             }
-            throw new RuntimeException("Erro ao salvar usuário", e);
+            throw new RuntimeException("Erro ao salvar " + object.toString(), e);
         } finally {
             JPAUtil.shutdown();
         }
@@ -37,7 +37,7 @@ public abstract class crudDAOImpl <T> implements crudDAO <T>{
             if (ts.isActive()) {
                 ts.rollback();
             }
-            throw new RuntimeException("Erro ao salvar usuário", e);
+            throw new RuntimeException("Erro ao atualizar " + object.toString(), e);
         } finally {
             JPAUtil.shutdown(); // encerrando conexao com o BD
         }
@@ -53,7 +53,7 @@ public abstract class crudDAOImpl <T> implements crudDAO <T>{
             if (ts.isActive()) {
                 ts.rollback();
             }
-            throw new RuntimeException("Erro ao deletar usuário", e);
+            throw new RuntimeException("Erro ao deletar " + object.toString(), e);
         } finally {
             JPAUtil.shutdown(); // encerrando conexao com o BD
         }

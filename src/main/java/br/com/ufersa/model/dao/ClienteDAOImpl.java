@@ -3,25 +3,22 @@ package br.com.ufersa.model.dao;
 import br.com.ufersa.model.entities.Cliente;
 import br.com.ufersa.util.JPAUtil;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
+import jakarta.persistence.TypedQuery;
 
 import java.util.List;
 
 public class ClienteDAOImpl extends crudDAOImpl<Cliente> implements ClienteDAO {
-    // TODO: passar objetos pelas camadas
+    // TODO Businnes Exceptions devem ser tratadas na camada de serviços, preciso movê-las daqui
 
     private final EntityManager em = JPAUtil.getEntityManagerFactory();
 
     @Override
-
     public Cliente findByCPF(Cliente cliente) {
         String cpf =  cliente.getCpf();
-        try {
-            return em.createQuery("SELECT * FROM Cliente WHERE cpf="+cpf,Cliente.class).getSingleResult();
-        } catch (NoResultException e) {
-            throw new NoResultException("Nenhum Locais encontrado" + e);
-        }
+        TypedQuery<Cliente> query = em.createQuery("select c FROM Cliente c WHERE c.cpf=:cpf", Cliente.class);
+        query.setParameter("cpf", cpf);
+        return query.getResultStream().findFirst().orElse(null);
     }
     @Override
     public Cliente findById(Long id) {

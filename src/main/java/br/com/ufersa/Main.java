@@ -1,10 +1,12 @@
 package br.com.ufersa;
 
+import br.com.ufersa.model.dao.ClienteDAOImpl;
+import br.com.ufersa.model.dao.PessoaDAOImpl;
 import br.com.ufersa.model.entities.Cliente;
+import br.com.ufersa.model.entities.Equipamentos;
 import br.com.ufersa.model.entities.Locais;
 import br.com.ufersa.model.entities.Pessoa;
-import br.com.ufersa.model.services.ClienteServiceImpl;
-import br.com.ufersa.model.services.LocaisServiceImpl;
+import br.com.ufersa.model.services.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -24,8 +26,12 @@ public class Main {
 //        local.setNomeCompartimento("Sala");
 //        local.setNomeCasa("Casa do Patolino");
 //        locaisService.mudarLocal(local);
-
-
-
+        PessoaService pessoaService = new PessoaServiceImpl(new PessoaDAOImpl());
+        ClienteService clienteService = new ClienteServiceImpl(pessoaService, new ClienteDAOImpl());
+       // Cliente cliente = new Cliente( "Patolino", "Casa do Perna longa","111.222.333-44");
+//        Pessoa cliente = clienteService.getPessoaById(Long.valueOf(1));
+//                cliente.setNome("Perna longa");
+//                cliente.setEndereco("Casa da Lola");
+//                clienteService.getAllPessoas().forEach(System.out::println);
     }
 }

@@ -3,13 +3,8 @@ package br.com.ufersa.model.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Clientes")
 @DiscriminatorValue("Cliente") // será o valor posto na tabela Pessoa coluna tipo_pessoa
 public class Cliente extends Pessoa {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
-    @Column(nullable = false)
     private String cpf;
 
     @Override
@@ -37,12 +32,6 @@ public class Cliente extends Pessoa {
         }
     }
 
-    public Long getId() {
-        return Id;
-    }
 
-    public void setId(Long id) {
-        Id = id;
-    }
 
  }
