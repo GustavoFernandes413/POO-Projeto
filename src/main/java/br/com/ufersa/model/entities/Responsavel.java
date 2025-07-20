@@ -4,8 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Responsaveis")
-@PrimaryKeyJoinColumn(name = "idPessoa")
-
+@DiscriminatorValue("Responsavel")
 public class Responsavel extends Pessoa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

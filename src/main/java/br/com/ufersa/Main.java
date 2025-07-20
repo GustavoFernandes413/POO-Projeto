@@ -11,18 +11,21 @@ public class Main {
         //Locais locais = new Locais( "Quarto", "Casa do Perna-Longa");
 
 
-        LocaisServiceImpl locaisService = new LocaisServiceImpl() ;
-        //locaisService.cadastrarLocal(locais);
-       // Pessoa pessoa = new Pessoa("Patolino", "Warner Bros");
-        // Cliente cliente = new Cliente( pessoa.getNome(), pessoa.getEndereco(),"111.222.333-44");
-        // ClienteServiceImpl clienteService = new ClienteServiceImpl(pessoa);
-        //System.out.println("Informacoes do objeto Local: " + locaisService.getLocalById(Long.valueOf(2)));
-        //System.out.println( "FindByname: " +locaisService.findByNomeCasa( locais));
+//        LocaisServiceImpl locaisService = new LocaisServiceImpl() ;
+//        locaisService.cadastrarLocal(locais);
+//        Pessoa pessoa = new Pessoa("Patolino", "Warner Bros");
+//        Cliente cliente = new Cliente( pessoa.getNome(), pessoa.getEndereco(),"111.222.333-44");
+//        ClienteServiceImpl clienteService = new ClienteServiceImpl(pessoa);
+//        System.out.println("Informacoes do objeto Local: " + locaisService.getLocalById(Long.valueOf(2)));
+//        System.out.println( "FindByname: " +locaisService.findByNomeCasa( locais));
+//
+//         locaisService.getAllLocais();
+//        Locais local = locaisService.getLocalById(Long.valueOf(1));
+//        local.setNomeCompartimento("Sala");
+//        local.setNomeCasa("Casa do Patolino");
+//        locaisService.mudarLocal(local);
 
-        // locaisService.getAllLocais();
-        Locais local = locaisService.getLocalById(Long.valueOf(1));
-        local.setNomeCompartimento("Sala");
-        local.setNomeCasa("Casa do Patolino");
-        locaisService.mudarLocal(local);
+
+
     }
 }
