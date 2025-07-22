@@ -31,7 +31,7 @@ public class PessoaServiceImpl implements PessoaService {
     }
     // TODO - mudar atributo de acordo com resposta
     @Override
-   public  Pessoa getPessoaById(Long  pessoa){
+   public  Pessoa getPessoaById(Pessoa  pessoa){
         if (validarAttr(pessoa)) return  pessoaDAO.findById(pessoa);
         else throw  new IllegalArgumentException("Nenhum id passado para a busca");
    }

@@ -21,7 +21,8 @@ public class ClienteDAOImpl extends crudDAOImpl<Cliente> implements ClienteDAO {
         return query.getResultStream().findFirst().orElse(null);
     }
     @Override
-    public Cliente findById(Long id) {
+    public Cliente findById(Cliente cliente) {
+        Long id = cliente.getId();
         return em.find(Cliente.class, id);}
 
     @Override

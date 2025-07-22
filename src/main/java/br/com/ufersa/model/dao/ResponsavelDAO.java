@@ -4,8 +4,8 @@ import br.com.ufersa.model.entities.Responsavel;
 
 import java.util.List;
 
-public interface ResponsavelDAO  {
-    Responsavel findById(Long id);
+public interface ResponsavelDAO  extends crudDAO<Responsavel> {
+    Responsavel findById(Responsavel responsavel);
     List<Responsavel> getAll();
-    Responsavel findBytelefone(String nome);
+    Responsavel findBytelefone(Responsavel responsavel);
 }

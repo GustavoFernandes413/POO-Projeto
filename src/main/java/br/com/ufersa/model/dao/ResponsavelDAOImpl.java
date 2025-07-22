@@ -13,15 +13,15 @@ public class ResponsavelDAOImpl extends crudDAOImpl<Responsavel> implements Resp
 
     private final EntityManager em = JPAUtil.getEntityManagerFactory();
 
-    // TODO: passar objetos pelas camadas
+    // TODO: retirar bussines exception para camada services
     // TODO: Refatorar codigo, pois há muita repeticao de tarefas entre as classes do DAO
     @Override
-    public Responsavel findById(Long id) {
-        try {
-            return em.find(Responsavel.class, id);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Valor passado é incorreto" + e);
-        }    }
+    public Responsavel findById(Responsavel responsavel) {
+            Long id = responsavel.getId();
+            TypedQuery<Responsavel> query =  em.createQuery("select r from Responsavel r where r.id=:id", Responsavel.class);
+            query.setParameter("id", id);
+            return query.getResultStream().findFirst().orElse(null);
+    }
 
     @Override
     public List<Responsavel> getAll() {
@@ -30,7 +30,8 @@ public class ResponsavelDAOImpl extends crudDAOImpl<Responsavel> implements Resp
             .getResultList();
     }
     @Override
-    public Responsavel findBytelefone(String telefone){
+    public Responsavel findBytelefone(Responsavel responsavel) {
+        String telefone = responsavel.getTelefone();
         TypedQuery<Responsavel> query = em.createQuery("select r from Responsavel r WHERE r.telefone= :telefone", Responsavel.class)
                 .setParameter("telefone", telefone);
         return query.getSingleResult();

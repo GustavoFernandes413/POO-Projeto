@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface ClienteDAO extends crudDAO<Cliente> {
     Cliente findByCPF( Cliente cliente);
-    Cliente findById(Long id);
+    Cliente findById(Cliente cliente);
     List<Cliente> getAll();
 }

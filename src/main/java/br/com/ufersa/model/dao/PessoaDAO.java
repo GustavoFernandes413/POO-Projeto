@@ -4,6 +4,6 @@ import br.com.ufersa.model.entities.Pessoa;
 import java.util.List;
 
 public interface PessoaDAO extends crudDAO<Pessoa> {
-    Pessoa findById(Long id);
+    Pessoa findById(Pessoa pessoa);
     List<Pessoa> getAll();
 }
