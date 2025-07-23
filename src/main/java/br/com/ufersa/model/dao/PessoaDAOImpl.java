@@ -14,10 +14,15 @@ public class PessoaDAOImpl extends crudDAOImpl<Pessoa> implements PessoaDAO {
 
     @Override
     public Pessoa findById(Pessoa pessoa) {
+        try {
             Long id = pessoa.getId();
-        TypedQuery<Pessoa> query = em.createQuery("select p from Pessoa p WHERE p.id=:id", Pessoa.class);
-        query.setParameter("id", id);
-        return query.getResultStream().findFirst().orElse(null);
+            TypedQuery<Pessoa> query = em.createQuery("select p from Pessoa p WHERE p.id=:id", Pessoa.class);
+            query.setParameter("id", id);
+            return query.getResultStream().findFirst().orElse(null);
+        }finally {
+            em.close();
+        }
+
     }
 
     @Override

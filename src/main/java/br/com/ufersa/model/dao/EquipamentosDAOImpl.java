@@ -23,7 +23,9 @@ public class EquipamentosDAOImpl extends crudDAOImpl<Equipamentos> implements Eq
 
     @Override
     public Equipamentos findById(Long id) {
-        return em.find(Equipamentos.class, id);
+        TypedQuery<Equipamentos> query = em.createQuery("SELECT e FROM Equipamentos e WHERE e.id = :id", Equipamentos.class);
+        query.setParameter("id", id);
+        return query.getResultStream().findFirst().orElse(null);
     }
 
     @Override

@@ -1,8 +1,6 @@
 package br.com.ufersa.model.dao;
 
-import br.com.ufersa.model.entities.Cliente;
 import br.com.ufersa.util.JPAUtil;
-import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
@@ -15,7 +13,7 @@ public abstract class crudDAOImpl <T> implements crudDAO <T>{
         EntityTransaction ts = em.getTransaction();
         try {
             ts.begin();
-            em.persist(object);
+            em.merge(object); // TODO verificar uso do merge. Aqui foi colocado porque é preciso criar
             ts.commit();
         } catch (RuntimeException e) {
             if (ts.isActive()) {

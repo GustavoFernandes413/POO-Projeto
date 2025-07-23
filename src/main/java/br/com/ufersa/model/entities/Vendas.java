@@ -20,7 +20,7 @@ public class Vendas {
     @OneToOne(cascade =  CascadeType.ALL)
     @JoinColumn(name= "fk_cliente")
     private Cliente cliente;
-    // TODO corrigir relacionamento entre venda e equipamentos: deve ser do tipo many-to-many
+    // TODO corrigir relacionamento entre venda e equipamentos: deve ser do tipo many-to-one
     @OneToOne(cascade =  CascadeType.ALL)
     @JoinColumn(name = "fk_equipamentos")
     private Equipamentos equipamento;

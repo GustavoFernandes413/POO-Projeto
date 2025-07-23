@@ -33,14 +33,16 @@ public class ResponsavelServiceImpl implements ResponsavelService {
         }
         responsavelDAO.save(responsavel);
     }
+
     public void mudarNome(Pessoa pessoa){
         pessoaService.mudarNome( pessoa);
     }
     public void mudarEndereco(Pessoa pessoa){
         pessoaService.mudarEndereco(pessoa);
     }
-    public Pessoa getPessoaById(Pessoa pessoa) {
-        return pessoaService.getPessoaById(pessoa);
+
+    public Responsavel getPessoaById(Responsavel responsavel) {
+        return responsavelDAO.findById(responsavel);
     }
     public List<Pessoa> getAllPessoas() {
         return pessoaService.getAllPessoas();

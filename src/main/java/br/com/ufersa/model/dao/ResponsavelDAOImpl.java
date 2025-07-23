@@ -17,10 +17,15 @@ public class ResponsavelDAOImpl extends crudDAOImpl<Responsavel> implements Resp
     // TODO: Refatorar codigo, pois há muita repeticao de tarefas entre as classes do DAO
     @Override
     public Responsavel findById(Responsavel responsavel) {
+        try {
             Long id = responsavel.getId();
             TypedQuery<Responsavel> query =  em.createQuery("select r from Responsavel r where r.id=:id", Responsavel.class);
             query.setParameter("id", id);
             return query.getResultStream().findFirst().orElse(null);
+        }finally {
+            em.close();
+        }
+
     }
 
     @Override

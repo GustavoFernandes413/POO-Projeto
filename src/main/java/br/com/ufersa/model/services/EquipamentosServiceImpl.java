@@ -9,6 +9,9 @@ public class EquipamentosServiceImpl implements EquipamentosService{
     private EquipamentosDAOImpl equipamentosDTO = new EquipamentosDAOImpl();
     @Override
     public void cadastraEquipamento(Equipamentos equip) {
+        if (equipamentosDTO.findById(equip.getId()) != null) {
+            throw new IllegalArgumentException("Equipameto já existente");
+        }
         equipamentosDTO.save(equip);
     }
 
@@ -27,6 +30,7 @@ public class EquipamentosServiceImpl implements EquipamentosService{
     // TODO - verificar se essa é a melhor forma de fazer isso
     @Override
     public Equipamentos getEquipamentoById(Long id) {
+
         return equipamentosDTO.findById(id);
     }
 

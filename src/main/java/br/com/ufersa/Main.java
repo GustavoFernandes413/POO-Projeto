@@ -1,5 +1,6 @@
 package br.com.ufersa;
 
+import br.com.ufersa.model.dao.ClienteDAO;
 import br.com.ufersa.model.dao.ClienteDAOImpl;
 import br.com.ufersa.model.dao.PessoaDAOImpl;
 import br.com.ufersa.model.dao.ResponsavelDAOImpl;
@@ -8,40 +9,33 @@ import br.com.ufersa.model.services.*;
 
 public class Main {
     public static void main(String[] args) {
-        //Locais locais = new Locais( "Quarto", "Casa do Perna-Longa");
-
-
-//        LocaisServiceImpl locaisService = new LocaisServiceImpl() ;
-//        locaisService.cadastrarLocal(locais);
-//        Pessoa pessoa = new Pessoa("Patolino", "Warner Bros");
-//        Cliente cliente = new Cliente( pessoa.getNome(), pessoa.getEndereco(),"111.222.333-44");
-//        ClienteServiceImpl clienteService = new ClienteServiceImpl(pessoa);
-//        System.out.println("Informacoes do objeto Local: " + locaisService.getLocalById(Long.valueOf(2)));
-//        System.out.println( "FindByname: " +locaisService.findByNomeCasa( locais));
-//
-//         locaisService.getAllLocais();
-//        Locais local = locaisService.getLocalById(Long.valueOf(1));
-//        local.setNomeCompartimento("Sala");
-//        local.setNomeCasa("Casa do Patolino");
-//        locaisService.mudarLocal(local);
         PessoaService pessoaService = new PessoaServiceImpl(new PessoaDAOImpl());
-        ClienteService clienteService = new ClienteServiceImpl(pessoaService, new ClienteDAOImpl());
-     //   Cliente cliente = new Cliente( "Patolino", "Casa do Perna longa","111.222.333-44");
-//        Cliente clienteId = new Cliente();
-//        clienteId.setId(Long.valueOf(1));
-//       Pessoa cliente = clienteService.getPessoaById(clienteId);
-////                cliente.setNome("Perna longa");
-////                cliente.setEndereco("Casa da Lola");
-////                clienteService.getAllPessoas().forEach(System.out::println);
-//        System.out.println(cliente);
-
+        LocaisServiceImpl locaisService = new LocaisServiceImpl() ;
         ResponsavelService responsavelService = new ResponsavelServiceImpl(new ResponsavelDAOImpl(),pessoaService);
-      Responsavel responsavel = new Responsavel("Kanalense", "Casa do Joao", "84 9 8899-0011");
+        EquipamentosService equipamentosService = new EquipamentosServiceImpl();
+
+        // criando locais e responsaveis
+        Locais locais = new Locais( "Quarto", "Casa do Perna-Longa");
+        //locaisService.cadastrarLocal(locais);
+
+        Pessoa pessoa = new Pessoa("Patolino", "Warner Bros");
+        Cliente cliente = new Cliente( pessoa.getNome(), pessoa.getEndereco(),"111.222.333-44");
+        ClienteServiceImpl clienteService = new ClienteServiceImpl(pessoaService,new ClienteDAOImpl() );
+       // clienteService.cadastrarCliente(cliente);
+
+        Responsavel responsavel = new Responsavel("Cleiton", "Casa do Cleiton", "85 9 8899-0011");
        // responsavelService.cadastrarResponsavel(responsavel);
-        Pessoa responsavelId = new Responsavel();
-            responsavelId.setId(Long.valueOf(2));
-       // responsavelService.mudarTelefone(responsavel);
-       // responsavelService.getAllPessoas().forEach(System.out::println);
-        System.out.println( responsavelService.getPessoaById(responsavelId));
+
+
+        Locais localEq = new Locais();
+        localEq.setId(1L);
+        Locais locId = locaisService.getLocalById(localEq.getId());
+        Responsavel responsavelEq = new Responsavel();
+        responsavelEq.setId(2L);
+        Responsavel responsavelId = responsavelService.getPessoaById(responsavelEq);
+
+        Equipamentos equipamentos = new Equipamentos("Notebook Positivo Celeron", Long.valueOf(12398230),
+                1.99, 10, locId, responsavelId);
+        equipamentosService.cadastraEquipamento(equipamentos);
     }
 }
