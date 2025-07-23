@@ -1,5 +1,6 @@
 package br.com.ufersa.model.services;
 
+import br.com.ufersa.exceptions.AutenticacaoException;
 import br.com.ufersa.model.dao.ResponsavelDAO;
 import br.com.ufersa.model.dao.ResponsavelDAOImpl;
 import br.com.ufersa.model.entities.Cliente;
@@ -17,6 +18,22 @@ public class ResponsavelServiceImpl implements ResponsavelService {
         this.pessoaService = pessoaService;
     }
 
+
+    @Override
+    public Responsavel autenticar(Responsavel responsavel) throws AutenticacaoException {
+        Responsavel responsavelogin = responsavelDAO.findById(responsavel);
+       if (responsavelogin != null){
+            if(responsavelogin.getSenha().equals(responsavel.getSenha()) ) {
+                responsavel.setLogin(responsavel.getLogin());
+                responsavel.setSenha(responsavel.getSenha());
+                return responsavel;
+           }else {
+                throw new AutenticacaoException("Senha incorreta.");
+            }
+       }else  {
+           throw  new AutenticacaoException("Responsavel não encontrado.");
+        }
+    }
     @Override
     public void mudarTelefone(Responsavel responsavel) {
         if (responsavel != null) {
@@ -25,6 +42,7 @@ public class ResponsavelServiceImpl implements ResponsavelService {
             throw new IllegalArgumentException("Telefone informado é inválido");
         }
     }
+
     @Override
     public void cadastrarResponsavel(Responsavel responsavel){
         // TODO implementar metodo que verifica se o cliente ja existe
@@ -47,5 +65,6 @@ public class ResponsavelServiceImpl implements ResponsavelService {
     public List<Pessoa> getAllPessoas() {
         return pessoaService.getAllPessoas();
     }
+
 
 }
