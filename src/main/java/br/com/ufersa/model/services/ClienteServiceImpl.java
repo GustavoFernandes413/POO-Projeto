@@ -1,8 +1,6 @@
 package br.com.ufersa.model.services;
 
 import br.com.ufersa.model.dao.ClienteDAO;
-import br.com.ufersa.model.dao.ClienteDAOImpl;
-import br.com.ufersa.model.dao.PessoaDAOImpl;
 import br.com.ufersa.model.entities.Cliente;
 import br.com.ufersa.model.entities.Pessoa;
 
@@ -26,9 +24,9 @@ public class ClienteServiceImpl  implements ClienteService{
         public void mudarEndereco(Pessoa cliente){
             pessoaService.mudarEndereco(cliente);
         }
-        public Pessoa  getPessoaById(Pessoa cliente) {
-
-            return pessoaService.getPessoaById(cliente);
+        @Override
+        public Cliente  getPessoaById(Cliente cliente) {
+            return clienteDAO.findById(cliente);
         }
         public List<Pessoa> getAllPessoas() {
             return pessoaService.getAllPessoas();

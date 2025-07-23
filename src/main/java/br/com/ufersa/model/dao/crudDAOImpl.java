@@ -13,7 +13,7 @@ public abstract class crudDAOImpl <T> implements crudDAO <T>{
         EntityTransaction ts = em.getTransaction();
         try {
             ts.begin();
-            em.merge(object); // TODO verificar uso do merge. Aqui foi colocado porque é preciso criar
+            em.persist(object); // TODO verificar uso do merge. Aqui foi colocado porque é preciso criar
             ts.commit();
         } catch (RuntimeException e) {
             if (ts.isActive()) {

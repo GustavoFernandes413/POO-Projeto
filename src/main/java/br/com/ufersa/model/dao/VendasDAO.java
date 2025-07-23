@@ -4,7 +4,7 @@ import br.com.ufersa.model.entities.Vendas;
 import java.sql.Timestamp;
 import java.util.List;
 
-public interface VendasDAO  {
+public interface VendasDAO extends crudDAO<Vendas> {
     Vendas findById(Long id);
     List<Vendas> getAll();
     List<Vendas> relatorio(Timestamp inicio, Timestamp fim);

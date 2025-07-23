@@ -1,7 +1,9 @@
 package br.com.ufersa.model.entities;
-import br.com.ufersa.model.entities.Locais;
-import br.com.ufersa.model.entities.Responsavel;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 // TODO:: usar excessoes dentro dos modificadores de acesso
 @Entity
 @Table(name = "Equipamentos")
@@ -18,13 +20,15 @@ public class Equipamentos {
     @Column(nullable = false, name= "quantidade")
     private int quantidade;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "fk_locais")
     private Locais local;
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "fk_responsavel")
     private Responsavel responsavel;
 
+    @OneToMany(mappedBy = "equipamento", cascade = CascadeType.MERGE)
+    private List<Vendas> vendas = new ArrayList<>();
 
     public Long getId() {
         return id;

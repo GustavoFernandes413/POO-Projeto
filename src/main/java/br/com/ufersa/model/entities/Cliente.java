@@ -2,10 +2,15 @@ package br.com.ufersa.model.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @DiscriminatorValue("Cliente") // será o valor posto na tabela Pessoa coluna tipo_pessoa
 public class Cliente extends Pessoa {
     private String cpf;
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.MERGE)
+    private List<Vendas> vendas = new ArrayList<>();
 
     @Override
     public String toString() {

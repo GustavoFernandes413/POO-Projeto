@@ -1,5 +1,6 @@
 package br.com.ufersa.model.services;
 
+import br.com.ufersa.model.dao.VendasDAO;
 import br.com.ufersa.model.dao.VendasDAOImpl;
 import br.com.ufersa.model.entities.Vendas;
 
@@ -7,7 +8,16 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class VendasServiceImpl implements VendasService {
-    private final VendasDAOImpl vendasDTO = new VendasDAOImpl();
+    private final VendasDAO vendasDTO ;
+
+    public VendasServiceImpl(VendasDAO vendasDTO) {
+        this.vendasDTO = vendasDTO;
+    }
+
+    @Override
+    public void criarVenda(Vendas vendas) {
+        vendasDTO.save(vendas);
+    }
     @Override
     public Vendas getVendaById(Long vendas){
         if(validarVendas(vendas)) return vendasDTO.findById(vendas);

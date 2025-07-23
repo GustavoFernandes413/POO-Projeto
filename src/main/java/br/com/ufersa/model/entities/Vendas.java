@@ -17,17 +17,19 @@ public class Vendas {
     private String status;
     @Column(name = "data")
     private Timestamp data;
-    @OneToOne(cascade =  CascadeType.ALL)
+
+    // TODO verificar se o cascade é adequado
+    @ManyToOne
     @JoinColumn(name= "fk_cliente")
     private Cliente cliente;
-    // TODO corrigir relacionamento entre venda e equipamentos: deve ser do tipo many-to-one
-    @OneToOne(cascade =  CascadeType.ALL)
+
+    @ManyToOne
     @JoinColumn(name = "fk_equipamentos")
     private Equipamentos equipamento;
-    @OneToOne(cascade =  CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "fk_locais")
     private Locais local;
-    @OneToOne(cascade =  CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="fk_responsavel")
     private Responsavel responsavel;
 
@@ -56,8 +58,7 @@ public class Vendas {
     }
 
     public void setCliente(Cliente cliente) {
-        if (validarVendas(cliente)) this.cliente = cliente;
-        else System.out.println("Erro! Objeto não pode estar indefinido");
+         this.cliente = cliente;
     }
 
     public Equipamentos getEquipamento() {
@@ -65,8 +66,7 @@ public class Vendas {
     }
 
     public void setEquipamento(Equipamentos equipamento) {
-        if (validarVendas(equipamento)) this.equipamento = equipamento;
-        else System.out.println("Erro! Objeto não pode estar indefinido");
+         this.equipamento = equipamento;
     }
 
     public Locais getLocal() {
@@ -95,7 +95,7 @@ public class Vendas {
         if (validarVendas(status)) {
             this.status = status;
         } else {
-            System.out.println("Erro! Não pode estar em branco.");
+            System.out.println("Erro! Não Status pode estar em branco.");
         }
     }
 
