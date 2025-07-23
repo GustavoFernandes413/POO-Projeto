@@ -10,79 +10,33 @@ import jakarta.persistence.TypedQuery;
 
 import java.util.List;
 
-public class LocaisDAOImpl implements LocaisDAO {
+public class LocaisDAOImpl extends crudDAOImpl<Locais> implements LocaisDAO {
+    // Injeção de dependência
     private final EntityManager em = JPAUtil.getEntityManagerFactory();
 
     @Override
     public Locais findByName(Locais locais) {
-        String nomeLocal = locais.getNomeCasa();
         try{
-            return em.createQuery(" FROM Locais WHERE nomeCasa=" + nomeLocal,Locais.class).getSingleResult();
-
-        }catch (NoResultException e){
-            throw  new NoResultException("Nenhum Locais encontrado"+e);
+            String nomeLocal = locais.getNomeCasa();
+            TypedQuery<Locais> query =  em.createQuery("select l FROM Locais l WHERE l.nomeCasa =:nomeLocal",Locais.class);
+            query.setParameter("nomeLocal", nomeLocal);
+            return query.getSingleResult();
+        }finally {
+            em.close();
         }
     }
-
+    // TODO corrigir esse metodo para usar um objeto Locais ao inves de seu id
     @Override
-    public Locais findById(Locais locais) {
-        Long id = locais.getId();
-        return em.find(Locais.class, id);
+    public Locais findById(Long id) {
+        try {
+            return em.find(Locais.class, id);
+        }finally {
+            em.close();
+        }
     }
 
     @Override
     public List<Locais> getAll() {
         return em.createQuery("FROM Locais", Locais.class).getResultList();
-    }
-
-    @Override
-    public void save(Locais obj) {
-        EntityTransaction ts = em.getTransaction();
-        try {
-            ts.begin();
-            em.persist(obj);
-            ts.commit();
-        } catch (RuntimeException e) {
-            if (ts.isActive()) {
-                ts.rollback();
-            }
-            throw new RuntimeException("Erro ao salvar local", e);
-        } finally {
-            JPAUtil.shutdown();
-        }
-    }
-
-    @Override
-    public void delete(Locais obj) {
-        EntityTransaction ts = em.getTransaction();
-        try {
-            ts.begin();
-            em.remove(obj);
-            ts.commit();
-        } catch (RuntimeException e) {
-            if (ts.isActive()) {
-                ts.rollback();
-            }
-            throw new RuntimeException("Erro ao deletar local", e);
-        } finally {
-            JPAUtil.shutdown(); // encerrando conexao com o BD
-        }
-    }
-
-    @Override
-    public void update(Locais obj) {
-        EntityTransaction ts = em.getTransaction();
-        try   {
-            ts.begin();
-            em.merge(obj);
-            ts.commit();
-        } catch (RuntimeException e) {
-            if (ts.isActive()) {
-                ts.rollback();
-            }
-            throw new RuntimeException("Erro ao salvar local", e);
-        } finally {
-            JPAUtil.shutdown(); // encerrando conexao com o BD
-        }
     }
 }

@@ -1,13 +1,17 @@
 package br.com.ufersa.model.entities;
-import br.com.ufersa.model.entities.Locais;
-import br.com.ufersa.model.entities.Responsavel;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 // TODO:: usar excessoes dentro dos modificadores de acesso
 @Entity
 @Table(name = "Equipamentos")
 public class Equipamentos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(nullable = false, name = "numero_serie")
     private Long numeroSerie;
     @Column(nullable = false, name = "nome")
     private String nome;
@@ -15,12 +19,24 @@ public class Equipamentos {
     private double preco;
     @Column(nullable = false, name= "quantidade")
     private int quantidade;
-    @OneToOne(cascade = CascadeType.ALL)
+
+    @ManyToOne
     @JoinColumn(name = "fk_locais")
     private Locais local;
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "fk_responsavel")
     private Responsavel responsavel;
+
+    @OneToMany(mappedBy = "equipamento", cascade = CascadeType.MERGE)
+    private List<Vendas> vendas = new ArrayList<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;
@@ -148,7 +164,7 @@ public class Equipamentos {
             "/nLocal:  Nome Casa: " +
             getLocal().toString() +
             "/nResponsavel: Nome: " +
-            getResponsavel().toString()
+            getResponsavel()
         );
     }
 

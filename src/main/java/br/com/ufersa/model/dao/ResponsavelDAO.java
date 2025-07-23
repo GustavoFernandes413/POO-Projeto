@@ -2,4 +2,10 @@ package br.com.ufersa.model.dao;
 
 import br.com.ufersa.model.entities.Responsavel;
 
-public interface ResponsavelDAO extends crudDAO<Responsavel> {}
+import java.util.List;
+
+public interface ResponsavelDAO  extends crudDAO<Responsavel> {
+    Responsavel findById(Responsavel responsavel);
+    List<Responsavel> getAll();
+    Responsavel findBytelefone(Responsavel responsavel);
+}

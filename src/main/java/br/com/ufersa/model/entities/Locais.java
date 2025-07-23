@@ -2,8 +2,12 @@ package br.com.ufersa.model.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "Locais")
+
 public class Locais {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,10 +16,15 @@ public class Locais {
     private String nomeCasa;
     @Column(name = "nomeCompartimento")
     private String nomeCompartimento;
+    @OneToMany(mappedBy = "local",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Equipamentos> equipamentos = new ArrayList<>();
+    @OneToMany(mappedBy = "local", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    private List<Vendas> vendas = new ArrayList<>();
 
     public String getNomeCasa() {
         return nomeCasa;
     }
+
 
     public void setNomeCasa(String nomeCasa) {
         if (!nomeCasa.isBlank()) {

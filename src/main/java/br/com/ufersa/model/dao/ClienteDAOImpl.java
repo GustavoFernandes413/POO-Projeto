@@ -3,30 +3,38 @@ package br.com.ufersa.model.dao;
 import br.com.ufersa.model.entities.Cliente;
 import br.com.ufersa.util.JPAUtil;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
+import jakarta.persistence.TypedQuery;
 
 import java.util.List;
 
-public class ClienteDAOImpl implements ClienteDAO {
-    // TODO: passar objetos pelas camadas
+public class ClienteDAOImpl extends crudDAOImpl<Cliente> implements ClienteDAO {
+    // TODO Businnes Exceptions devem ser tratadas na camada de serviços, preciso movê-las daqui
 
     private final EntityManager em = JPAUtil.getEntityManagerFactory();
 
     @Override
-
     public Cliente findByCPF(Cliente cliente) {
-        String cpf =  cliente.getCpf();
         try {
-            return em.createQuery("SELECT * FROM Cliente WHERE cpf="+cpf,Cliente.class).getSingleResult();
-        } catch (NoResultException e) {
-            throw new NoResultException("Nenhum Locais encontrado" + e);
+            String cpf =  cliente.getCpf();
+            TypedQuery<Cliente> query = em.createQuery("select c FROM Cliente c WHERE c.cpf=:cpf", Cliente.class);
+            query.setParameter("cpf", cpf);
+            return query.getResultStream().findFirst().orElse(null);
+        }finally {
+            em.close();
         }
+
     }
     @Override
     public Cliente findById(Cliente cliente) {
-        Long id =  cliente.getId();
-        return em.find(Cliente.class, id);}
+        try {
+            Long id = cliente.getId();
+            return em.find(Cliente.class, id);
+        }finally {
+            em.close();
+        }
+        }
+
 
     @Override
     public List<Cliente> getAll() {
@@ -38,54 +46,8 @@ public class ClienteDAOImpl implements ClienteDAO {
         }
     }
 
-    @Override
-    public void save(Cliente cliente) {
-        EntityTransaction ts = em.getTransaction();
-        try {
-            ts.begin();
-            em.persist(cliente);
-            ts.commit();
-        } catch (RuntimeException e) {
-            if (ts.isActive()) {
-                ts.rollback();
-            }
-            throw new RuntimeException("Erro ao salvar usuário", e);
-        } finally {
-            JPAUtil.shutdown();
-        }
-    }
 
-    @Override
-    public void update(Cliente cliente) {
-        EntityTransaction ts = em.getTransaction();
-        try {
-            ts.begin();
-            em.merge(cliente);
-            ts.commit();
-        } catch (RuntimeException e) {
-            if (ts.isActive()) {
-                ts.rollback();
-            }
-            throw new RuntimeException("Erro ao salvar usuário", e);
-        } finally {
-            JPAUtil.shutdown(); // encerrando conexao com o BD
-        }
-    }
 
-    @Override
-    public void delete(Cliente cliente) {
-        EntityTransaction ts = em.getTransaction();
-        try {
-            ts.begin();
-            em.remove(cliente);
-            ts.commit();
-        } catch (RuntimeException e) {
-            if (ts.isActive()) {
-                ts.rollback();
-            }
-            throw new RuntimeException("Erro ao deletar usuário", e);
-        } finally {
-            JPAUtil.shutdown(); // encerrando conexao com o BD
-        }
-    }
+
+
 }

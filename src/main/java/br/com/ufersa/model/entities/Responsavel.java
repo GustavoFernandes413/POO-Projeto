@@ -2,16 +2,17 @@ package br.com.ufersa.model.entities;
 
 import jakarta.persistence.*;
 
-@Entity
-@Table(name = "Responsaveis")
-@PrimaryKeyJoinColumn(name = "idPessoa")
+import java.util.ArrayList;
+import java.util.List;
 
+@Entity
+@DiscriminatorValue("Responsavel")
 public class Responsavel extends Pessoa {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
-    @Column(nullable = false)
     private String telefone;
+    @OneToMany( mappedBy = "responsavel",cascade = CascadeType.MERGE) // usa-se o lazy por padrao
+    private List<Equipamentos> equipamentos = new ArrayList<>();
+    @OneToMany(mappedBy = "responsavel", cascade = CascadeType.MERGE)
+    private List<Vendas> vendas = new ArrayList<>();
 
     @Override
     public String toString() {
@@ -30,13 +31,7 @@ public class Responsavel extends Pessoa {
         }
     }
 
-    public Long getId() {
-        return Id;
-    }
 
-    public void setId(Long id) {
-        Id = id;
-    }
 
     public Responsavel(String nome, String endereco, String telefone) {
         super(nome, endereco);

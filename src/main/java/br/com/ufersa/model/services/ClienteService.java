@@ -1,3 +1,7 @@
 package br.com.ufersa.model.services;
 
-public interface ClienteService extends PessoaService {}
+import br.com.ufersa.model.entities.Cliente;
+
+public interface ClienteService extends PessoaService<Cliente> {
+    void cadastrarCliente(Cliente cliente);
+}
