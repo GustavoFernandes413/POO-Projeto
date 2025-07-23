@@ -6,8 +6,6 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "Equipamentos")
 public class Equipamentos {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,10 +17,11 @@ public class Equipamentos {
     private double preco;
     @Column(nullable = false, name= "quantidade")
     private int quantidade;
-    @OneToOne(cascade = CascadeType.ALL)
+
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "fk_locais")
     private Locais local;
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "fk_responsavel")
     private Responsavel responsavel;
 
@@ -161,7 +160,7 @@ public class Equipamentos {
             "/nLocal:  Nome Casa: " +
             getLocal().toString() +
             "/nResponsavel: Nome: " +
-            getResponsavel().toString()
+            getResponsavel()
         );
     }
 
