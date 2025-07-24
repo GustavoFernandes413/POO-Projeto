@@ -13,8 +13,9 @@ public class Responsavel extends Pessoa {
     private String login;
     @Column(length = 20, nullable = false)
     private String senha;
-
+    @Column(length = 20, nullable = false, unique = true)
     private String telefone;
+
     @OneToMany( mappedBy = "responsavel",cascade = CascadeType.MERGE) // usa-se o lazy por padrao
     private List<Equipamentos> equipamentos = new ArrayList<>();
     @OneToMany(mappedBy = "responsavel", cascade = CascadeType.MERGE)

@@ -25,7 +25,14 @@ public class ResponsavelDAOImpl extends crudDAOImpl<Responsavel> implements Resp
         }finally {
             em.close();
         }
+    }
 
+    @Override
+    public Responsavel findByLogin(Responsavel responsavel) {
+            String login = responsavel.getLogin();
+            TypedQuery<Responsavel> query =  em.createQuery("select r from Responsavel r where r.login=:email", Responsavel.class);
+            query.setParameter("email", login);
+            return query.getResultStream().findFirst().orElse(null);
     }
 
     @Override

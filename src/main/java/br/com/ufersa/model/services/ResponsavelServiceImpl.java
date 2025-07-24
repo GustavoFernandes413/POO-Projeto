@@ -12,16 +12,16 @@ public class ResponsavelServiceImpl implements ResponsavelService {
 
     private final ResponsavelDAO responsavelDAO ;
     private final PessoaService pessoaService;
+
     // é feita a injecao de dependencia via construtor
     public ResponsavelServiceImpl(ResponsavelDAO responsavelDAO, PessoaService pessoaService) {
         this.responsavelDAO = responsavelDAO;
         this.pessoaService = pessoaService;
     }
 
-
     @Override
     public Responsavel autenticar(Responsavel responsavel) throws AutenticacaoException {
-        Responsavel responsavelogin = responsavelDAO.findById(responsavel);
+        Responsavel responsavelogin = responsavelDAO.findByLogin(responsavel);
        if (responsavelogin != null){
             if(responsavelogin.getSenha().equals(responsavel.getSenha()) ) {
                 responsavel.setLogin(responsavel.getLogin());
@@ -34,6 +34,8 @@ public class ResponsavelServiceImpl implements ResponsavelService {
            throw  new AutenticacaoException("Responsavel não encontrado.");
         }
     }
+
+
     @Override
     public void mudarTelefone(Responsavel responsavel) {
         if (responsavel != null) {
@@ -42,7 +44,7 @@ public class ResponsavelServiceImpl implements ResponsavelService {
             throw new IllegalArgumentException("Telefone informado é inválido");
         }
     }
-
+    // = metodo de registro de responsaveis
     @Override
     public void cadastrarResponsavel(Responsavel responsavel){
         // TODO implementar metodo que verifica se o cliente ja existe
