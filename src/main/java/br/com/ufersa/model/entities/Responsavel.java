@@ -76,12 +76,21 @@ public class Responsavel extends Pessoa {
         }
     }
 
-
-
-    public Responsavel(String nome, String endereco, String telefone) {
+    public Responsavel(String nome, String endereco, String login, String senha, String telefone) {
         super(nome, endereco);
-        setTelefone(telefone);
+        this.login = login;
+        this.senha = senha;
+        this.telefone = telefone;
     }
+
+    public Responsavel(String login, String senha, String telefone, List<Equipamentos> equipamentos, List<Vendas> vendas) {
+        this.login = login;
+        this.senha = senha;
+        this.telefone = telefone;
+        this.equipamentos = equipamentos;
+        this.vendas = vendas;
+    }
+
     public Responsavel() {
     }
 

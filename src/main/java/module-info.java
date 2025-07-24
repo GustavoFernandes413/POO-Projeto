@@ -14,6 +14,7 @@ module br.com.ufersa {
     requires java.desktop;
 
     requires org.hibernate.orm.core;
+    requires mysql.connector.j;
     opens br.com.ufersa.model.entities to org.hibernate.orm.core;
     opens br.com.ufersa.presenter to javafx.fxml;
     exports br.com.ufersa.view;

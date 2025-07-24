@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="br.com.ufersa.presenter.ResponsavelPresenter">
+   <children>
+      <Label layoutX="139.0" layoutY="115.0" text="Nome Completo:" />
+      <Label layoutX="205.0" layoutY="200.0" text="Login:" />
+      <Label layoutX="202.0" layoutY="240.0" text="Senha:" />
+      <Button layoutX="194.0" layoutY="283.0" mnemonicParsing="false" onAction="#cadastrar" text="Cadastrar" />
+      <Button layoutX="347.0" layoutY="283.0" mnemonicParsing="false" onAction="#retornar" text="Voltar" />
+      <TextField fx:id="RespCadNome" layoutX="274.0" layoutY="110.0" />
+      <TextField fx:id="RespCadTelefone" layoutX="274.0" layoutY="154.0" />
+      <PasswordField fx:id="RespCadSenha" layoutX="274.0" layoutY="235.0" />
+      <Label fx:id="erro" layoutX="274.0" layoutY="247.0" text="Label" visible="false" />
+      <Label layoutX="178.0" layoutY="159.0" text="Telefone:" />
+      <TextField fx:id="RespCadEmail" layoutX="274.0" layoutY="195.0" />
+   </children>
+</Pane>

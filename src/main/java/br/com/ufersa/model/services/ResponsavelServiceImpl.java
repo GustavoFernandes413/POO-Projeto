@@ -1,6 +1,7 @@
 package br.com.ufersa.model.services;
 
 import br.com.ufersa.exceptions.AutenticacaoException;
+import br.com.ufersa.exceptions.PessoaExisteException;
 import br.com.ufersa.model.dao.ResponsavelDAO;
 import br.com.ufersa.model.dao.ResponsavelDAOImpl;
 import br.com.ufersa.model.entities.Cliente;
@@ -44,12 +45,12 @@ public class ResponsavelServiceImpl implements ResponsavelService {
             throw new IllegalArgumentException("Telefone informado é inválido");
         }
     }
-    // = metodo de registro de responsaveis
+    // = metodo para registro de responsaveis
     @Override
-    public void cadastrarResponsavel(Responsavel responsavel){
+    public void cadastrarResponsavel(Responsavel responsavel) throws PessoaExisteException {
         // TODO implementar metodo que verifica se o cliente ja existe
         if( responsavelDAO.findById(responsavel) != null){
-            throw new IllegalArgumentException("Cliente já existente");
+            throw new PessoaExisteException("Cliente já existente");
         }
         responsavelDAO.save(responsavel);
     }

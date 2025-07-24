@@ -17,14 +17,14 @@ public class Main {
 
         // criando locais e responsaveis
         Locais locais = new Locais( "Quarto", "Casa do Perna-Longa");
-        locaisService.cadastrarLocal(locais);
+        //locaisService.cadastrarLocal(locais);
 
         Pessoa pessoa = new Pessoa("Patolino", "Warner Bros");
         Cliente cliente = new Cliente( pessoa.getNome(), pessoa.getEndereco(),"111.222.333-44");
         //clienteService.cadastrarCliente(cliente);
 
-        Responsavel responsavel = new Responsavel("Cleiton", "Casa do Cleiton", "85 9 8899-0011");
-       // responsavelService.cadastrarResponsavel(responsavel);
+        Responsavel responsavel = new Responsavel("Kanalense", "Casa do Kanalense","kanalense@gmail.com", "123456", "85 9 8899-0011" );
+        //responsavelService.cadastrarResponsavel(responsavel);
 
         Cliente clienteVen = new Cliente();
         clienteVen.setId(1L);

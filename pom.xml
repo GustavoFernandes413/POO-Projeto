@@ -119,7 +119,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>br.com.ufersa/br.com.ufersa.view.HelloApplication</mainClass> <launcher>app</launcher>
+                            <mainClass>br.com.ufersa/br.com.ufersa.view.LoginResponsavel</mainClass> <launcher>app</launcher>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
