@@ -22,28 +22,25 @@ public class ResponsavelPresenter {
     @FXML private TextField RespCadEmail;
     @FXML private TextField RespCadTelefone;
     @FXML private PasswordField RespCadSenha;
+    @FXML private TextField RespCadEndereco;
     @FXML private Label erro;
 
 
 
 
     ResponsavelService responsavelService = new ResponsavelServiceImpl(new ResponsavelDAOImpl(), new PessoaServiceImpl(new PessoaDAOImpl()));
-    Responsavel novoResp = new Responsavel();
+    //Responsavel novoResp = new Responsavel();
 
 
-    @FXML
-    public void cadastrar (ActionEvent event){
-        LoginResponsavel.telaCadastro();
-    }
+
 
     @FXML public void retornar(){
         LoginResponsavel.telaLogin();
     }
 
     @FXML public void cadastrar(){
-        novoResp.setNome(RespCadNome.getText());
-        novoResp.setLogin(RespCadEmail.getText());
-        novoResp.setSenha(RespCadSenha.getText());
+        Responsavel novoResp = new Responsavel(RespCadNome.getText(), RespCadEndereco.getText(),
+                RespCadEmail.getText(), RespCadSenha.getText(), RespCadTelefone.getText());
         try {
             responsavelService.cadastrarResponsavel(novoResp);
             JOptionPane.showConfirmDialog(null, "Usuário cadastrado com sucesso!");

@@ -15,39 +15,27 @@ public class ClienteDAOImpl extends crudDAOImpl<Cliente> implements ClienteDAO {
 
     @Override
     public Cliente findByCPF(Cliente cliente) {
-        try {
-            String cpf =  cliente.getCpf();
-            TypedQuery<Cliente> query = em.createQuery("select c FROM Cliente c WHERE c.cpf=:cpf", Cliente.class);
-            query.setParameter("cpf", cpf);
-            return query.getResultStream().findFirst().orElse(null);
-        }finally {
-            em.close();
-        }
-
+        String cpf = cliente.getCpf();
+        TypedQuery<Cliente> query = em.createQuery("select c FROM Cliente c WHERE c.cpf=:cpf", Cliente.class);
+        query.setParameter("cpf", cpf);
+        return query.getResultStream().findFirst().orElse(null);
     }
+
     @Override
     public Cliente findById(Cliente cliente) {
-        try {
-            Long id = cliente.getId();
-            return em.find(Cliente.class, id);
-        }finally {
-            em.close();
-        }
-        }
+        Long id = cliente.getId();
+        return em.find(Cliente.class, id);
+    }
 
 
     @Override
     public List<Cliente> getAll() {
-        try{
+        try {
             return em.createQuery("FROM Cliente", Cliente.class).getResultList();
-        }
-        catch (NoResultException e) {
+        } catch (NoResultException e) {
             throw new NoResultException("Nenhum Locais encontrado" + e);
         }
     }
-
-
-
 
 
 }

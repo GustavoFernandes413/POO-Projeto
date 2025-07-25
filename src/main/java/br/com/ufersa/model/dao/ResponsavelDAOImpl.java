@@ -17,30 +17,27 @@ public class ResponsavelDAOImpl extends crudDAOImpl<Responsavel> implements Resp
     // TODO: Refatorar codigo, pois há muita repeticao de tarefas entre as classes do DAO
     @Override
     public Responsavel findById(Responsavel responsavel) {
-        try {
-            Long id = responsavel.getId();
-            TypedQuery<Responsavel> query =  em.createQuery("select r from Responsavel r where r.id=:id", Responsavel.class);
-            query.setParameter("id", id);
-            return query.getResultStream().findFirst().orElse(null);
-        }finally {
-            em.close();
-        }
+        Long id = responsavel.getId();
+        TypedQuery<Responsavel> query = em.createQuery("select r from Responsavel r where r.id=:id", Responsavel.class);
+        query.setParameter("id", id);
+        return query.getResultStream().findFirst().orElse(null);
     }
 
     @Override
     public Responsavel findByLogin(Responsavel responsavel) {
-            String login = responsavel.getLogin();
-            TypedQuery<Responsavel> query =  em.createQuery("select r from Responsavel r where r.login=:email", Responsavel.class);
-            query.setParameter("email", login);
-            return query.getResultStream().findFirst().orElse(null);
+        String login = responsavel.getLogin();
+        TypedQuery<Responsavel> query = em.createQuery("select r from Responsavel r where r.login=:email", Responsavel.class);
+        query.setParameter("email", login);
+        return query.getResultStream().findFirst().orElse(null);
     }
 
     @Override
     public List<Responsavel> getAll() {
         return em
-            .createQuery("FROM Responsavel", Responsavel.class)
-            .getResultList();
+                .createQuery("FROM Responsavel", Responsavel.class)
+                .getResultList();
     }
+
     @Override
     public Responsavel findBytelefone(Responsavel responsavel) {
         String telefone = responsavel.getTelefone();

@@ -6,7 +6,7 @@ import jakarta.persistence.EntityTransaction;
 
 // Quero usar essa classe para diminuir a repetição de código
 // TODO - verificar soluções para implementar o R: Read das operacoes
-public abstract class crudDAOImpl <T> implements crudDAO <T>{
+public abstract class crudDAOImpl<T> implements crudDAO<T> {
     private final EntityManager em = JPAUtil.getEntityManagerFactory();
 
     public void save(T object) {
@@ -20,10 +20,9 @@ public abstract class crudDAOImpl <T> implements crudDAO <T>{
                 ts.rollback();
             }
             throw new RuntimeException("Erro ao salvar " + object.toString(), e);
-        } finally {
-            JPAUtil.shutdown();
         }
     }
+
     @Override
     public void update(T object) {
         EntityTransaction ts = em.getTransaction();
@@ -36,8 +35,6 @@ public abstract class crudDAOImpl <T> implements crudDAO <T>{
                 ts.rollback();
             }
             throw new RuntimeException("Erro ao atualizar " + object.toString(), e);
-        } finally {
-            JPAUtil.shutdown(); // encerrando conexao com o BD
         }
     }
 
@@ -52,8 +49,6 @@ public abstract class crudDAOImpl <T> implements crudDAO <T>{
                 ts.rollback();
             }
             throw new RuntimeException("Erro ao deletar " + object.toString(), e);
-        } finally {
-            JPAUtil.shutdown(); // encerrando conexao com o BD
         }
     }
 }
