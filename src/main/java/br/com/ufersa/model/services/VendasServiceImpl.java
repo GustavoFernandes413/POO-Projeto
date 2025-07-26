@@ -1,47 +1,76 @@
 package br.com.ufersa.model.services;
 
 import br.com.ufersa.model.dao.VendasDAO;
-import br.com.ufersa.model.dao.VendasDAOImpl;
+import br.com.ufersa.model.entities.StatusCompra;
 import br.com.ufersa.model.entities.Vendas;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class VendasServiceImpl implements VendasService {
-    private final VendasDAO vendasDTO ;
+    private List<ObserverVendas> observers = new ArrayList<>();
+    private final VendasDAO vendasDTO;
 
     public VendasServiceImpl(VendasDAO vendasDTO) {
         this.vendasDTO = vendasDTO;
     }
 
+    public void addObserver(ObserverVendas observer) {
+        observers.add(observer);
+    }
+
+    public void removeObserver(ObserverVendas observer) {
+        observers.remove(observer);
+    }
+
+    private void notifyVendaProcessada(Vendas venda) {
+        for (ObserverVendas observer : observers) {
+            observer.onVendaProcessada(venda);
+        }
+    }
+
+    private void notifyVendaCancelada(Vendas venda) {
+        for (ObserverVendas observer : observers) {
+            observer.onVendaCancelada(venda);
+        }
+    }
+
     @Override
     public void criarVenda(Vendas vendas) {
-        vendasDTO.save(vendas);
+        if (validarVendas(vendas)) {
+            vendasDTO.save(vendas);
+            notifyVendaProcessada(vendas); // envia notificacao para Equipamentos para o estoque ser atualizado
+        } else {
+            throw new RuntimeException("Venda com dados indefinidos");
+        }
     }
+
     @Override
-    public Vendas getVendaById(Long vendas){
-        if(validarVendas(vendas)) return vendasDTO.findById(vendas);
-        else throw  new IllegalArgumentException("Valor do Id é invalido.");
+    public void cancelamento(Vendas venda) {
+        if (validarVendas(venda) && venda.getStatus() == StatusCompra.CONCLUIDA) {
+            venda.setStatus(StatusCompra.CANCELADA); // TODO no futuro, adicionar uma enumeracao
+            vendasDTO.update(venda);
+            notifyVendaCancelada(venda);
+        } else throw new IllegalArgumentException("Valor do Id é invalido.");
+    }
+
+    @Override
+    public Vendas getVendaById(Vendas vendas) {
+        if (validarVendas(vendas)) return vendasDTO.findById(vendas);
+        else throw new IllegalArgumentException("Valor do Id é invalido.");
 
     }
-    public  Vendas gerarNotaVenda(Vendas venda){
-    // TODO verifica melhor forma de implementar
+
+    public Vendas gerarNotaVenda(Vendas venda) {
+        // TODO verifica melhor forma de implementar
         return venda;
     }
+
     @Override
-    public List<Vendas> relatorio(Timestamp dataInicio, Timestamp dataFim){
-        if(validarVendas(dataInicio) && validarVendas(dataFim)) return vendasDTO.relatorio(dataInicio, dataFim);
-        else throw  new IllegalArgumentException("Valor do Data <UNK> invalido.");
-    }
-    // TODO - PASSAR o objeto em lugar do id
-    @Override
-    public Vendas cancelamento(Vendas venda){
-        if(validarVendas(venda)) {
-            venda.setStatus("CANCELADO"); // TODO no futuro, adicionar uma enumeracao
-            vendasDTO.update(venda);
-            return venda;
-        }
-        else throw  new IllegalArgumentException("Valor do Id é invalido.");
+    public List<Vendas> relatorio(Timestamp dataInicio, Timestamp dataFim) {
+        if (validarVendas(dataInicio) && validarVendas(dataFim)) return vendasDTO.relatorio(dataInicio, dataFim);
+        else throw new IllegalArgumentException("Valor do Data <UNK> invalido.");
     }
 
 

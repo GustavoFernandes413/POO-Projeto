@@ -5,9 +5,7 @@ import java.util.List;
 
 public interface EquipamentosService {
     void cadastraEquipamento(Equipamentos equip);
-    void comprarEquipamento(Equipamentos equip, int quantidade);
-    void venderEquipamento(Equipamentos equip, int quantidade);
-    Equipamentos getEquipamentoById(Long id);
+    Equipamentos getEquipamentoById(Equipamentos equip);
     List<Equipamentos> getAllEquipamentos();
     Equipamentos findByNomeEquipamento(Equipamentos equipamentos);
     void alterarPreco(Equipamentos id);

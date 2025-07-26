@@ -5,19 +5,22 @@ import br.com.ufersa.model.entities.*;
 import br.com.ufersa.model.services.*;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         PessoaService pessoaService = new PessoaServiceImpl(new PessoaDAOImpl());
         LocaisService locaisService = new LocaisServiceImpl() ;
         ResponsavelService responsavelService = new ResponsavelServiceImpl(new ResponsavelDAOImpl(),pessoaService);
         EquipamentosService equipamentosService = new EquipamentosServiceImpl(new EquipamentosDAOImpl());
         ClienteService clienteService = new ClienteServiceImpl(pessoaService,new ClienteDAOImpl() );
         VendasService vendasService = new VendasServiceImpl(new VendasDAOImpl());
+        ObserverVendas vendasObserver = new EquipamentosServiceImpl(new EquipamentosDAOImpl());
 
         // criando locais e responsaveis
         Locais locais = new Locais( "Quarto", "Casa do Perna-Longa");
-        //locaisService.cadastrarLocal(locais);
+        locaisService.cadastrarLocal(locais);
 
         Pessoa pessoa = new Pessoa("Patolino", "Warner Bros");
         Cliente cliente = new Cliente( pessoa.getNome(), pessoa.getEndereco(),"111.222.333-44");
@@ -36,14 +39,34 @@ public class Main {
         responsavelEq.setId(2L);
         Responsavel responsavelId = responsavelService.getPessoaById(responsavelEq);
         Equipamentos equipamentos = new Equipamentos();
-        equipamentos.setId(1L);
-        Equipamentos equipamentoId = equipamentosService.getEquipamentoById(equipamentos.getId());
+        equipamentos.setId(2L);
+        Equipamentos equipamentoId = equipamentosService.getEquipamentoById(equipamentos);
 
-       // Equipamentos equipamentos = new Equipamentos("Notebook Positivo Celeron", Long.valueOf(12398230),
-       //         1.99, 10, locId, responsavelId);
-        //equipamentosService.cadastraEquipamento(equipamentos);
+        vendasService.addObserver(vendasObserver);
 
-        Vendas vendas = new Vendas(1231032L, clienteId, equipamentoId, locId, responsavelId,"Concluida", Timestamp.valueOf("2021-04-04 08:30:00"));
-        vendasService.criarVenda(vendas);
+        Equipamentos equipamento = new Equipamentos("Mouse Dragon", Long.valueOf(12398230),
+                139.99, 14, locId, responsavelId);
+        //equipamentosService.cadastraEquipamento(equipamento);
+        Equipamentos equi01 =  new Equipamentos();
+        Equipamentos equi02 =  new Equipamentos();
+        Equipamentos equi03 =  new Equipamentos();
+        equi01.setId(1L);
+        equi02.setId(2L);
+
+
+
+
+
+        Vendas vendas = new Vendas(1231032L, clienteId, responsavelId,StatusCompra.CONCLUIDA, Timestamp.valueOf("2021-04-04 08:30:00"));
+
+        vendas.addItem(new ItemVenda(equipamentosService.getEquipamentoById(equi01), 6));
+        vendas.addItem(new ItemVenda(equipamentosService.getEquipamentoById(equi02), 1));
+        //vendasService.criarVenda(vendas);
+        Vendas vendaCancelamento = new Vendas();
+        vendaCancelamento.setId(3L);
+        Vendas vendaId = vendasService.getVendaById(vendaCancelamento);
+        vendasService.cancelamento(vendaId);
+
+
     }
 }

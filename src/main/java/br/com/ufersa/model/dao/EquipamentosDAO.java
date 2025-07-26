@@ -5,7 +5,7 @@ import br.com.ufersa.model.entities.Equipamentos;
 import java.util.List;
 
 public interface EquipamentosDAO extends crudDAO<Equipamentos> {
-    Equipamentos findById(Long id);
+    Equipamentos findById(Equipamentos equip);
     List<Equipamentos> getAll();
     Equipamentos findByName(Equipamentos equipamentos);
 }

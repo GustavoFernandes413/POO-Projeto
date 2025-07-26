@@ -3,6 +3,8 @@ package br.com.ufersa.model.entities;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Vendas")
@@ -13,25 +15,47 @@ public class Vendas {
     private Long id;
     @Column(name = "cod_venda")
     private Long codigoVenda;
-    @Column(name = "status", nullable = false)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private StatusCompra status;
     @Column(name = "data")
     private Timestamp data;
 
-    // TODO verificar se o cascade é adequado
+    // regra: uma venda pertence a um único cliente
     @ManyToOne
-    @JoinColumn(name= "fk_cliente")
+    @JoinColumn(name = "fk_cliente")
     private Cliente cliente;
 
+    // regra: uma venda possui múltiplos itens
+    @OneToMany(mappedBy = "venda", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<ItemVenda> itens = new ArrayList<>();
+
+    // regra: uma venda pertence a um único responsável
     @ManyToOne
-    @JoinColumn(name = "fk_equipamentos")
-    private Equipamentos equipamento;
-    @ManyToOne
-    @JoinColumn(name = "fk_locais")
-    private Locais local;
-    @ManyToOne
-    @JoinColumn(name="fk_responsavel")
+    @JoinColumn(name = "fk_responsavel")
     private Responsavel responsavel;
+
+    // metodos para garantir integridade bidirecional
+    public void addItem(ItemVenda item) {
+        if (item != null) {
+            this.itens.add(item);
+            item.setVenda(this); // Garante a ligação bidirecional
+        }
+    }
+
+    public void removeItem(ItemVenda item) {
+        if (item != null) {
+            this.itens.remove(item);
+            item.setVenda(null); // Remove a ligação bidirecional
+        }
+    }
+
+    public List<ItemVenda> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItemVenda> itens) {
+        this.itens = itens;
+    }
 
     public Long getId() {
         return id;
@@ -58,24 +82,7 @@ public class Vendas {
     }
 
     public void setCliente(Cliente cliente) {
-         this.cliente = cliente;
-    }
-
-    public Equipamentos getEquipamento() {
-        return equipamento;
-    }
-
-    public void setEquipamento(Equipamentos equipamento) {
-         this.equipamento = equipamento;
-    }
-
-    public Locais getLocal() {
-        return local;
-    }
-
-    public void setLocal(Locais local) {
-        if (validarVendas(local)) this.local = local;
-        else System.out.println("Erro! Objeto não pode estar indefinido");
+        this.cliente = cliente;
     }
 
     public Responsavel getResponsavel() {
@@ -87,11 +94,11 @@ public class Vendas {
         else System.out.println("Erro! Objeto não pode estar indefinido");
     }
 
-    public String getStatus() {
+    public StatusCompra getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusCompra status) {
         if (validarVendas(status)) {
             this.status = status;
         } else {
@@ -117,22 +124,19 @@ public class Vendas {
     }
 
     public Vendas(
-        Long codigoVenda,
-        Cliente cliente,
-        Equipamentos equipamento,
-        Locais local,
-        Responsavel responsavel,
-        String status,
-        Timestamp data
+            Long codigoVenda,
+            Cliente cliente,
+            Responsavel responsavel,
+            StatusCompra status,
+            Timestamp data
     ) {
         setCodigoVenda(codigoVenda);
         setCliente(cliente);
-        setEquipamento(equipamento);
-        setLocal(local);
         setResponsavel(responsavel);
         setStatus(status);
         setData(data);
     }
+
     // mesmo método é usado para os tipos Responsavel, Local e Equipamentos, por isso o uso de generics.
     public static <T> boolean validarVendas(T objeto) {
         return (objeto != null);
@@ -159,10 +163,6 @@ public class Vendas {
                         '\'' +
                         ", cliente: " +
                         getCliente() +
-                        ", equipamento: " +
-                        getEquipamento().toString() +
-                        ", local: " +
-                        getLocal().toString() +
                         ", responsavel: " +
                         getResponsavel().toString() +
                         '}'

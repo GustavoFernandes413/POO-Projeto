@@ -9,11 +9,11 @@ import java.util.List;
 @DiscriminatorValue("Responsavel")
 public class Responsavel extends Pessoa {
     // adicao de sistema de Login
-    @Column(length = 50, nullable = false, unique = true)
+    @Column(length = 50,  unique = true)
     private String login;
-    @Column(length = 20, nullable = false)
+    @Column(length = 20)
     private String senha;
-    @Column(length = 20, nullable = false, unique = true)
+    @Column(length = 20, unique = true)
     private String telefone;
 
     @OneToMany( mappedBy = "responsavel",cascade = CascadeType.MERGE) // usa-se o lazy por padrao

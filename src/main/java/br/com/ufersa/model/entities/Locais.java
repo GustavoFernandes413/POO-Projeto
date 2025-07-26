@@ -18,8 +18,6 @@ public class Locais {
     private String nomeCompartimento;
     @OneToMany(mappedBy = "local",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Equipamentos> equipamentos = new ArrayList<>();
-    @OneToMany(mappedBy = "local", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    private List<Vendas> vendas = new ArrayList<>();
 
     public String getNomeCasa() {
         return nomeCasa;

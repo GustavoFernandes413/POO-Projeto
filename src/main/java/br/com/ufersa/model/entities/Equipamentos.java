@@ -1,4 +1,5 @@
 package br.com.ufersa.model.entities;
+
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 @Entity
 @Table(name = "Equipamentos")
 public class Equipamentos {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,18 +19,22 @@ public class Equipamentos {
     private String nome;
     @Column(nullable = false, name = "preco")
     private double preco;
-    @Column(nullable = false, name= "quantidade")
-    private int quantidade;
+    @Column(nullable = false, name = "quantidade_estoque")
+    private int quantidadeEstoque;
 
+    // regra: cada Equipamento está associado a um local
     @ManyToOne
     @JoinColumn(name = "fk_locais")
     private Locais local;
+    // regra: cada Equipamento possui um único responsavel
     @ManyToOne
     @JoinColumn(name = "fk_responsavel")
     private Responsavel responsavel;
 
-    @OneToMany(mappedBy = "equipamento", cascade = CascadeType.MERGE)
-    private List<Vendas> vendas = new ArrayList<>();
+    // Vou descidir se é preciso um relacionamento bidirecional aqui
+//    @OneToMany(mappedBy = "equipamento", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+//    private List<ItemVenda> itensDeVenda = new ArrayList<>();
+
 
     public Long getId() {
         return id;
@@ -74,13 +80,13 @@ public class Equipamentos {
         }
     }
 
-    public int getQuantidade() {
-        return quantidade;
+    public int getQuantidadeEstoque() {
+        return quantidadeEstoque;
     }
 
-    public void setQuantidade(int quantidade) {
-        if (validarEqui(quantidade)) {
-            this.quantidade = quantidade;
+    public void setQuantidadeEstoque(int quantidadeEstoque) {
+        if (validarEqui(quantidadeEstoque)) {
+            this.quantidadeEstoque = quantidadeEstoque;
         } else {
             System.out.println("Erro! Não pode ser menor que zero.");
         }
@@ -115,17 +121,17 @@ public class Equipamentos {
     }
 
     public Equipamentos(
-        String nome,
-        Long numeroSerie,
-        double preco,
-        int quantidade,
-        Locais local,
-        Responsavel responsavel
+            String nome,
+            Long numeroSerie,
+            double preco,
+            int quantidade,
+            Locais local,
+            Responsavel responsavel
     ) {
         setNome(nome);
         setNumeroSerie(numeroSerie);
         setPreco(preco);
-        setQuantidade(quantidade);
+        setQuantidadeEstoque(quantidade);
         setLocal(local);
         setResponsavel(responsavel);
     }
@@ -155,16 +161,16 @@ public class Equipamentos {
     @Override
     public String toString() {
         return (
-            "Nome:" +
-            nome +
-            "/nNumeroSerie:" +
-            numeroSerie +
-            "/nPreco: " +
-            preco +
-            "/nLocal:  Nome Casa: " +
-            getLocal().toString() +
-            "/nResponsavel: Nome: " +
-            getResponsavel()
+                "Nome:" +
+                        nome +
+                        "/nNumeroSerie:" +
+                        numeroSerie +
+                        "/nPreco: " +
+                        preco +
+                        "/nLocal:  Nome Casa: " +
+                        getLocal().toString() +
+                        "/nResponsavel: Nome: " +
+                        getResponsavel()
         );
     }
 

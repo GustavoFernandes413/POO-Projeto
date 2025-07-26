@@ -32,9 +32,9 @@ public class VendasDAOImpl extends crudDAOImpl<Vendas> implements VendasDAO {
         }
     }
     @Override
-    public Vendas findById(Long id)
+    public Vendas findById(Vendas vendas)
     {
-
+        Long id = vendas.getId();
         try {
             return em.find(Vendas.class, id);
         } catch (IllegalArgumentException e) {
