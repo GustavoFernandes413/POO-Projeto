@@ -57,15 +57,21 @@ public class Main {
 
 
 
-        Vendas vendas = new Vendas(1231032L, clienteId, responsavelId,StatusCompra.CONCLUIDA, Timestamp.valueOf("2021-04-04 08:30:00"));
 
-        vendas.addItem(new ItemVenda(equipamentosService.getEquipamentoById(equi01), 6));
-        vendas.addItem(new ItemVenda(equipamentosService.getEquipamentoById(equi02), 1));
-        //vendasService.criarVenda(vendas);
+        // construcao de venda usando builder
+        Vendas venda02 = new Vendas.Builder().data(Timestamp.valueOf("2021-04-04 08:30:00"))
+                .cliente(clienteId)
+                .responsavel(responsavelId)
+                .status(StatusCompra.CONCLUIDA)
+                .codigoVenda(1231032L)
+                .addItem(new ItemVenda(equipamentosService.getEquipamentoById(equi01), 6))
+                .addItem(new ItemVenda(equipamentosService.getEquipamentoById(equi02), 3))
+                .build();
+        vendasService.criarVenda(venda02);
         Vendas vendaCancelamento = new Vendas();
         vendaCancelamento.setId(3L);
         Vendas vendaId = vendasService.getVendaById(vendaCancelamento);
-        vendasService.cancelamento(vendaId);
+        //vendasService.cancelamento(vendaId);
 
 
     }

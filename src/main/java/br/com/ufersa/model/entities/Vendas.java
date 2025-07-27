@@ -123,19 +123,6 @@ public class Vendas {
         //construtor vazio
     }
 
-    public Vendas(
-            Long codigoVenda,
-            Cliente cliente,
-            Responsavel responsavel,
-            StatusCompra status,
-            Timestamp data
-    ) {
-        setCodigoVenda(codigoVenda);
-        setCliente(cliente);
-        setResponsavel(responsavel);
-        setStatus(status);
-        setData(data);
-    }
 
     // mesmo método é usado para os tipos Responsavel, Local e Equipamentos, por isso o uso de generics.
     public static <T> boolean validarVendas(T objeto) {
@@ -167,5 +154,63 @@ public class Vendas {
                         getResponsavel().toString() +
                         '}'
         );
+
+
+    }
+    // Aplicacao do patter builder: motivação objeto Vendas é bastante complexo e exige vários argumentos no construtor
+
+    Vendas(Builder builder) {
+        this.codigoVenda = builder.codigoVenda;
+        this.cliente = builder.cliente;
+        this.responsavel = builder.responsavel;
+        this.status = builder.status;
+        this.data = builder.data;
+        this.itens = builder.itens;
+    }
+
+    public static class Builder {
+        private Long codigoVenda;
+        private StatusCompra status;
+        private Timestamp data;
+
+        private Cliente cliente;
+
+        private List<ItemVenda> itens = new ArrayList<>();
+
+        private Responsavel responsavel;
+
+        public Builder codigoVenda(Long codigoVenda) {
+            this.codigoVenda = codigoVenda;
+            return this;
+        }
+
+        public Builder status(StatusCompra status) {
+            this.status = status;
+            return this;
+        }
+
+        public Builder data(Timestamp data) {
+            this.data = data;
+            return this;
+        }
+
+        public Builder cliente(Cliente cliente) {
+            this.cliente = cliente;
+            return this;
+        }
+
+        public Builder responsavel(Responsavel responsavel) {
+            this.responsavel = responsavel;
+            return this;
+        }
+
+        public Builder addItem(ItemVenda item) {
+            this.itens.add(item);
+            return this;
+        }
+
+        public Vendas build() {
+            return new Vendas(this);
+        }
     }
 }
