@@ -4,12 +4,13 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @DiscriminatorValue("Responsavel")
 public class Responsavel extends Pessoa {
     // adicao de sistema de Login
-    @Column(length = 50, unique = true)
+    @Column(length = 50, unique = true, nullable = false, updatable = false) // nao permite atualizar login
     private String login;
     @Column(length = 20)
     private String senha;
@@ -86,6 +87,18 @@ public class Responsavel extends Pessoa {
     }
 
     public Responsavel() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Responsavel that = (Responsavel) o;
+        return Objects.equals(login, that.login) ;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(login);
     }
 
 

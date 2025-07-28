@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.ufersa.presenter.locais.TelaTabelaLocaisPresenter">
+   <children>
+      <TableView fx:id="tabelaLocais" layoutX="3.0" layoutY="4.0" prefHeight="400.0" prefWidth="594.0">
+        <columns>
+          <TableColumn fx:id="colNomeCasa" prefWidth="121.0" text="Nome da Casa" />
+          <TableColumn fx:id="colNomeCompartimento" prefWidth="202.0" text="Nome compatimento" />
+            <TableColumn fx:id="colAcoes" prefWidth="238.0" text="Açoes" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

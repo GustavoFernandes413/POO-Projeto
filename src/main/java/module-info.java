@@ -15,13 +15,15 @@ module br.com.ufersa {
 
     requires org.hibernate.orm.core;
     requires mysql.connector.j;
-    opens br.com.ufersa.model.entities to org.hibernate.orm.core;
+    opens br.com.ufersa.model.entities to org.hibernate.orm.core,  javafx.fxml, javafx.base;
+
     opens br.com.ufersa.presenter to javafx.fxml;
     exports br.com.ufersa.view;
     opens br.com.ufersa.view to javafx.fxml;
     opens br.com.ufersa.presenter.locais to javafx.fxml;
-
     opens br.com.ufersa.presenter.equipamentos to javafx.fxml;
     opens br.com.ufersa.presenter.clientes to javafx.fxml;
+
+
 
 }

@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 public class TelaPrincipalCadastroPresenter {
+    // TODO mudar para criar um novo palco para os forms
     @FXML public void irTelaCadastrarEquipamento(ActionEvent event){
         LoginResponsavel.telaCadastrarEquipamento();
 

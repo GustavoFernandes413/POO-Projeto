@@ -14,7 +14,7 @@ public class TelaPrincipal {
     @FXML public void IrTelaCadastroEdicao (ActionEvent event){
         LoginResponsavel.telaPrincipalCadastro();
     }
-
+    @FXML public void IrTelaListagem(ActionEvent event){LoginResponsavel.telaPrincipalListagem();}
 
 
 }

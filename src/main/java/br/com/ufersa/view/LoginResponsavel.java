@@ -3,7 +3,9 @@ package br.com.ufersa.view;
 import com.mysql.cj.log.Log;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -27,6 +29,18 @@ public class LoginResponsavel extends Application {
         stage.setTitle(titulo);
         stage.setScene(scene);
         stage.show();
+    }
+
+    // TODO Quando precisar criar um novo palco
+    public static void carregarPalcoComRaiz(Parent raiz, String titulo) {
+        Stage stageTemporario = new Stage();
+        Scene scene = null;
+        scene = new Scene(raiz, 800, 600);
+        stageTemporario.initModality(Modality.WINDOW_MODAL); // Bloqueia a janela principal
+        stageTemporario.showAndWait();
+        stageTemporario.setTitle(titulo);
+        stageTemporario.setScene(scene);
+        stageTemporario.show();
     }
 
     public static void telaPrincipal() {
@@ -53,11 +67,30 @@ public class LoginResponsavel extends Application {
     public static void telaCadastrarEquipamento() {
         carregarCena("Equipamentos", "tela-cadastrar-equipamento.fxml");
     }
+
     public static void telaCadastrarCliente() {
         carregarCena("Clientes", "tela-cadastrar-cliente.fxml");
     }
+
     public static void telaCadastrarLocais() {
         carregarCena("Locais", "tela-cadastro-locais.fxml");
+    }
+    // tabelas
+
+    public static void telaPrincipalListagem() {
+        carregarCena("Listagem", "tela-principal-listagem.fxml");
+    }
+
+    public static void telaTabelaClientes() {
+        carregarCena("Lista de clientes cadastrados", "tela-tabela-clientes.fxml");
+    }
+
+    public static void telaTabelaEquipamentos() {
+        carregarCena("Lista de equipamentos em estoque", "tela-tabela-equipamentos.fxml");
+    }
+
+    public static void telaTabelaLocais() {
+        carregarCena("Lista de locais cadastrados", "tela-tabela-locais.fxml");
     }
 
 

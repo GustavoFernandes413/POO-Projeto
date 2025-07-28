@@ -13,11 +13,31 @@ public class LocaisServiceImpl implements LocaisService {
         this.locaisDAO = locaisDAO;
     }
 
+    @Override
+    public void editarLocais(Locais local) throws Exception {
+        try {
+            locaisDAO.update(local);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao atualizar Local!");
+        }
+    }
+
+    @Override
+    public void deletarLocais(Locais local) throws Exception {
+        try {
+            locaisDAO.delete(local);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao deletar local!");
+        }
+    }
+
 
     @Override
     public void cadastrarLocal(Locais local) throws RuntimeException {
         try {
-            locaisDAO.update(local);
+            locaisDAO.save(local);
 
         } catch (Exception e) {
             throw new RuntimeException("Este Local já esta cadastrado!");

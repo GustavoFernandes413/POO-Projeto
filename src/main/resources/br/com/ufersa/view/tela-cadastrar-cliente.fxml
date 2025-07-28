@@ -12,7 +12,7 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.ufersa.presenter.clientes.TelaCadastroClientesPresenter">
    <children>
       <Button layoutX="41.0" layoutY="272.0" mnemonicParsing="false" onAction="#voltar" text="Voltar" />
-      <Button layoutX="247.0" layoutY="297.0" mnemonicParsing="false" onAction="#cadastrarCliente" text="Cadastrar Cliente" />
+      <Button layoutX="247.0" layoutY="297.0" mnemonicParsing="false" onAction="#cadastrarCliente" text="Salvar" />
       <TextField fx:id="enderecoCliente" layoutX="226.0" layoutY="175.0" />
       <TextField fx:id="nomeCliente" layoutX="226.0" layoutY="139.0" />
       <TextField fx:id="cpfCliente" layoutX="226.0" layoutY="214.0" />

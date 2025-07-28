@@ -14,7 +14,7 @@
       <Label layoutX="88.0" layoutY="209.0" text="Local do Compartimento" />
       <TextField fx:id="NomeCasa" layoutX="238.0" layoutY="172.0" />
       <TextField fx:id="LocalCompartimento" layoutX="238.0" layoutY="205.0" />
-      <Button layoutX="346.0" layoutY="278.0" mnemonicParsing="false" onAction="#cadastrar" text="Salvar" />
+      <Button layoutX="346.0" layoutY="278.0" mnemonicParsing="false" onAction="#salvar" text="Salvar" />
       <Button layoutX="60.0" layoutY="278.0" mnemonicParsing="false" onAction="#voltar" text="Voltar" />
       <Label fx:id="erro" layoutX="189.0" layoutY="132.0" text="Label" visible="false" />
    </children>

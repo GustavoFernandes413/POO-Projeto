@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Locais",  uniqueConstraints = {
@@ -66,4 +67,17 @@ public class Locais {
     public String toString() {
         return  this.getNomeCasa() + "," +this.getNomeCompartimento();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Locais locais = (Locais) o;
+        return Objects.equals(id, locais.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
+

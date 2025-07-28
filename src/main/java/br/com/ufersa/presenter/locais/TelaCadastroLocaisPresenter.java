@@ -22,8 +22,15 @@ public class TelaCadastroLocaisPresenter {
 
 
     LocaisService locaisService = new LocaisServiceImpl(new LocaisDAOImpl());
-    Locais local = new Locais();
-    public  void cadastrar(ActionEvent event){
+    Locais localSelecionado;
+
+    public void salvar(ActionEvent event) {
+         if(localSelecionado == null) cadastrar();
+         else editar();
+
+    }
+    public  void cadastrar(){
+        Locais local = new Locais();
         local.setNomeCasa(NomeCasa.getText());
         local.setNomeCompartimento(LocalCompartimento.getText());
         try {
@@ -36,6 +43,26 @@ public class TelaCadastroLocaisPresenter {
             erro.setVisible(true);
         }
 
+    }
+    public  void editar(){
+        localSelecionado.setNomeCasa(NomeCasa.getText());
+        localSelecionado.setNomeCompartimento(LocalCompartimento.getText());
+        try {
+            locaisService.editarLocais(localSelecionado);
+            JOptionPane.showMessageDialog(null, "Local atualizado com sucesso!");
+            LoginResponsavel.telaTabelaLocais(); // volta para a tabela ao atualizar
+        }catch (Exception e){
+            erro.setText(e.getMessage());
+            erro.setTextFill(Color.RED);
+            erro.setVisible(true);
+        }
+
+    }
+    // sera chamado ao clicar link da tabela
+    public  void carregarLocalEdicao(Locais local){
+        this.localSelecionado = local;
+        NomeCasa.setText(local.getNomeCasa());
+        LocalCompartimento.setText(local.getNomeCompartimento());
     }
     @FXML public void voltar(ActionEvent event){
         LoginResponsavel.telaPrincipalCadastro();
