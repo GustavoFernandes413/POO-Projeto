@@ -160,19 +160,6 @@ public class Equipamentos {
 
     @Override
     public String toString() {
-        return (
-                "Nome:" +
-                        nome +
-                        "/nNumeroSerie:" +
-                        numeroSerie +
-                        "/nPreco: " +
-                        preco +
-                        "/nLocal:  Nome Casa: " +
-                        getLocal().toString() +
-                        "/nResponsavel: Nome: " +
-                        getResponsavel()
-        );
+        return  this.getNumeroSerie() +" - "+ this.getNome()+ " - " + this.getQuantidadeEstoque() + " - " + this.getPreco() ;
     }
-
-
 }

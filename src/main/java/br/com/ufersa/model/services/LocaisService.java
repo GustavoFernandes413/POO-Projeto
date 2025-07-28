@@ -4,7 +4,7 @@ import br.com.ufersa.model.entities.Locais;
 import java.util.List;
 
 public interface LocaisService {
-    void cadastrarLocal(Locais local);
+    void cadastrarLocal(Locais local) throws  Exception;
     void mudarLocal(Locais local);
     Locais getLocalById(Long id);
     List<Locais> getAllLocais();

@@ -8,7 +8,6 @@ import br.com.ufersa.model.services.PessoaServiceImpl;
 import br.com.ufersa.model.services.ResponsavelService;
 import br.com.ufersa.model.services.ResponsavelServiceImpl;
 import br.com.ufersa.view.LoginResponsavel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;

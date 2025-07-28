@@ -65,8 +65,9 @@ public class ResponsavelServiceImpl implements ResponsavelService {
     public Responsavel getPessoaById(Responsavel responsavel) {
         return responsavelDAO.findById(responsavel);
     }
-    public List<Pessoa> getAllPessoas() {
-        return pessoaService.getAllPessoas();
+
+    public List<Responsavel> getAllPessoas() {
+        return responsavelDAO.getAll();
     }
 
 

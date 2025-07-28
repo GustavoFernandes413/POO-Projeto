@@ -28,7 +28,7 @@ public class ClienteServiceImpl  implements ClienteService{
         public Cliente  getPessoaById(Cliente cliente) {
             return clienteDAO.findById(cliente);
         }
-        public List<Pessoa> getAllPessoas() {
+        public List<Cliente> getAllPessoas() {
             return pessoaService.getAllPessoas();
         }
         @Override

@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "Locais")
+@Table(name = "Locais",  uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"nomeCasa", "nomeCompartimento"})
+})
 
 public class Locais {
     @Id
@@ -62,11 +64,6 @@ public class Locais {
     }
     @Override
     public String toString() {
-        return (
-                "Nome da Casa: " +
-                        getNomeCasa() +
-                        "Compartimento: " +
-                        getNomeCompartimento()
-        );
+        return  this.getNomeCasa() + "," +this.getNomeCompartimento();
     }
 }
