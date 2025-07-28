@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 // TODO:: usar excessoes dentro dos modificadores de acesso
 @Entity
@@ -161,5 +162,17 @@ public class Equipamentos {
     @Override
     public String toString() {
         return  this.getNumeroSerie() +" - "+ this.getNome()+ " - " + this.getQuantidadeEstoque() + " - " + this.getPreco() ;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Equipamentos that = (Equipamentos) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

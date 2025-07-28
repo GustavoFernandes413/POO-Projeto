@@ -48,6 +48,10 @@ public class EquipamentosServiceImpl implements EquipamentosService,  ObserverVe
         }
         equipamentosDAO.save(equip);
     }
+    @Override
+    public void editarEquipamento(Equipamentos equip) {
+        equipamentosDAO.update(equip);
+    }
 
     // TODO - mudar de Id para Equipamentos
     @Override

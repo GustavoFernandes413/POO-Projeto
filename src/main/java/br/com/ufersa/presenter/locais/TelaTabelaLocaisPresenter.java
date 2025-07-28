@@ -1,12 +1,9 @@
 package br.com.ufersa.presenter.locais;
 
 import br.com.ufersa.model.dao.LocaisDAOImpl;
-import br.com.ufersa.model.dao.PessoaDAOImpl;
 import br.com.ufersa.model.entities.Locais;
 import br.com.ufersa.model.services.LocaisService;
 import br.com.ufersa.model.services.LocaisServiceImpl;
-import br.com.ufersa.model.services.PessoaServiceImpl;
-import br.com.ufersa.view.LoginResponsavel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

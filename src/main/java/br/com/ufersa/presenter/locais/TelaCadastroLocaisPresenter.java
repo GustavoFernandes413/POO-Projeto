@@ -29,6 +29,8 @@ public class TelaCadastroLocaisPresenter {
          else editar();
 
     }
+    // consume servico de cadastro
+
     public  void cadastrar(){
         Locais local = new Locais();
         local.setNomeCasa(NomeCasa.getText());
@@ -36,7 +38,6 @@ public class TelaCadastroLocaisPresenter {
         try {
             locaisService.cadastrarLocal(local);
             JOptionPane.showMessageDialog(null, "Novo Local Cadastrado com sucesso!");
-            LoginResponsavel.telaPrincipalCadastro();
         }catch (Exception e){
             erro.setText(e.getMessage());
             erro.setTextFill(Color.RED);
@@ -44,13 +45,13 @@ public class TelaCadastroLocaisPresenter {
         }
 
     }
+    // consume servico de editar
     public  void editar(){
         localSelecionado.setNomeCasa(NomeCasa.getText());
         localSelecionado.setNomeCompartimento(LocalCompartimento.getText());
         try {
             locaisService.editarLocais(localSelecionado);
             JOptionPane.showMessageDialog(null, "Local atualizado com sucesso!");
-            LoginResponsavel.telaTabelaLocais(); // volta para a tabela ao atualizar
         }catch (Exception e){
             erro.setText(e.getMessage());
             erro.setTextFill(Color.RED);

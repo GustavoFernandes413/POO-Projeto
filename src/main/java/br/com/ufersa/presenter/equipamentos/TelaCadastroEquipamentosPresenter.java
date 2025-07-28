@@ -46,7 +46,7 @@ public class TelaCadastroEquipamentosPresenter implements Initializable {
     LocaisService locaisService = new LocaisServiceImpl(new LocaisDAOImpl());
     ResponsavelService responsavelService = new ResponsavelServiceImpl(new ResponsavelDAOImpl(), new PessoaServiceImpl(new PessoaDAOImpl()));
 
-    Equipamentos equipamentoPersistir = new Equipamentos();
+    Equipamentos equipamentoSelecionado ;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -54,7 +54,14 @@ public class TelaCadastroEquipamentosPresenter implements Initializable {
         carregarResponsaveis();
     }
 
-    public void cadastrarEquipamento(ActionEvent event) {
+    public void salvar(ActionEvent event) {
+        if(equipamentoSelecionado == null) cadastrar();
+        else editar();
+
+    }
+
+    public void cadastrar() {
+        Equipamentos equipamentoPersistir = new Equipamentos();
 
         equipamentoPersistir.setNome(nomeEquipamento.getText());
         equipamentoPersistir.setNumeroSerie(Long.valueOf(numeroSerie.getText()));
@@ -66,7 +73,26 @@ public class TelaCadastroEquipamentosPresenter implements Initializable {
         try {
             equipamentosService.cadastraEquipamento(equipamentoPersistir);
             JOptionPane.showMessageDialog(null, "Novo Equipamento cadastrado com sucesso!");
-            LoginResponsavel.telaPrincipalCadastro();
+        } catch (Exception e) {
+            erro.setText(e.getMessage());
+            erro.setTextFill(Color.RED);
+            erro.setVisible(true);
+        }
+
+    }
+
+    public void editar() {
+        equipamentoSelecionado.setNome(nomeEquipamento.getText());
+        equipamentoSelecionado.setNumeroSerie(Long.valueOf(numeroSerie.getText()));
+        equipamentoSelecionado.setQuantidadeEstoque(Integer.parseInt(quantidade.getText()));
+        equipamentoSelecionado.setPreco(Double.parseDouble(preco.getText()));
+        equipamentoSelecionado.setLocal( localEquipamento.getSelectionModel().getSelectedItem());
+        equipamentoSelecionado.setResponsavel( responsavelEquipamento.getSelectionModel().getSelectedItem());
+
+        try {
+            equipamentosService.editarEquipamento(equipamentoSelecionado);
+            JOptionPane.showMessageDialog(null, " Equipamento editado com sucesso!");
+
         } catch (Exception e) {
             erro.setText(e.getMessage());
             erro.setTextFill(Color.RED);
@@ -87,9 +113,21 @@ public class TelaCadastroEquipamentosPresenter implements Initializable {
         responsavelEquipamento.setItems(observableLocais);
     }
 
+    // sera chamado ao clicar link da tabela
+    public  void carregarEquipamentoEdicao(Equipamentos equipamento){
+        this.equipamentoSelecionado = equipamento;
+        nomeEquipamento.setText(equipamento.getNome());
+        numeroSerie.setText(String.valueOf(equipamento.getNumeroSerie()));
+        quantidade.setText(String.valueOf(equipamento.getQuantidadeEstoque()));
+        preco.setText(String.valueOf(equipamento.getPreco()));
+        responsavelEquipamento.setValue(equipamento.getResponsavel());
+        localEquipamento.setValue(equipamento.getLocal());
+    }
     @FXML public void voltar(ActionEvent event){
         LoginResponsavel.telaPrincipalCadastro();
     }
+
+
 
 
 }

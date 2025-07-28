@@ -31,6 +31,20 @@ public class LoginResponsavel extends Application {
         stage.show();
     }
 
+    public static void carregarPalco(String titulo, String caminhoFXML) {
+        FXMLLoader fxmlLoader = new FXMLLoader(LoginResponsavel.class.getResource(caminhoFXML));
+        Scene scene = null;
+        Stage stageTemporario = new Stage();
+        try {
+            scene = new Scene(fxmlLoader.load(), 1000, 800);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        stageTemporario.setTitle(titulo);
+        stageTemporario.setScene(scene);
+        stageTemporario.show();
+    }
+
     // TODO Quando precisar criar um novo palco
     public static void carregarPalcoComRaiz(Parent raiz, String titulo) {
         Stage stageTemporario = new Stage();
@@ -75,6 +89,7 @@ public class LoginResponsavel extends Application {
     public static void telaCadastrarLocais() {
         carregarCena("Locais", "tela-cadastro-locais.fxml");
     }
+
     // tabelas
 
     public static void telaPrincipalListagem() {
@@ -82,15 +97,15 @@ public class LoginResponsavel extends Application {
     }
 
     public static void telaTabelaClientes() {
-        carregarCena("Lista de clientes cadastrados", "tela-tabela-clientes.fxml");
+        carregarPalco("Lista de clientes cadastrados", "tela-tabela-clientes.fxml");
     }
 
     public static void telaTabelaEquipamentos() {
-        carregarCena("Lista de equipamentos em estoque", "tela-tabela-equipamentos.fxml");
+        carregarPalco("Lista de equipamentos em estoque", "tela-tabela-equipamentos.fxml");
     }
 
     public static void telaTabelaLocais() {
-        carregarCena("Lista de locais cadastrados", "tela-tabela-locais.fxml");
+        carregarPalco("Lista de locais cadastrados", "tela-tabela-locais.fxml");
     }
 
 
