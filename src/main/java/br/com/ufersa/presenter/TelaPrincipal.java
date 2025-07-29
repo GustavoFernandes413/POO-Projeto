@@ -15,6 +15,7 @@ public class TelaPrincipal {
         LoginResponsavel.telaPrincipalCadastro();
     }
     @FXML public void IrTelaListagem(ActionEvent event){LoginResponsavel.telaPrincipalListagem();}
+    @FXML public void logOut(ActionEvent event){LoginResponsavel.telaLogin();}
 
 
 }

@@ -30,6 +30,9 @@ public class LoginResponsavel extends Application {
         stage.setScene(scene);
         stage.show();
     }
+    public static void retirarPaloco() {
+        stage.close();
+    }
 
     public static void carregarPalco(String titulo, String caminhoFXML) {
         FXMLLoader fxmlLoader = new FXMLLoader(LoginResponsavel.class.getResource(caminhoFXML));
@@ -66,28 +69,28 @@ public class LoginResponsavel extends Application {
     }
 
     public static void telaCadastro() {
-        carregarCena("Cadastro", "tela-cadastro.fxml");
+        carregarPalco("Cadastro", "tela-cadastro.fxml");
     }
 
     public static void telaPesquisaEquipamento() {
-        carregarCena("Pesquisar Equipamentos em estoque", "tela-pesquisar-equipamentos.fxml");
+        carregarPalco("Pesquisar Equipamentos em estoque", "tela-pesquisar-equipamentos.fxml");
     }
     // tela após clicar botao da tela princiapl Cadastro
 
     public static void telaPrincipalCadastro() {
-        carregarCena("Equipamentos", "tela-principal-cadastro.fxml");
+        carregarCena("Cadastro", "tela-principal-cadastro.fxml");
     }
 
     public static void telaCadastrarEquipamento() {
-        carregarCena("Equipamentos", "tela-cadastrar-equipamento.fxml");
+        carregarPalco("Equipamentos", "tela-cadastrar-equipamento.fxml");
     }
 
     public static void telaCadastrarCliente() {
-        carregarCena("Clientes", "tela-cadastrar-cliente.fxml");
+        carregarPalco("Clientes", "tela-cadastrar-cliente.fxml");
     }
 
     public static void telaCadastrarLocais() {
-        carregarCena("Locais", "tela-cadastro-locais.fxml");
+        carregarPalco("Locais", "tela-cadastro-locais.fxml");
     }
 
     // tabelas

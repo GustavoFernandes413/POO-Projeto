@@ -24,13 +24,23 @@ public class ClienteServiceImpl  implements ClienteService{
         public void mudarEndereco(Pessoa cliente){
             pessoaService.mudarEndereco(cliente);
         }
+
         @Override
         public Cliente  getPessoaById(Cliente cliente) {
             return clienteDAO.findById(cliente);
         }
         public List<Cliente> getAllPessoas() {
-            return pessoaService.getAllPessoas();
+            return clienteDAO.getAll();
         }
+        // TODO adicionar validacoes aqui
+        @Override
+        public void editarCliente(Cliente cliente){
+            if( clienteDAO.findByCPF(cliente) == null){
+                throw new IllegalArgumentException("Cliente não existente");
+            }
+            clienteDAO.update(cliente);
+        }
+
         @Override
         public void cadastrarCliente(Cliente cliente){
             // TODO implementar metodo que verifica se o cliente ja existe

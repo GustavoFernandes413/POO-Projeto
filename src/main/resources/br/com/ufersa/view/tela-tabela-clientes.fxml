@@ -6,9 +6,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="br.com.ufersa.presenter.clientes.TelaTabelaClientesPresenter"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<TableView fx:id="tabelaClientes" prefHeight="400.0" prefWidth="594.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.ufersa.presenter.clientes.TelaTabelaClientesPresenter">
+   <columns>
+      <TableColumn fx:id="colNomeCliente" prefWidth="121.0" text="Nome" />
+      <TableColumn fx:id="colEnderecoCliente" prefWidth="105.0" text="Endereço" />
+      <TableColumn fx:id="colCpfCliente" prefWidth="95.0" text="Cpf" />
+      <TableColumn fx:id="colAcoes" prefWidth="95.0" text="Açoes" />
+   </columns>
+</TableView>

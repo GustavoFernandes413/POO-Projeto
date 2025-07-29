@@ -4,4 +4,5 @@ import br.com.ufersa.model.entities.Cliente;
 
 public interface ClienteService extends PessoaService<Cliente> {
     void cadastrarCliente(Cliente cliente);
+    void editarCliente(Cliente cliente);
 }
