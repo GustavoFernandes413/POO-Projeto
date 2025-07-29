@@ -93,6 +93,10 @@ public class LoginResponsavel extends Application {
         carregarPalco("Locais", "tela-cadastro-locais.fxml");
     }
 
+    public static void telaCadastroVendas() {
+        carregarPalco("Vendas", "tela-cadastro-venda.fxml");
+    }
+
     // tabelas
 
     public static void telaPrincipalListagem() {

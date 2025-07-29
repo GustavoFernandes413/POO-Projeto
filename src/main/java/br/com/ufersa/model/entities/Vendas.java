@@ -137,26 +137,19 @@ public class Vendas {
         return (codigoVenda > 0);
     }
 
+    @Override
     public String toString() {
-        return (
-                "Venda: " +
-                        "codigoVenda: " +
-                        getCodigoVenda() +
-                        ", status:" +
-                        getStatus() +
-                        '\'' +
-                        ", data: " +
-                        getData() +
-                        '\'' +
-                        ", cliente: " +
-                        getCliente() +
-                        ", responsavel: " +
-                        getResponsavel().toString() +
-                        '}'
-        );
-
-
+        return "Vendas{" +
+                "id=" + id +
+                ", codigoVenda=" + codigoVenda +
+                ", status=" + status +
+                ", data=" + data +
+                ", cliente=" + cliente +
+                ", itens=" + itens +
+                ", responsavel=" + responsavel +
+                '}';
     }
+
     // Aplicacao do patter builder: motivação objeto Vendas é bastante complexo e exige vários argumentos no construtor
 
     Vendas(Builder builder) {

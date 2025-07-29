@@ -9,7 +9,7 @@ public class TelaPrincipal {
         LoginResponsavel.telaPesquisaEquipamento();
     }
     @FXML public void IrTelaCompraEVenda (ActionEvent event){
-
+        LoginResponsavel.telaCadastroVendas();
     }
     @FXML public void IrTelaCadastroEdicao (ActionEvent event){
         LoginResponsavel.telaPrincipalCadastro();
