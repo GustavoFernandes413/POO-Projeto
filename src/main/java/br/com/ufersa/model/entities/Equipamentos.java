@@ -15,7 +15,7 @@ public class Equipamentos {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false, name = "numero_serie")
-    private Long numeroSerie;
+    private String numeroSerie;
     @Column(nullable = false, name = "nome")
     private String nome;
     @Column(nullable = false, name = "preco")
@@ -57,12 +57,12 @@ public class Equipamentos {
         }
     }
 
-    public Long getNumeroSerie() {
+    public String getNumeroSerie() {
         return numeroSerie;
     }
 
-    public void setNumeroSerie(Long numeroSerie) {
-        if (validarEquiSerie(numeroSerie)) {
+    public void setNumeroSerie(String numeroSerie) {
+        if (validarEqui(numeroSerie)) {
             this.numeroSerie = numeroSerie;
         } else {
             System.out.println("Erro! Não pode ser menor que zero.");
@@ -123,7 +123,7 @@ public class Equipamentos {
 
     public Equipamentos(
             String nome,
-            Long numeroSerie,
+            String numeroSerie,
             double preco,
             int quantidade,
             Locais local,

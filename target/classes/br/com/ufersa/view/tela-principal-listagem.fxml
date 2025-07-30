@@ -11,7 +11,7 @@
       <Button layoutX="60.0" layoutY="73.0" mnemonicParsing="false" onAction="#irTelaTabelaEquipamentos" prefHeight="110.0" prefWidth="178.0" text="Estoque de Equipamentos" />
       <Button layoutX="354.0" layoutY="73.0" mnemonicParsing="false" onAction="#irTelaTabelaClientes" prefHeight="110.0" prefWidth="170.0" text="Clientes cadastrados" />
       <Button layoutX="60.0" layoutY="239.0" mnemonicParsing="false" onAction="#irTelaTabelaLocais" prefHeight="110.0" prefWidth="139.0" text="Locais cadastrados" />
-      <Button layoutX="362.0" layoutY="239.0" mnemonicParsing="false" prefHeight="110.0" prefWidth="170.0" text="Vendas realizadas" />
+      <Button layoutX="362.0" layoutY="239.0" mnemonicParsing="false" onAction="#irTelaTabelaVendas" prefHeight="110.0" prefWidth="170.0" text="Vendas realizadas" />
       <Button layoutX="60.0" layoutY="361.0" mnemonicParsing="false" onAction="#voltar" text="Voltar" />
    </children>
 </AnchorPane>

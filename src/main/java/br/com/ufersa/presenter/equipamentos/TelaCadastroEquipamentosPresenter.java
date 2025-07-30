@@ -64,7 +64,7 @@ public class TelaCadastroEquipamentosPresenter implements Initializable {
         Equipamentos equipamentoPersistir = new Equipamentos();
 
         equipamentoPersistir.setNome(nomeEquipamento.getText());
-        equipamentoPersistir.setNumeroSerie(Long.valueOf(numeroSerie.getText()));
+        equipamentoPersistir.setNumeroSerie(numeroSerie.getText());
         equipamentoPersistir.setQuantidadeEstoque(Integer.parseInt(quantidade.getText()));
         equipamentoPersistir.setPreco(Double.parseDouble(preco.getText()));
         equipamentoPersistir.setLocal( localEquipamento.getSelectionModel().getSelectedItem());
@@ -80,10 +80,10 @@ public class TelaCadastroEquipamentosPresenter implements Initializable {
         }
 
     }
-
+    // TODO criar servico que gere numero de serie com base no nomme do equipamento e na data de cadastro
     public void editar() {
         equipamentoSelecionado.setNome(nomeEquipamento.getText());
-        equipamentoSelecionado.setNumeroSerie(Long.valueOf(numeroSerie.getText()));
+        equipamentoSelecionado.setNumeroSerie(numeroSerie.getText());
         equipamentoSelecionado.setQuantidadeEstoque(Integer.parseInt(quantidade.getText()));
         equipamentoSelecionado.setPreco(Double.parseDouble(preco.getText()));
         equipamentoSelecionado.setLocal( localEquipamento.getSelectionModel().getSelectedItem());

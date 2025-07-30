@@ -24,8 +24,7 @@ module br.com.ufersa {
     opens br.com.ufersa.presenter.equipamentos to javafx.fxml;
     opens br.com.ufersa.presenter.clientes to javafx.fxml;
     opens br.com.ufersa.presenter.vendas to javafx.fxml;
-
-
+    opens br.com.ufersa.presenter.util to javafx.fxml;
 
 
 }

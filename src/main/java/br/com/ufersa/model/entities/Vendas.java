@@ -1,7 +1,9 @@
 package br.com.ufersa.model.entities;
 
 import jakarta.persistence.*;
+import org.controlsfx.control.PropertySheet;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +16,13 @@ public class Vendas {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "cod_venda")
-    private Long codigoVenda;
+    private String codigoVenda;
     @Enumerated(EnumType.STRING)
     private StatusCompra status;
     @Column(name = "data")
     private Timestamp data;
+    @Column(name = "preco")
+    private double preco;
 
     // regra: uma venda pertence a um único cliente
     @ManyToOne
@@ -65,16 +69,24 @@ public class Vendas {
         this.id = id;
     }
 
-    public Long getCodigoVenda() {
+    public String  getCodigoVenda() {
         return codigoVenda;
     }
 
-    public void setCodigoVenda(Long codigoVenda) {
+    public void setCodigoVenda(String codigoVenda) {
         if (validarVendas(codigoVenda)) {
             this.codigoVenda = codigoVenda;
         } else {
             System.out.println("Erro! Não pode ser menor que zero.");
         }
+    }
+
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
     }
 
     public Cliente getCliente() {
@@ -139,18 +151,15 @@ public class Vendas {
 
     @Override
     public String toString() {
-        return "Vendas{" +
-                "id=" + id +
-                ", codigoVenda=" + codigoVenda +
-                ", status=" + status +
-                ", data=" + data +
-                ", cliente=" + cliente +
-                ", itens=" + itens +
-                ", responsavel=" + responsavel +
+        return
+                "Codigo da Venda:'" + codigoVenda + '\'' +
+                ", status:" + status +
+                ", data:" + data +
+                ", Cliente:" + cliente.getNome() +
                 '}';
     }
 
-    // Aplicacao do patter builder: motivação objeto Vendas é bastante complexo e exige vários argumentos no construtor
+// Aplicacao do patter builder: motivação objeto Vendas é bastante complexo e exige vários argumentos no construtor
 
     Vendas(Builder builder) {
         this.codigoVenda = builder.codigoVenda;
@@ -159,12 +168,14 @@ public class Vendas {
         this.status = builder.status;
         this.data = builder.data;
         this.itens = builder.itens;
+        this.preco = builder.preco;
     }
 
     public static class Builder {
-        private Long codigoVenda;
+        private String codigoVenda;
         private StatusCompra status;
         private Timestamp data;
+        private double preco;
 
         private Cliente cliente;
 
@@ -172,7 +183,7 @@ public class Vendas {
 
         private Responsavel responsavel;
 
-        public Builder codigoVenda(Long codigoVenda) {
+        public Builder codigoVenda(String codigoVenda) {
             this.codigoVenda = codigoVenda;
             return this;
         }
@@ -199,6 +210,14 @@ public class Vendas {
 
         public Builder addItem(ItemVenda item) {
             this.itens.add(item);
+            return this;
+        }
+        public Builder addItens(List<ItemVenda> itens) {
+            this.itens.addAll(itens);
+            return this;
+        }
+        public Builder preco(Vendas preco){
+            this.preco = preco.getPreco();
             return this;
         }
 

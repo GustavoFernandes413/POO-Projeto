@@ -28,10 +28,8 @@ import java.util.ResourceBundle;
 public class TelaTabelaEquipamentosPresenter implements Initializable {
     @FXML
     private TableView<Equipamentos> tabelaEquipamentos;
-
     @FXML
     private TableColumn<Equipamentos, Integer> colNumeroSerie;
-
     @FXML
     private TableColumn<Equipamentos, String> colNomeEquipamento;
     @FXML

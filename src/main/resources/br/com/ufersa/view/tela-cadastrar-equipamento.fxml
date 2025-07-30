@@ -27,5 +27,6 @@
       <ComboBox fx:id="localEquipamento" layoutX="261.0" layoutY="243.0" prefWidth="150.0" />
       <ComboBox fx:id="responsavelEquipamento" layoutX="261.0" layoutY="285.0" prefWidth="150.0" />
       <Label fx:id="erro" layoutX="198.0" layoutY="43.0" text="Label" visible="false" />
+      <Label fx:id="erro" layoutX="214.0" layoutY="36.0" text="Label" visible="false" />
    </children>
 </Pane>

@@ -16,7 +16,7 @@ public class Cliente extends Pessoa {
 
     @Override
     public String toString() {
-        return super.toString() + "/nCPF: " + getCpf();
+        return super.getNome() + "  -  CPF: " + getCpf();
     }
 
     public Cliente(String nome, String endereco, String cpf) {

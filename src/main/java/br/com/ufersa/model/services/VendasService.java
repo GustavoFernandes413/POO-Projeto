@@ -1,5 +1,6 @@
 package br.com.ufersa.model.services;
 
+import br.com.ufersa.model.entities.ItemVenda;
 import br.com.ufersa.model.entities.Vendas;
 
 import java.sql.Timestamp;
@@ -13,9 +14,9 @@ public interface VendasService {
     Vendas gerarNotaVenda(Vendas venda);
 
     List<Vendas> relatorio(Timestamp dataInicio, Timestamp dataFim);
-
+    List<Vendas> getAllVendas();
     void cancelamento(Vendas venda);
-
+    Vendas calcularPrecoVenda(List<ItemVenda> itensDaVenda);
     void addObserver(ObserverVendas observer);
 
     void removeObserver(ObserverVendas observer);

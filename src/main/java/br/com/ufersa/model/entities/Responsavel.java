@@ -10,7 +10,7 @@ import java.util.Objects;
 @DiscriminatorValue("Responsavel")
 public class Responsavel extends Pessoa {
     // adicao de sistema de Login
-    @Column(length = 50, unique = true, nullable = false, updatable = false) // nao permite atualizar login
+    @Column(length = 50, unique = true, updatable = false) // nao permite atualizar login
     private String login;
     @Column(length = 20)
     private String senha;
@@ -24,7 +24,7 @@ public class Responsavel extends Pessoa {
 
     @Override
     public String toString() {
-        return this.getNome();
+        return this.getNome() + "  -  Telefone: " + this.getTelefone() ;
     }
 
     public String getLogin() {

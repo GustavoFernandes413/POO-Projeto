@@ -96,6 +96,9 @@ public class LoginResponsavel extends Application {
     public static void telaCadastroVendas() {
         carregarPalco("Vendas", "tela-cadastro-venda.fxml");
     }
+    public static void telaRelatorioVendas(){
+        carregarPalco("Relatório de Vendas por Período", "tela-relatorio-vendas");
+    }
 
     // tabelas
 
@@ -113,6 +116,9 @@ public class LoginResponsavel extends Application {
 
     public static void telaTabelaLocais() {
         carregarPalco("Lista de locais cadastrados", "tela-tabela-locais.fxml");
+    }
+    public static void telaTabelaVendas() {
+        carregarPalco("Lista de Vendas", "tela-tabela-vendas.fxml");
     }
 
 

@@ -1,6 +1,7 @@
 package br.com.ufersa.model.services;
 
 import br.com.ufersa.model.dao.VendasDAO;
+import br.com.ufersa.model.entities.ItemVenda;
 import br.com.ufersa.model.entities.StatusCompra;
 import br.com.ufersa.model.entities.Vendas;
 
@@ -49,10 +50,21 @@ public class VendasServiceImpl implements VendasService {
     @Override
     public void cancelamento(Vendas venda) {
         if (validarVendas(venda) && venda.getStatus() == StatusCompra.CONCLUIDA) {
-            venda.setStatus(StatusCompra.CANCELADA); // TODO no futuro, adicionar uma enumeracao
+            venda.setStatus(StatusCompra.CANCELADA);
             vendasDTO.update(venda);
             notifyVendaCancelada(venda);
         } else throw new IllegalArgumentException("Valor do Id é invalido.");
+    }
+
+    @Override
+    public Vendas calcularPrecoVenda(List<ItemVenda> itensDaVenda) {
+        double precoTotal = 0;
+        for (ItemVenda itemVenda : itensDaVenda) {
+            precoTotal =+ itemVenda.getQuantidade()*itemVenda.getEquipamento().getPreco();
+        }
+        Vendas venda = new Vendas();
+        venda.setPreco(precoTotal);
+        return venda;
     }
 
     @Override
@@ -73,6 +85,10 @@ public class VendasServiceImpl implements VendasService {
         else throw new IllegalArgumentException("Valor do Data <UNK> invalido.");
     }
 
+    @Override
+    public List<Vendas> getAllVendas() {
+        return vendasDTO.getAll();
+    }
 
     public static <T> boolean validarVendas(T objeto) {
         return (objeto != null);

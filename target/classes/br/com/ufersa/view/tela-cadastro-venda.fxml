@@ -13,15 +13,11 @@
       <Button layoutX="42.0" layoutY="506.0" mnemonicParsing="false" onAction="#voltar" text="Voltar" />
       <TextField fx:id="codVenda" layoutX="261.0" layoutY="31.0" />
       <Text layoutX="147.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Codigo da Venda:" />
-      <Text layoutX="201.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status:" />
-      <Text layoutX="191.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cliente:" />
-      <Text layoutX="198.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data:" />
+      <Text layoutX="191.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cliente:" />
       <Button layoutX="329.0" layoutY="506.0" mnemonicParsing="false" onAction="#salvar" text="Finalizar" />
       <Label fx:id="erro" layoutX="198.0" layoutY="43.0" text="Label" visible="false" />
-      <ComboBox fx:id="statusVenda" layoutX="261.0" layoutY="68.0" prefWidth="150.0" />
-      <ComboBox fx:id="clienteVenda" layoutX="261.0" layoutY="102.0" prefWidth="150.0" />
-      <DatePicker fx:id="dataVenda" layoutX="261.0" layoutY="141.0" />
-      <TableView fx:id="tabelaItensVenda" layoutX="68.0" layoutY="210.0" prefHeight="259.0" prefWidth="671.0">
+      <ComboBox fx:id="clienteVenda" layoutX="261.0" layoutY="67.0" prefHeight="25.0" prefWidth="163.0" />
+      <TableView fx:id="tabelaItensVenda" layoutX="68.0" layoutY="159.0" prefHeight="310.0" prefWidth="671.0">
         <columns>
           <TableColumn fx:id="equipamentosVenda" prefWidth="230.0" text="Equipamento" />
           <TableColumn fx:id="quantidadeVenda" prefWidth="198.0" text="Quantidade" />

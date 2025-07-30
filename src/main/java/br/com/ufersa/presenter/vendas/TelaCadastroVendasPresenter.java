@@ -1,10 +1,12 @@
 package br.com.ufersa.presenter.vendas;
 
 import br.com.ufersa.model.dao.ClienteDAOImpl;
+import br.com.ufersa.model.dao.EquipamentosDAOImpl;
 import br.com.ufersa.model.dao.PessoaDAOImpl;
 import br.com.ufersa.model.dao.VendasDAOImpl;
 import br.com.ufersa.model.entities.*;
 import br.com.ufersa.model.services.*;
+import br.com.ufersa.presenter.util.PresenterUtil;
 import br.com.ufersa.view.LoginResponsavel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,15 +25,16 @@ import javafx.stage.Stage;
 import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class TelaCadastroVendasPresenter implements Initializable {
     @FXML private TextField codVenda;
     @FXML private ComboBox<StatusCompra> statusVenda;
     @FXML private ComboBox<Cliente> clienteVenda;
-    @FXML private DatePicker dataVenda;
+
     @FXML private TableView<ItemVenda> tabelaItensVenda;
 
     // AJUSTE 1: O tipo da coluna deve corresponder ao tipo do dado.
@@ -43,37 +46,25 @@ public class TelaCadastroVendasPresenter implements Initializable {
     @FXML private Label erro;
 
     private ObservableList<ItemVenda> itensDaVenda;
-
+    // Sei que não é uma boa prática, mas até o momento não sei como fazer DI funcional aqui
     VendasService vendasService = new VendasServiceImpl(new VendasDAOImpl());
     ClienteService clienteService = new ClienteServiceImpl(new PessoaServiceImpl(new PessoaDAOImpl()), new ClienteDAOImpl());
-    Vendas vendaSelecionada;
+    PresenterUtil presenterUtil = new PresenterUtil(clienteService);
+    ObserverVendas vendasObserver = new EquipamentosServiceImpl(new EquipamentosDAOImpl());
 
-    private void carregarClientes() {
-        List<Cliente> clienteList = clienteService.getAllPessoas();
-        ObservableList<Cliente> observableLocais = FXCollections.observableArrayList(clienteList);
-        clienteVenda.setItems(observableLocais);
-    }
+    Vendas vendaSelecionada;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        carregarClientes();
+        presenterUtil.carregarClientes(clienteVenda);
         this.itensDaVenda = FXCollections.observableArrayList();
 
-        // Configura as colunas para buscar os dados do objeto ItemVenda
-        // "equipamento" -> chama item.getEquipamento()
-        // "quantidade" -> chama item.getQuantidade()
-        // DICA: Para a coluna de equipamento funcionar bem, certifique-se de que sua classe Equipamentos
-        // tem um método toString() que retorna o nome do equipamento.
         equipamentosVenda.setCellValueFactory(new PropertyValueFactory<>("equipamento"));
         quantidadeVenda.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
 
         tabelaItensVenda.setItems(itensDaVenda);
     }
 
-    /**
-     * Este método abre o modal.
-     * No seu FXML principal, o botão deve ter: onAction="#irParaModalItem"
-     */
     @FXML
     void irParaModalItem(ActionEvent event) {
         try {
@@ -107,16 +98,23 @@ public class TelaCadastroVendasPresenter implements Initializable {
     }
 
     public void salvar(ActionEvent event) {
-        if(vendaSelecionada == null) cadastrar();
+        if (vendaSelecionada == null) cadastrar();
         else cancelamento();
     }
 
-    public void cadastrar(){
-        Vendas vendaPersistir = new Vendas();
-        vendaPersistir.setItens(new ArrayList<>(this.itensDaVenda));
-        // ... sua lógica para pegar cliente, data, etc.
+    // Uso do Builder
+    public void cadastrar() {
+        vendasService.addObserver(vendasObserver);
+        Vendas vendaPersistir = new Vendas.Builder()
+                .data(Timestamp.valueOf(LocalDateTime.now()))
+                .cliente(clienteVenda.getSelectionModel().getSelectedItem())
+                .status(StatusCompra.CONCLUIDA)
+                .preco(vendasService.calcularPrecoVenda(this.itensDaVenda))
+                .addItens(this.itensDaVenda)
+                .build();
         try {
-            // vendasService.criarVenda(vendaPersistir);
+             vendasService.criarVenda(vendaPersistir);
+            vendasService.removeObserver(vendasObserver); // retira
             JOptionPane.showMessageDialog(null, "Venda realizada com sucesso!");
         } catch (Exception e) {
             erro.setText(e.getMessage());
@@ -125,11 +123,31 @@ public class TelaCadastroVendasPresenter implements Initializable {
         }
     }
 
-    public void cancelamento(){
-        // ...
-    }
+    public void cancelamento() {
+        vendasService.addObserver(vendasObserver);
 
-    @FXML public void voltar(ActionEvent event){
+        vendaSelecionada.setStatus(StatusCompra.CANCELADA);
+        try {
+            vendasService.cancelamento(vendaSelecionada);
+            JOptionPane.showMessageDialog(null, " Equipamento devolvido com sucesso! Novo status: "+ vendaSelecionada.getStatus());
+            vendasService.removeObserver(vendasObserver); // retira
+
+        } catch (Exception e) {
+            erro.setText(e.getMessage());
+            erro.setTextFill(Color.RED);
+            erro.setVisible(true);
+        }
+    }
+    public  void carregarVendaParaEdicao(Vendas venda){
+        this.vendaSelecionada = venda;
+        Vendas novaVenda = new Vendas();
+        novaVenda.setId(venda.getId());
+
+        codVenda.setText(  novaVenda.getCodigoVenda());
+        clienteVenda.setValue((  novaVenda.getCliente()));
+    }
+    @FXML
+    public void voltar(ActionEvent event) {
         LoginResponsavel.telaPrincipalCadastro();
     }
 }

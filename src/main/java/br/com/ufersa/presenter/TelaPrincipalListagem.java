@@ -11,6 +11,8 @@ public class TelaPrincipalListagem {
         LoginResponsavel.telaTabelaLocais();
     }
     @FXML public void irTelaTabelaClientes() {LoginResponsavel.telaTabelaClientes();}
+
+    @FXML public void irTelaTabelaVendas() {LoginResponsavel.telaTabelaVendas();}
     @FXML public void voltar() {LoginResponsavel.telaPrincipal();}
 
 }
