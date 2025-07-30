@@ -1,29 +1,16 @@
 package br.com.ufersa.presenter.vendas;
 
 import br.com.ufersa.model.dao.VendasDAOImpl;
-import br.com.ufersa.model.entities.Equipamentos;
 import br.com.ufersa.model.entities.ItemVenda;
 import br.com.ufersa.model.entities.Vendas;
 import br.com.ufersa.model.services.VendasService;
 import br.com.ufersa.model.services.VendasServiceImpl;
-import br.com.ufersa.presenter.equipamentos.TelaCadastroEquipamentosPresenter;
 import br.com.ufersa.presenter.util.PresenterUtil;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
-import javafx.util.Callback;
-
-import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class TelaTabelaVendasPresenter implements Initializable {

@@ -112,6 +112,8 @@ public class TelaCadastroVendasPresenter implements Initializable {
                 .preco(vendasService.calcularPrecoVenda(this.itensDaVenda))
                 .addItens(this.itensDaVenda)
                 .build();
+
+
         try {
              vendasService.criarVenda(vendaPersistir);
             vendasService.removeObserver(vendasObserver); // retira
@@ -143,7 +145,7 @@ public class TelaCadastroVendasPresenter implements Initializable {
         Vendas novaVenda = new Vendas();
         novaVenda.setId(venda.getId());
 
-        codVenda.setText(  novaVenda.getCodigoVenda());
+        codVenda.setText(novaVenda.getCodigoVenda());
         clienteVenda.setValue((  novaVenda.getCliente()));
     }
     @FXML

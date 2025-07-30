@@ -96,12 +96,7 @@ public class LoginResponsavel extends Application {
     public static void telaCadastroVendas() {
         carregarPalco("Realizar nova Venda", "tela-cadastro-venda.fxml");
     }
-    public static void telaRelatorioVendas(){
-        carregarPalco("Relatório de Vendas por Período", "tela-relatorio-vendas.fxml");
-    }
-    public static void telaPrincipalVendas(){
-        carregarCena("Vendas", "tela-principal-vendas.fxml");
-    }
+
 
     // tabelas
 
@@ -124,6 +119,16 @@ public class LoginResponsavel extends Application {
         carregarPalco("Lista de Vendas", "tela-tabela-vendas.fxml");
     }
 
+    // vendas
+    public static void telaRelatorioVendas(){
+        carregarPalco("Relatório de Vendas por Período", "tela-relatorio-vendas.fxml");
+    }
+    public static void telaPrincipalVendas(){
+        carregarCena("Vendas", "tela-principal-vendas.fxml");
+    }
+    public static void telaNotaVenda(){
+        carregarPalco("Nota Venda", "tela-nota-venda.fxml");
+    }
 
     public static void main(String[] args) {
         launch();

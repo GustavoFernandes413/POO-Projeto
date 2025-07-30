@@ -38,20 +38,6 @@ public class Vendas {
     @JoinColumn(name = "fk_responsavel")
     private Responsavel responsavel;
 
-    // metodos para garantir integridade bidirecional
-    public void addItem(ItemVenda item) {
-        if (item != null) {
-            this.itens.add(item);
-            item.setVenda(this); // Garante a ligação bidirecional
-        }
-    }
-
-    public void removeItem(ItemVenda item) {
-        if (item != null) {
-            this.itens.remove(item);
-            item.setVenda(null); // Remove a ligação bidirecional
-        }
-    }
 
     public List<ItemVenda> getItens() {
         return itens;
@@ -69,7 +55,7 @@ public class Vendas {
         this.id = id;
     }
 
-    public String  getCodigoVenda() {
+    public String getCodigoVenda() {
         return codigoVenda;
     }
 
@@ -153,11 +139,27 @@ public class Vendas {
     public String toString() {
         return
                 "Codigo da Venda:'" + codigoVenda + '\'' +
-                ", status:" + status +
-                ", data:" + data +
-                ", Cliente:" + cliente.getNome() +
-                '}';
+                        ", status:" + status +
+                        ", data:" + data +
+                        ", Cliente:" + cliente.getNome() +
+                        '}';
     }
+
+    // metodos para garantir integridade bidirecional
+    public void addItem(ItemVenda item) {
+        if (item != null) {
+            this.itens.add(item);
+            item.setVenda(this); // Garante a ligação bidirecional
+        }
+    }
+
+    public void removeItem(ItemVenda item) {
+        if (item != null) {
+            this.itens.remove(item);
+            item.setVenda(null); // Garante a ligação bidirecional
+        }
+    }
+
 
 // Aplicacao do patter builder: motivação objeto Vendas é bastante complexo e exige vários argumentos no construtor
 
@@ -167,7 +169,11 @@ public class Vendas {
         this.responsavel = builder.responsavel;
         this.status = builder.status;
         this.data = builder.data;
-        this.itens = builder.itens;
+        if (builder.itens != null) {
+            for (ItemVenda item : builder.itens) {
+                this.addItem(item); // Usando um método auxiliar para adicionar um por um
+            }
+        }
         this.preco = builder.preco;
     }
 
@@ -212,11 +218,18 @@ public class Vendas {
             this.itens.add(item);
             return this;
         }
+
         public Builder addItens(List<ItemVenda> itens) {
-            this.itens.addAll(itens);
+            if (itens != null) {
+                for (ItemVenda itemVenda : itens) {
+                    this.addItem(itemVenda);
+                    // Use the single addItem for null check
+                }
+            }
             return this;
         }
-        public Builder preco(Vendas preco){
+
+        public Builder preco(Vendas preco) {
             this.preco = preco.getPreco();
             return this;
         }

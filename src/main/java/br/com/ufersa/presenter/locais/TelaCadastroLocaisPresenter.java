@@ -59,7 +59,6 @@ public class TelaCadastroLocaisPresenter {
         }
 
     }
-    // sera chamado ao clicar link da tabela
     public  void carregarLocalEdicao(Locais local){
         this.localSelecionado = local;
         NomeCasa.setText(local.getNomeCasa());

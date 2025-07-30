@@ -3,6 +3,7 @@ package br.com.ufersa.presenter.vendas;
 import br.com.ufersa.model.dao.EquipamentosDAOImpl;
 import br.com.ufersa.model.entities.Equipamentos;
 import br.com.ufersa.model.entities.ItemVenda;
+import br.com.ufersa.model.entities.Vendas;
 import br.com.ufersa.model.services.EquipamentosService;
 import br.com.ufersa.model.services.EquipamentosServiceImpl;
 import javafx.collections.FXCollections;
@@ -26,6 +27,7 @@ public class TelaCadastroItemVendas implements Initializable {
     @FXML private Label erro;
     @FXML private Button botaoAdicionar, cancelarAdicao;
 
+
     EquipamentosService equipamentosService = new EquipamentosServiceImpl(new EquipamentosDAOImpl());
 
     // Mantém o item que será retornado para a tela principal
@@ -47,7 +49,6 @@ public class TelaCadastroItemVendas implements Initializable {
         ItemVenda item = new ItemVenda();
         item.setEquipamento(equipamentoItens.getSelectionModel().getSelectedItem());
         item.setQuantidade(quantidadeItens.getSelectionModel().getSelectedItem());
-
         // Guarda o item criado para que a outra tela possa pegá-lo
         this.itemAdicionado = item;
         fecharJanela(botaoAdicionar);
@@ -59,6 +60,7 @@ public class TelaCadastroItemVendas implements Initializable {
     public ItemVenda getItemAdicionado() {
         return this.itemAdicionado;
     }
+
 
     /**
      * Chamado pelo botão "Cancelar".
