@@ -7,5 +7,5 @@ import java.util.List;
 public interface VendasDAO extends crudDAO<Vendas> {
     Vendas findById(Vendas vendas);
     List<Vendas> getAll();
-    List<Vendas> relatorio(Timestamp inicio, Timestamp fim);
+    List<Vendas> relatorio(Vendas vendaInicio, Vendas vendaFim);
 }

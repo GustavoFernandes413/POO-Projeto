@@ -9,4 +9,7 @@ public class TelaPrincipalVendasPresenter {
     public void irRelatorioVendas(){
         LoginResponsavel.telaRelatorioVendas();
     }
+    public void voltar(){
+        LoginResponsavel.telaPrincipal();
+    }
 }

@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 
 public class TelaTabelaVendasPresenter implements Initializable {
     @FXML
-    private TableView<Vendas> tabelaVendas;
+    private TableView<Vendas> minhaTabelaVendas;
 
     @FXML
     private TableColumn<Vendas, String> colCodVenda;
@@ -55,52 +55,11 @@ public class TelaTabelaVendasPresenter implements Initializable {
         colPreco.setCellValueFactory(new PropertyValueFactory<>("preco"));
         colItens.setCellValueFactory(new PropertyValueFactory<>("itens"));
         colIdVenda.setCellValueFactory(new PropertyValueFactory<>("id"));
-        renderizarColunaAcoesVendas();
-        presenterUtil.carregarVendas(tabelaVendas);
+        presenterUtil.renderizarColunaAcoesVendas(colAcoes);
+        PresenterUtil.carregarVendas(minhaTabelaVendas, vendasService.getAllVendas());
     }
 
-    public void renderizarColunaAcoesVendas() {
-        Callback<TableColumn<Vendas, Void>, TableCell<Vendas, Void>> cellFactory = new Callback<>() {
-            @Override
-            public TableCell<Vendas, Void> call(final TableColumn<Vendas, Void> param) {
-                final TableCell<Vendas, Void> cell = new TableCell<>() {
-                    private final Button btnCancelar = new Button("Cancelar");
-
-                    {
-                        // TODO implementar chamada ao servico cancelamento de compra
-                        btnCancelar.setOnAction(event -> {
-                            Vendas vendaParaEditar = getTableRow().getItem();                        // Cria tela para edicao
-
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/ufersa/view/tela-cadastro-venda.fxml"));
-                            try {
-                                Parent root = loader.load();
-                                TelaCadastroVendasPresenter presenter = loader.getController();
-                                presenter.carregarVendaParaEdicao(vendaParaEditar);
-                                presenter.cancelamento(); // TODO corrigir para salvar no BD
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void updateItem(Void item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                        } else {
-                            HBox painelAcoes = new HBox(btnCancelar);
-                            painelAcoes.setSpacing(10);
-                            setGraphic(painelAcoes);
-                        }
-                    }
-                };
-                return cell;
-            }
-
-        };
-        colAcoes.setCellFactory(cellFactory);
+    public TableView<Vendas> getMinhaTabelaVendas() {
+        return minhaTabelaVendas;
     }
-
-
 }

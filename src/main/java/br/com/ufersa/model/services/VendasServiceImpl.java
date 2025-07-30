@@ -80,8 +80,8 @@ public class VendasServiceImpl implements VendasService {
     }
 
     @Override
-    public List<Vendas> relatorio(Timestamp dataInicio, Timestamp dataFim) {
-        if (validarVendas(dataInicio) && validarVendas(dataFim)) return vendasDTO.relatorio(dataInicio, dataFim);
+    public List<Vendas> relatorio( Vendas vendaInicio, Vendas vendaFim) {
+        if (validarVendas(vendaInicio) && validarVendas(vendaFim)) return vendasDTO.relatorio(vendaInicio, vendaFim);
         else throw new IllegalArgumentException("Valor do Data <UNK> invalido.");
     }
 
