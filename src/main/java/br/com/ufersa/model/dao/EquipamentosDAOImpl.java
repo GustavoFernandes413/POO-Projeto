@@ -22,6 +22,12 @@ public class EquipamentosDAOImpl extends crudDAOImpl<Equipamentos> implements Eq
     }
 
     @Override
+    public List<Equipamentos> getEquipamentosDisponiveis() {
+        TypedQuery<Equipamentos> query = em.createQuery("SELECT e FROM Equipamentos e WHERE e.quantidadeEstoque>0", Equipamentos.class);
+        return query.getResultList();
+    }
+
+    @Override
     public Equipamentos findById(Equipamentos equip) {
         Long id = equip.getId();
         TypedQuery<Equipamentos> query = em.createQuery("SELECT e FROM Equipamentos e WHERE e.id = :id", Equipamentos.class);

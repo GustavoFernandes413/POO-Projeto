@@ -73,4 +73,9 @@ public class EquipamentosServiceImpl implements EquipamentosService,  ObserverVe
     public void alterarPreco(Equipamentos id) {
         equipamentosDAO.update(id);
     }
+
+    @Override
+    public List<Equipamentos> getAllEquipamentosDisponiveis() {
+        return equipamentosDAO.getEquipamentosDisponiveis();
+    }
 }

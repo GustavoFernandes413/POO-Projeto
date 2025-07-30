@@ -17,6 +17,7 @@ public interface VendasService {
     List<Vendas> getAllVendas();
     void cancelamento(Vendas venda);
     Vendas calcularPrecoVenda(List<ItemVenda> itensDaVenda);
+
     void addObserver(ObserverVendas observer);
 
     void removeObserver(ObserverVendas observer);

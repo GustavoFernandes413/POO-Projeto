@@ -33,10 +33,6 @@ public class TelaCadastroItemVendas implements Initializable {
     // Mantém o item que será retornado para a tela principal
     private ItemVenda itemAdicionado = null;
 
-    /**
-     * Este método é chamado pelo botão "Adicionar" ou "Confirmar" do modal.
-     * O nome no onAction do FXML deve ser onAction="#adicionarItemVenda"
-     */
     @FXML
     public void adicionarItemVenda(ActionEvent event) {
         // Validação para garantir que algo foi selecionado
@@ -54,18 +50,10 @@ public class TelaCadastroItemVendas implements Initializable {
         fecharJanela(botaoAdicionar);
     }
 
-    /**
-     * Método público para a tela principal pegar o resultado.
-     */
     public ItemVenda getItemAdicionado() {
         return this.itemAdicionado;
     }
 
-
-    /**
-     * Chamado pelo botão "Cancelar".
-     * O nome no onAction do FXML deve ser onAction="#cancelar"
-     */
     @FXML
     private void cancelar(ActionEvent event) { // Adicionado ActionEvent para consistência
         this.itemAdicionado = null;
@@ -98,7 +86,7 @@ public class TelaCadastroItemVendas implements Initializable {
     }
 
     public void carregarEquipamentos() {
-        List<Equipamentos> equipamentos = equipamentosService.getAllEquipamentos();
+        List<Equipamentos> equipamentos = equipamentosService.getAllEquipamentosDisponiveis();
         ObservableList<Equipamentos> equipamentosObservableList = FXCollections.observableArrayList(equipamentos);
         equipamentoItens.setItems(equipamentosObservableList);
         equipamentoItens.setPromptText("Selecione um Equipamento");

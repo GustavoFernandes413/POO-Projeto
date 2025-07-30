@@ -10,4 +10,6 @@ public interface EquipamentosService {
     List<Equipamentos> getAllEquipamentos();
     Equipamentos findByNomeEquipamento(Equipamentos equipamentos);
     void alterarPreco(Equipamentos id);
+    List<Equipamentos> getAllEquipamentosDisponiveis();
+
 }

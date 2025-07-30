@@ -37,12 +37,13 @@ public class TelaCadastroVendasPresenter implements Initializable {
 
     @FXML private TableView<ItemVenda> tabelaItensVenda;
 
-    // AJUSTE 1: O tipo da coluna deve corresponder ao tipo do dado.
-    // getEquipamento() retorna um objeto Equipamentos, não uma String. O JavaFX usará o método toString() do objeto.
     @FXML private TableColumn<ItemVenda, Equipamentos> equipamentosVenda;
     @FXML private TableColumn<ItemVenda, Integer> quantidadeVenda;
 
     @FXML private Button adicionarItemButton;
+    @FXML private Button finalizarVendaButton;
+
+
     @FXML private Label erro;
 
     private ObservableList<ItemVenda> itensDaVenda;
@@ -112,17 +113,18 @@ public class TelaCadastroVendasPresenter implements Initializable {
                 .preco(vendasService.calcularPrecoVenda(this.itensDaVenda))
                 .addItens(this.itensDaVenda)
                 .build();
-
-
         try {
              vendasService.criarVenda(vendaPersistir);
             vendasService.removeObserver(vendasObserver); // retira
-            JOptionPane.showMessageDialog(null, "Venda realizada com sucesso!");
+            abrirNota(vendaPersistir);
+            PresenterUtil.fecharJanela(finalizarVendaButton);
+
         } catch (Exception e) {
             erro.setText(e.getMessage());
             erro.setTextFill(Color.RED);
             erro.setVisible(true);
         }
+
     }
 
     public void cancelamento() {
@@ -144,9 +146,30 @@ public class TelaCadastroVendasPresenter implements Initializable {
         this.vendaSelecionada = venda;
         Vendas novaVenda = new Vendas();
         novaVenda.setId(venda.getId());
-
         codVenda.setText(novaVenda.getCodigoVenda());
         clienteVenda.setValue((  novaVenda.getCliente()));
+    }
+    public void abrirNota(Vendas venda){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/ufersa/view/tela-nota-venda.fxml"));
+            Parent root = loader.load();
+
+            TelaNotaVendaPresenter modalController = loader.getController();
+            modalController.setVendaCriada(venda);
+
+            Stage modalStage = new Stage();
+            modalStage.setTitle("Nota da  Venda");
+            modalStage.setScene(new Scene(root));
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            modalStage.initOwner(finalizarVendaButton.getScene().getWindow());
+            modalStage.showAndWait(); // Pausa a execução aqui até o modal ser fechado
+
+
+        }catch (Exception e){
+            erro.setText(e.getMessage());
+            erro.setTextFill(Color.RED);
+            erro.setVisible(true);
+        }
     }
     @FXML
     public void voltar(ActionEvent event) {

@@ -39,7 +39,8 @@ public class VendasServiceImpl implements VendasService {
 
     @Override
     public void criarVenda(Vendas vendas) {
-        if (validarVendas(vendas)) {
+        if (validarVendas(vendas)  && validarVendas(vendas.getCliente() )
+                && validarVendas(vendas.getItens())) {
             vendasDTO.save(vendas);
             notifyVendaProcessada(vendas); // envia notificacao para Equipamentos para o estoque ser atualizado
         } else {

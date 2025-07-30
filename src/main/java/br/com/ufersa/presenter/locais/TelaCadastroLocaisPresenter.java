@@ -29,7 +29,7 @@ public class TelaCadastroLocaisPresenter {
          else editar();
 
     }
-    // consume servico de cadastro
+    // consome servico de cadastro
 
     public  void cadastrar(){
         Locais local = new Locais();
@@ -45,7 +45,7 @@ public class TelaCadastroLocaisPresenter {
         }
 
     }
-    // consume servico de editar
+    // consome servico de editar
     public  void editar(){
         localSelecionado.setNomeCasa(NomeCasa.getText());
         localSelecionado.setNomeCompartimento(LocalCompartimento.getText());

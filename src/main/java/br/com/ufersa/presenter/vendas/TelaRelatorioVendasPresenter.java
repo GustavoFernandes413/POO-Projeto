@@ -38,7 +38,7 @@ public class TelaRelatorioVendasPresenter implements Initializable
         List<Vendas> dadosRelatorio = carregarDadosRelatorio();
         if (dadosRelatorio.isEmpty())
         {
-            presenterUtil.exibirAlerta("Erro ao carregar relatório", "Nenhuma venda feita neste período");
+            PresenterUtil.exibirAlerta("Erro ao carregar relatório", "Nenhuma venda feita neste período");
         }
         else {
             PresenterUtil.carregarVendas(minhaTabelaVendasController.getMinhaTabelaVendas(), dadosRelatorio);

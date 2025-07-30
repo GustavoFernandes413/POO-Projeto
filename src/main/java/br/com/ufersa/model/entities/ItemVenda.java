@@ -28,6 +28,10 @@ public class ItemVenda {
     public ItemVenda() {
     }
 
+    public Double getPreco() {
+        return this.getQuantidade() * this.equipamento.getPreco();
+    }
+
     public Long getId() {
         return id;
     }

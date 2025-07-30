@@ -8,4 +8,5 @@ public interface EquipamentosDAO extends crudDAO<Equipamentos> {
     Equipamentos findById(Equipamentos equip);
     List<Equipamentos> getAll();
     Equipamentos findByName(Equipamentos equipamentos);
+    List<Equipamentos> getEquipamentosDisponiveis();
 }

@@ -189,8 +189,8 @@ public class Vendas {
 
         private Responsavel responsavel;
 
-        public Builder codigoVenda(String codigoVenda) {
-            this.codigoVenda = codigoVenda;
+        public Builder codigoVenda() {
+            this.codigoVenda = this.cliente.getNome().toUpperCase().substring(0,3) ;// TODO implementar para colher a dataDAVenda
             return this;
         }
 
