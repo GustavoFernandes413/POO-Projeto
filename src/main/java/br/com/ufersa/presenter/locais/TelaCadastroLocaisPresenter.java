@@ -4,9 +4,11 @@ import br.com.ufersa.model.dao.LocaisDAOImpl;
 import br.com.ufersa.model.entities.Locais;
 import br.com.ufersa.model.services.LocaisService;
 import br.com.ufersa.model.services.LocaisServiceImpl;
+import br.com.ufersa.presenter.util.PresenterUtil;
 import br.com.ufersa.view.LoginResponsavel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
@@ -19,7 +21,10 @@ public class TelaCadastroLocaisPresenter {
     @FXML
     private TextField LocalCompartimento;
     @FXML private Label erro;
-
+    @FXML
+    private Button salvarButton;
+    @FXML
+    private Button voltarButton;
 
     LocaisService locaisService = new LocaisServiceImpl(new LocaisDAOImpl());
     Locais localSelecionado;
@@ -38,6 +43,7 @@ public class TelaCadastroLocaisPresenter {
         try {
             locaisService.cadastrarLocal(local);
             JOptionPane.showMessageDialog(null, "Novo Local Cadastrado com sucesso!");
+            PresenterUtil.fecharJanela(salvarButton);
         }catch (Exception e){
             erro.setText(e.getMessage());
             erro.setTextFill(Color.RED);
@@ -52,7 +58,9 @@ public class TelaCadastroLocaisPresenter {
         try {
             locaisService.editarLocais(localSelecionado);
             JOptionPane.showMessageDialog(null, "Local atualizado com sucesso!");
+            PresenterUtil.fecharJanela(salvarButton);
         }catch (Exception e){
+
             erro.setText(e.getMessage());
             erro.setTextFill(Color.RED);
             erro.setVisible(true);
@@ -65,6 +73,6 @@ public class TelaCadastroLocaisPresenter {
         LocalCompartimento.setText(local.getNomeCompartimento());
     }
     @FXML public void voltar(ActionEvent event){
-        LoginResponsavel.telaPrincipalCadastro();
+        PresenterUtil.fecharJanela(voltarButton);
     }
 }

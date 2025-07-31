@@ -56,7 +56,7 @@ public class TelaTabelaLocaisPresenter implements Initializable {
             public TableCell<Locais, Void> call(final TableColumn<Locais, Void> param) {
                 final TableCell<Locais, Void> cell = new TableCell<>() {
                     private final Hyperlink linkEditar = new Hyperlink("Editar");
-                    private final Button btnExcluir = new Button("Excluir");
+//                    private final Button btnExcluir = new Button("Excluir");
 
                     {
                         linkEditar.setOnAction(event -> {
@@ -79,10 +79,14 @@ public class TelaTabelaLocaisPresenter implements Initializable {
 
                         });
 
-                        btnExcluir.setOnAction(event -> {
-                            Locais local = getTableView().getItems().get(getIndex());
-                            // deletarRegistro(produto);
-                        });
+//                        btnExcluir.setOnAction(event -> {
+//                            Locais local = getTableView().getItems().get(getIndex());
+//                            try {
+//                                locaisService.deletarLocais(local);
+//                            } catch (Exception e) {
+//                                throw new RuntimeException(e);
+//                            }
+//                        });
                     }
 
                     @Override
@@ -91,7 +95,7 @@ public class TelaTabelaLocaisPresenter implements Initializable {
                         if (empty) {
                             setGraphic(null);
                         } else {
-                            HBox painelAcoes = new HBox(linkEditar, btnExcluir);
+                            HBox painelAcoes = new HBox(linkEditar);
                             painelAcoes.setSpacing(10);
                             setGraphic(painelAcoes);
                         }

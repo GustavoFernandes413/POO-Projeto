@@ -26,8 +26,8 @@ public class LocaisServiceImpl implements LocaisService {
     @Override
     public void deletarLocais(Locais local) throws Exception {
         try {
-            locaisDAO.delete(local);
-
+            Locais locais = locaisDAO.findById(local.getId());
+            locaisDAO.delete(locais);
         } catch (Exception e) {
             throw new RuntimeException("Erro ao deletar local!");
         }

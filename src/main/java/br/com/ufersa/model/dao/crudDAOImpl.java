@@ -51,7 +51,8 @@ public abstract class crudDAOImpl<T> implements crudDAO<T> {
             if (ts.isActive()) {
                 ts.rollback();
             }
-            throw new RuntimeException("Erro ao deletar " + object.toString(), e);
+            e.printStackTrace(); // Isso imprimirá a stack trace completa no console
+            throw new RuntimeException("Erro ao deletar " +  e);
         }
     }
 }

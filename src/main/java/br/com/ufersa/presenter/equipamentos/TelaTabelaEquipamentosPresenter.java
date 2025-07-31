@@ -77,7 +77,7 @@ public class TelaTabelaEquipamentosPresenter implements Initializable {
             public TableCell<Equipamentos, Void> call(final TableColumn<Equipamentos, Void> param) {
                 final TableCell<Equipamentos, Void> cell = new TableCell<>() {
                     private final Hyperlink linkEditar = new Hyperlink("Editar");
-                    private final Button btnExcluir = new Button("Excluir");
+                   // private final Button btnExcluir = new Button("Excluir");
 
                     {
                         linkEditar.setOnAction(event -> {
@@ -100,11 +100,11 @@ public class TelaTabelaEquipamentosPresenter implements Initializable {
                             }
 
                         });
-                        // TODO implementar chamada ao servico de exclusao
-                        btnExcluir.setOnAction(event -> {
-//                            Equipamentos equipamento = getTableView().getItem();
-//                             deletarRegistro(produto);
-                        });
+//                        // TODO implementar chamada ao servico de exclusao
+//                        btnExcluir.setOnAction(event -> {
+////                            Equipamentos equipamento = getTableView().getItem();
+////                             deletarRegistro(produto);
+//                        });
                     }
 
                     @Override
@@ -113,7 +113,7 @@ public class TelaTabelaEquipamentosPresenter implements Initializable {
                         if (empty) {
                             setGraphic(null);
                         } else {
-                            HBox painelAcoes = new HBox(linkEditar, btnExcluir);
+                            HBox painelAcoes = new HBox(linkEditar);
                             painelAcoes.setSpacing(10);
                             setGraphic(painelAcoes);
                         }

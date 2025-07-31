@@ -10,7 +10,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="822.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.ufersa.presenter.vendas.TelaCadastroVendasPresenter">
    <children>
-      <Button layoutX="42.0" layoutY="506.0" mnemonicParsing="false" onAction="#voltar" text="Voltar" />
+      <Button fx:id="voltarButton" layoutX="42.0" layoutY="506.0" mnemonicParsing="false" onAction="#voltar" text="Voltar" />
       <TextField fx:id="codVenda" layoutX="261.0" layoutY="31.0" />
       <Text layoutX="147.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Codigo da Venda:" />
       <Text layoutX="191.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cliente:" />

@@ -8,12 +8,14 @@ import br.com.ufersa.model.entities.Equipamentos;
 import br.com.ufersa.model.entities.Locais;
 import br.com.ufersa.model.entities.Responsavel;
 import br.com.ufersa.model.services.*;
+import br.com.ufersa.presenter.util.PresenterUtil;
 import br.com.ufersa.view.LoginResponsavel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -41,6 +43,10 @@ public class TelaCadastroEquipamentosPresenter implements Initializable {
     private ComboBox<Locais> localEquipamento;
     @FXML
     private ComboBox<Responsavel> responsavelEquipamento;
+    @FXML private Button salvarButton;
+    @FXML private Button voltarButton;
+
+
 
     EquipamentosService equipamentosService = new EquipamentosServiceImpl(new EquipamentosDAOImpl());
     LocaisService locaisService = new LocaisServiceImpl(new LocaisDAOImpl());
@@ -73,6 +79,7 @@ public class TelaCadastroEquipamentosPresenter implements Initializable {
         try {
             equipamentosService.cadastraEquipamento(equipamentoPersistir);
             JOptionPane.showMessageDialog(null, "Novo Equipamento cadastrado com sucesso!");
+            PresenterUtil.fecharJanela(salvarButton);
         } catch (Exception e) {
             erro.setText(e.getMessage());
             erro.setTextFill(Color.RED);
@@ -92,6 +99,7 @@ public class TelaCadastroEquipamentosPresenter implements Initializable {
         try {
             equipamentosService.editarEquipamento(equipamentoSelecionado);
             JOptionPane.showMessageDialog(null, " Equipamento editado com sucesso!");
+            PresenterUtil.fecharJanela(salvarButton);
 
         } catch (Exception e) {
             erro.setText(e.getMessage());
@@ -124,7 +132,7 @@ public class TelaCadastroEquipamentosPresenter implements Initializable {
         localEquipamento.setValue(equipamento.getLocal());
     }
     @FXML public void voltar(ActionEvent event){
-        LoginResponsavel.telaPrincipalCadastro();
+        PresenterUtil.fecharJanela(voltarButton);
     }
 
 

@@ -8,10 +8,12 @@ import br.com.ufersa.model.entities.Responsavel;
 import br.com.ufersa.model.services.ClienteService;
 import br.com.ufersa.model.services.ClienteServiceImpl;
 import br.com.ufersa.model.services.PessoaServiceImpl;
+import br.com.ufersa.presenter.util.PresenterUtil;
 import br.com.ufersa.view.LoginResponsavel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
@@ -27,6 +29,10 @@ public class TelaCadastroClientesPresenter {
     private TextField enderecoCliente;
     @FXML
     private TextField cpfCliente;
+    @FXML
+    private Button voltarButton;
+    @FXML
+    private Button salvarButton;
     @FXML
     private Label erro;
     // TODO ao editar um elemento ou salvar, a tabela deve ser atualizada ao fechar janela de cadastro
@@ -49,6 +55,7 @@ public class TelaCadastroClientesPresenter {
         try {
             clienteService.cadastrarCliente(cliente);
             JOptionPane.showMessageDialog(null, "Novo Cliente cadastrado com sucesso!");
+            PresenterUtil.fecharJanela(salvarButton);
         } catch (Exception e) {
             erro.setText(e.getMessage());
             erro.setTextFill(Color.RED);
@@ -62,6 +69,7 @@ public class TelaCadastroClientesPresenter {
         try {
             clienteService.editarCliente(clienteSelecionado);
             JOptionPane.showMessageDialog(null, "Cliente editado com sucesso!");
+            PresenterUtil.fecharJanela(salvarButton);
         } catch (Exception e) {
             erro.setText(e.getMessage());
             erro.setTextFill(Color.RED);
@@ -80,7 +88,7 @@ public class TelaCadastroClientesPresenter {
 
     @FXML
     public void voltar(ActionEvent event) {
-        LoginResponsavel.telaPrincipalCadastro();
+        PresenterUtil.fecharJanela(voltarButton);
     }
 
 

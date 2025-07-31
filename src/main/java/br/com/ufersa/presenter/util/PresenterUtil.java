@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.controlsfx.control.PropertySheet;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.List;
 
@@ -107,6 +108,8 @@ public class PresenterUtil {
                                 TelaCadastroVendasPresenter presenter = loader.getController();
                                 presenter.carregarVendaParaEdicao(vendaParaEditar);
                                 presenter.cancelamento(); // TODO corrigir para salvar no BD
+                                JOptionPane.showMessageDialog(null, " Venda Devolvida com sucesso! Novo status: ");
+
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }

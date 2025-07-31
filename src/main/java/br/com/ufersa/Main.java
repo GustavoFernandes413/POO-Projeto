@@ -35,7 +35,8 @@ public class Main {
 ////        Cliente clienteId = clienteService.getPessoaById(clienteVen);
 //////        Locais localEq = new Locais();
 //////        localEq.setId(1L);
-        Locais locId = locaisService.getLocalById(1L);
+        Locais locId = locaisService.getLocalById(3L);
+        locaisService.deletarLocais(locId);
         Responsavel responsavelEq = new Responsavel();
         responsavelEq.setId(2L);
         Responsavel responsavelId = responsavelService.getPessoaById(responsavelEq);

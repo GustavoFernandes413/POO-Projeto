@@ -42,6 +42,8 @@ public class TelaCadastroVendasPresenter implements Initializable {
 
     @FXML private Button adicionarItemButton;
     @FXML private Button finalizarVendaButton;
+    @FXML private Button voltarButton;
+
 
 
     @FXML private Label erro;
@@ -173,6 +175,6 @@ public class TelaCadastroVendasPresenter implements Initializable {
     }
     @FXML
     public void voltar(ActionEvent event) {
-        LoginResponsavel.telaPrincipalCadastro();
+        PresenterUtil.fecharJanela(voltarButton);
     }
 }
