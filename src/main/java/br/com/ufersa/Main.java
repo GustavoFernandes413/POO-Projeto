@@ -11,10 +11,10 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-//        PessoaService pessoaService = new PessoaServiceImpl(new PessoaDAOImpl());
-//        LocaisService locaisService = new LocaisServiceImpl(new LocaisDAOImpl());
-//        ResponsavelService responsavelService = new ResponsavelServiceImpl(new ResponsavelDAOImpl(), pessoaService);
-//        EquipamentosService equipamentosService = new EquipamentosServiceImpl(new EquipamentosDAOImpl());
+       PessoaService pessoaService = new PessoaServiceImpl(new PessoaDAOImpl());
+        LocaisService locaisService = new LocaisServiceImpl(new LocaisDAOImpl());
+        ResponsavelService responsavelService = new ResponsavelServiceImpl(new ResponsavelDAOImpl(), pessoaService);
+      EquipamentosService equipamentosService = new EquipamentosServiceImpl(new EquipamentosDAOImpl());
 //        ClienteService clienteService = new ClienteServiceImpl(pessoaService, new ClienteDAOImpl());
         VendasService vendasService = new VendasServiceImpl(new VendasDAOImpl());
 ////        ObserverVendas vendasObserver = new EquipamentosServiceImpl(new EquipamentosDAOImpl());
@@ -35,19 +35,18 @@ public class Main {
 ////        Cliente clienteId = clienteService.getPessoaById(clienteVen);
 //////        Locais localEq = new Locais();
 //////        localEq.setId(1L);
-//        Locais locId = locaisService.getLocalById(1L);
-//        Responsavel responsavelEq = new Responsavel();
-//        responsavelEq.setId(2L);
-//        Responsavel responsavelId = responsavelService.getPessoaById(responsavelEq);
+        Locais locId = locaisService.getLocalById(1L);
+        Responsavel responsavelEq = new Responsavel();
+        responsavelEq.setId(2L);
+        Responsavel responsavelId = responsavelService.getPessoaById(responsavelEq);
 ////        Equipamentos equipamentos = new Equipamentos();
 ////        equipamentos.setId(2L);
 ////        Equipamentos equipamentoId = equipamentosService.getEquipamentoById(equipamentos);
 ////
 ////        vendasService.addObserver(vendasObserver);
 ////
-//        Equipamentos equipamento = new Equipamentos("Mouse Dragon", "MOU12398230",
-//                139.99, 14, locId, responsavelId);
-//        equipamentosService.cadastraEquipamento(equipamento);
+       Equipamentos equipamento = new Equipamentos("Tecl", "MOU12398230",
+              139.99, 14, locId, responsavelId);
 //        Equipamentos equi01 =  new Equipamentos();
 //        Equipamentos equi02 =  new Equipamentos();
 //        Equipamentos equi03 =  new Equipamentos();
@@ -81,5 +80,8 @@ public class Main {
         dataFim.setData(Timestamp.from(Instant.from(Instant.now())));
 
         vendasService.relatorio(dataInicio, dataFim).forEach(System.out::println);
+
+        equipamentosService.findByNome(equipamento).forEach(System.out::println);
+
     }
 }

@@ -8,8 +8,8 @@ import br.com.ufersa.model.entities.Vendas;
 
 import java.util.List;
 
-public class EquipamentosServiceImpl implements EquipamentosService,  ObserverVendas  {
-    private final  EquipamentosDAO equipamentosDAO ;
+public class EquipamentosServiceImpl implements EquipamentosService, ObserverVendas {
+    private final EquipamentosDAO equipamentosDAO;
 
     public EquipamentosServiceImpl(EquipamentosDAO equipamentosDAO) {
         this.equipamentosDAO = equipamentosDAO;
@@ -17,7 +17,7 @@ public class EquipamentosServiceImpl implements EquipamentosService,  ObserverVe
 
     @Override
     public void onVendaProcessada(Vendas venda) {
-        for (ItemVenda item : venda.getItens()){
+        for (ItemVenda item : venda.getItens()) {
             Equipamentos equipamentos = item.getEquipamento();
             int quantidade = item.getQuantidade();
 
@@ -30,7 +30,7 @@ public class EquipamentosServiceImpl implements EquipamentosService,  ObserverVe
 
     @Override
     public void onVendaCancelada(Vendas venda) {
-        for (ItemVenda item : venda.getItens()){
+        for (ItemVenda item : venda.getItens()) {
             Equipamentos equipamentos = item.getEquipamento();
             int quantidade = item.getQuantidade();
 
@@ -48,6 +48,7 @@ public class EquipamentosServiceImpl implements EquipamentosService,  ObserverVe
         }
         equipamentosDAO.save(equip);
     }
+
     @Override
     public void editarEquipamento(Equipamentos equip) {
         equipamentosDAO.update(equip);
@@ -65,11 +66,6 @@ public class EquipamentosServiceImpl implements EquipamentosService,  ObserverVe
     }
 
     @Override
-    public Equipamentos findByNomeEquipamento(Equipamentos equipamentos) {
-        return equipamentosDAO.findByName(equipamentos);
-    }
-
-    @Override
     public void alterarPreco(Equipamentos id) {
         equipamentosDAO.update(id);
     }
@@ -77,5 +73,38 @@ public class EquipamentosServiceImpl implements EquipamentosService,  ObserverVe
     @Override
     public List<Equipamentos> getAllEquipamentosDisponiveis() {
         return equipamentosDAO.getEquipamentosDisponiveis();
+    }
+
+    @Override
+    public List<Equipamentos> findByResponsavel(Equipamentos equipamentos) {
+        if (equipamentos.getResponsavel() == null) {
+            // TODO Lancar erro
+        }
+        return equipamentosDAO.findByResponsavel(equipamentos);
+
+    }
+
+    @Override
+    public List<Equipamentos> findByLocal(Equipamentos equipamentos) {
+        if (equipamentos.getLocal() == null) {
+        }
+        return equipamentosDAO.findByLocal(equipamentos);
+
+    }
+
+    @Override
+    public List<Equipamentos> findByNSerie(Equipamentos equipamentos) {
+        if (equipamentos.getNumeroSerie() == null) {
+
+        }
+        return equipamentosDAO.findByNSerie(equipamentos);
+    }
+
+    @Override
+    public List<Equipamentos> findByNome(Equipamentos equipamentos) {
+        if (equipamentos.getNome() == null) {
+
+        }
+        return equipamentosDAO.findByName(equipamentos);
     }
 }

@@ -114,7 +114,7 @@ public class TelaCadastroVendasPresenter implements Initializable {
                 .addItens(this.itensDaVenda)
                 .build();
         try {
-             vendasService.criarVenda(vendaPersistir);
+            vendasService.criarVenda(vendaPersistir);
             vendasService.removeObserver(vendasObserver); // retira
             abrirNota(vendaPersistir);
             PresenterUtil.fecharJanela(finalizarVendaButton);

@@ -1,6 +1,7 @@
 package br.com.ufersa.presenter.util;
 
 import br.com.ufersa.model.entities.Cliente;
+import br.com.ufersa.model.entities.Equipamentos;
 import br.com.ufersa.model.entities.ItemVenda;
 import br.com.ufersa.model.entities.Vendas;
 import br.com.ufersa.model.services.ClienteService;
@@ -80,6 +81,10 @@ public class PresenterUtil {
     public static void carregarTabelaItemVendas(TableView<ItemVenda> itemVenda, List<ItemVenda> itemVendaList) {
         ObservableList<ItemVenda> observableItemVenda  = FXCollections.observableArrayList(itemVendaList);
         itemVenda.setItems(observableItemVenda);
+    }
+    public static void carregarTabelaEquipamentos(TableView<Equipamentos> equipamentos, List<Equipamentos> equipamentosList) {
+        ObservableList<Equipamentos> observablelEquipamentos  = FXCollections.observableArrayList(equipamentosList);
+        equipamentos.setItems(observablelEquipamentos);
     }
 
     // metodos de renderizacao de tabelas

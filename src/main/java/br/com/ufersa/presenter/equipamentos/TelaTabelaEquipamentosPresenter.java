@@ -45,6 +45,10 @@ public class TelaTabelaEquipamentosPresenter implements Initializable {
 
     private final EquipamentosService equipamentosService = new EquipamentosServiceImpl(new EquipamentosDAOImpl());
 
+    public TableView<Equipamentos> getTabelaEquipamentos() {
+        return tabelaEquipamentos;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         colNumeroSerie.setCellValueFactory(new PropertyValueFactory<Equipamentos, Integer>("numeroSerie"));

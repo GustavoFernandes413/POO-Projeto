@@ -8,8 +8,11 @@ public interface EquipamentosService {
     void editarEquipamento(Equipamentos equip);
     Equipamentos getEquipamentoById(Equipamentos equip);
     List<Equipamentos> getAllEquipamentos();
-    Equipamentos findByNomeEquipamento(Equipamentos equipamentos);
     void alterarPreco(Equipamentos id);
     List<Equipamentos> getAllEquipamentosDisponiveis();
+    List<Equipamentos> findByResponsavel(Equipamentos equipamentos);
+    List<Equipamentos> findByLocal(Equipamentos equipamentos);
+    List<Equipamentos> findByNSerie(Equipamentos equipamentos);
+    List<Equipamentos> findByNome(Equipamentos equipamentos);
 
 }
