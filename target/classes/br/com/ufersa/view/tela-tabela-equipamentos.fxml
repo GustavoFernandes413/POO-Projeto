@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<TableView fx:id="tabelaEquipamentos" prefHeight="587.0" prefWidth="895.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.ufersa.presenter.equipamentos.TelaTabelaEquipamentosPresenter">
+   <columns>
+      <TableColumn fx:id="colNumeroSerie" prefWidth="121.0" text="Numero de serie" />
+      <TableColumn fx:id="colNomeEquipamento" prefWidth="76.0" text="Nome" />
+      <TableColumn fx:id="colPreco" prefWidth="114.0" text="Preço" />
+      <TableColumn fx:id="colEstoque" prefWidth="158.0" text="Estoque (unidades)" />
+      <TableColumn fx:id="colLocal" prefWidth="70.0" text="Local" />
+      <TableColumn fx:id="colResponsavel" prefWidth="154.0" text="Responsavel" />
+      <TableColumn fx:id="colAcoes" prefWidth="201.0" text="Acoes" />
+   </columns>
+</TableView>

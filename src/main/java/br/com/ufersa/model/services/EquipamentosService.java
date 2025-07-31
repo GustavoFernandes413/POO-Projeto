@@ -5,10 +5,14 @@ import java.util.List;
 
 public interface EquipamentosService {
     void cadastraEquipamento(Equipamentos equip);
-    void comprarEquipamento(Equipamentos equip, int quantidade);
-    void venderEquipamento(Equipamentos equip, int quantidade);
-    Equipamentos getEquipamentoById(Long id);
+    void editarEquipamento(Equipamentos equip);
+    Equipamentos getEquipamentoById(Equipamentos equip);
     List<Equipamentos> getAllEquipamentos();
-    Equipamentos findByNomeEquipamento(Equipamentos equipamentos);
     void alterarPreco(Equipamentos id);
+    List<Equipamentos> getAllEquipamentosDisponiveis();
+    List<Equipamentos> findByResponsavel(Equipamentos equipamentos);
+    List<Equipamentos> findByLocal(Equipamentos equipamentos);
+    List<Equipamentos> findByNSerie(Equipamentos equipamentos);
+    List<Equipamentos> findByNome(Equipamentos equipamentos);
+
 }

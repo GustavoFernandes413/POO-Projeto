@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="760.0" prefWidth="1077.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.ufersa.presenter.vendas.TelaRelatorioVendasPresenter">
+   <children>
+      <DatePicker fx:id="dataInicial" layoutX="69.0" layoutY="72.0" />
+      <DatePicker fx:id="dataFinal" layoutX="802.0" layoutY="72.0" />
+      <Label layoutX="69.0" layoutY="48.0" text="Inicio" />
+      <Label layoutX="791.0" layoutY="56.0" text="Fim" />
+      <Button fx:id="gerarRelatorio" layoutX="941.0" layoutY="109.0" mnemonicParsing="false" onAction="#gerarRelatorioVendas" text="Gerar" />
+
+    <fx:include fx:id="minhaTabelaVendas" source="tela-tabela-vendas.fxml" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />   </children>
+
+        </AnchorPane>

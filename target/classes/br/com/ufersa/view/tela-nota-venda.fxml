@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="614.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.ufersa.presenter.vendas.TelaNotaVendaPresenter">
+    <children>
+        <fx:include fx:id="tabelaItemVendas" source="tela-tabela-item.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <Label layoutX="88.0" layoutY="25.0" text="Cliente:" />
+      <Label layoutX="103.0" layoutY="118.0" text="Total:" />
+      <Label layoutX="31.0" layoutY="52.0" text="Codigo da venda:" />
+      <Label layoutX="48.0" layoutY="85.0" text="Data da venda:" />
+      <Label fx:id="nomeCliente" layoutX="173.0" layoutY="25.0" prefHeight="15.0" prefWidth="102.0" />
+      <Label fx:id="codigoVenda" layoutX="170.0" layoutY="52.0" prefHeight="15.0" prefWidth="73.0" />
+      <Label fx:id="dataVenda" layoutX="170.0" layoutY="85.0" />
+      <Label fx:id="totalVenda" layoutX="170.0" layoutY="118.0" />
+      <Label layoutX="21.0" layoutY="170.0" text="Detalhes dos Itens da venda" />
+    </children>
+</AnchorPane>

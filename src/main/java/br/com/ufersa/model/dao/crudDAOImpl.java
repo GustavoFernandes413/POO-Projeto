@@ -6,10 +6,12 @@ import jakarta.persistence.EntityTransaction;
 
 // Quero usar essa classe para diminuir a repetição de código
 // TODO - verificar soluções para implementar o R: Read das operacoes
-public abstract class crudDAOImpl <T> implements crudDAO <T>{
+public abstract class crudDAOImpl<T> implements crudDAO<T> {
+    // Tratar excessoes corretamente
     private final EntityManager em = JPAUtil.getEntityManagerFactory();
 
-    public void save(T object) {
+    @Override
+    public void save(T object) throws RuntimeException {
         EntityTransaction ts = em.getTransaction();
         try {
             ts.begin();
@@ -19,11 +21,10 @@ public abstract class crudDAOImpl <T> implements crudDAO <T>{
             if (ts.isActive()) {
                 ts.rollback();
             }
-            throw new RuntimeException("Erro ao salvar " + object.toString(), e);
-        } finally {
-            JPAUtil.shutdown();
+            throw new RuntimeException("Erro ao salvar ", e);
         }
     }
+
     @Override
     public void update(T object) {
         EntityTransaction ts = em.getTransaction();
@@ -35,12 +36,11 @@ public abstract class crudDAOImpl <T> implements crudDAO <T>{
             if (ts.isActive()) {
                 ts.rollback();
             }
-            throw new RuntimeException("Erro ao atualizar " + object.toString(), e);
-        } finally {
-            JPAUtil.shutdown(); // encerrando conexao com o BD
+            throw new RuntimeException("Erro ao atualizar ", e);
         }
     }
 
+    @Override
     public void delete(T object) {
         EntityTransaction ts = em.getTransaction();
         try {
@@ -51,9 +51,8 @@ public abstract class crudDAOImpl <T> implements crudDAO <T>{
             if (ts.isActive()) {
                 ts.rollback();
             }
-            throw new RuntimeException("Erro ao deletar " + object.toString(), e);
-        } finally {
-            JPAUtil.shutdown(); // encerrando conexao com o BD
+            e.printStackTrace(); // Isso imprimirá a stack trace completa no console
+            throw new RuntimeException("Erro ao deletar " +  e);
         }
     }
 }

@@ -1,6 +1,7 @@
 package br.com.ufersa.model.services;
 import br.com.ufersa.model.dao.PessoaDAO;
 import br.com.ufersa.model.dao.PessoaDAOImpl;
+import br.com.ufersa.model.entities.Cliente;
 import br.com.ufersa.model.entities.Pessoa;
 
 import java.util.List;
@@ -13,11 +14,11 @@ public class PessoaServiceImpl implements PessoaService {
     }
 
     @Override
-    public void mudarNome(Pessoa  pessoa){
+    public void mudarNome(Pessoa  pessoa) throws IllegalArgumentException{
         if (validarAttr(pessoa) ) {
             pessoaDAO.update(pessoa);
         } else {
-            throw  new IllegalArgumentException("Nenhum nome passado para atualização.");
+            throw   new IllegalArgumentException("Nenhum nome passado para atualização.");
         }
     }
 

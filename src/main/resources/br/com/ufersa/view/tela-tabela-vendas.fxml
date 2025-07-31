@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<TableView fx:id="minhaTabelaVendas" prefHeight="595.0" prefWidth="843.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.ufersa.presenter.vendas.TelaTabelaVendasPresenter">
+   <columns>
+      <TableColumn fx:id="colCodVenda" prefWidth="191.0" text="Cod da Venda" />
+      <TableColumn fx:id="colClienteVenda" prefWidth="132.0" text="Cliente" />
+      <TableColumn fx:id="colPreco" prefWidth="93.0" text="Preço" />
+      <TableColumn fx:id="colStatus" prefWidth="135.0" text="Status" />
+      <TableColumn fx:id="colIdVenda" prefWidth="121.0" text="id" visible="false" />
+      <TableColumn fx:id="colAcoes" prefWidth="291.0" text="Açoes" />
+   </columns>
+</TableView>

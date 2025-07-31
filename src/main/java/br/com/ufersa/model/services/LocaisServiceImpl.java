@@ -6,13 +6,42 @@ import br.com.ufersa.model.entities.Locais;
 
 import java.util.List;
 
-public class LocaisServiceImpl implements LocaisService{
-    private LocaisDAO locaisDAO = new LocaisDAOImpl();
+public class LocaisServiceImpl implements LocaisService {
+    private final LocaisDAO locaisDAO;
+
+    public LocaisServiceImpl(LocaisDAO locaisDAO) {
+        this.locaisDAO = locaisDAO;
+    }
+
+    @Override
+    public void editarLocais(Locais local) throws Exception {
+        try {
+            locaisDAO.update(local);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao atualizar Local!");
+        }
+    }
+
+    @Override
+    public void deletarLocais(Locais local) throws Exception {
+        try {
+            Locais locais = locaisDAO.findById(local.getId());
+            locaisDAO.delete(locais);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao deletar local!");
+        }
+    }
 
 
     @Override
-    public void cadastrarLocal(Locais local) {
-        locaisDAO.update(local);
+    public void cadastrarLocal(Locais local) throws RuntimeException {
+        try {
+            locaisDAO.save(local);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Este Local já esta cadastrado!");
+        }
     }
 
     @Override
@@ -21,7 +50,7 @@ public class LocaisServiceImpl implements LocaisService{
     }
 
     @Override
-    public Locais getLocalById(Long  local) {
+    public Locais getLocalById(Long local) {
         return locaisDAO.findById(local);
     }
 
@@ -31,7 +60,7 @@ public class LocaisServiceImpl implements LocaisService{
     }
 
     @Override
-    public Locais findByNomeCasa(Locais  local) {
+    public Locais findByNomeCasa(Locais local) {
         return locaisDAO.findByName(local);
     }
 }

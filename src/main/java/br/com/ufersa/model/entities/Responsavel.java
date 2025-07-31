@@ -4,19 +4,59 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @DiscriminatorValue("Responsavel")
 public class Responsavel extends Pessoa {
+    // adicao de sistema de Login
+    @Column(length = 50, unique = true, updatable = false) // nao permite atualizar login
+    private String login;
+    @Column(length = 20)
+    private String senha;
+    @Column(length = 20, unique = true)
     private String telefone;
-    @OneToMany( mappedBy = "responsavel",cascade = CascadeType.MERGE) // usa-se o lazy por padrao
+
+    @OneToMany(mappedBy = "responsavel", cascade = CascadeType.MERGE) // usa-se o lazy por padrao
     private List<Equipamentos> equipamentos = new ArrayList<>();
     @OneToMany(mappedBy = "responsavel", cascade = CascadeType.MERGE)
     private List<Vendas> vendas = new ArrayList<>();
 
     @Override
     public String toString() {
-        return super.toString() + "/nTelefone: " + getTelefone();
+        return this.getNome() + "  -  Telefone: " + this.getTelefone() ;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public List<Equipamentos> getEquipamentos() {
+        return equipamentos;
+    }
+
+    public void setEquipamentos(List<Equipamentos> equipamentos) {
+        this.equipamentos = equipamentos;
+    }
+
+    public List<Vendas> getVendas() {
+        return vendas;
+    }
+
+    public void setVendas(List<Vendas> vendas) {
+        this.vendas = vendas;
     }
 
     public String getTelefone() {
@@ -31,17 +71,35 @@ public class Responsavel extends Pessoa {
         }
     }
 
-
-
-    public Responsavel(String nome, String endereco, String telefone) {
+    public Responsavel(String nome, String endereco, String login, String senha, String telefone) {
         super(nome, endereco);
-        setTelefone(telefone);
+        this.login = login;
+        this.senha = senha;
+        this.telefone = telefone;
     }
+
+    public Responsavel(String login, String senha, String telefone, List<Equipamentos> equipamentos, List<Vendas> vendas) {
+        this.login = login;
+        this.senha = senha;
+        this.telefone = telefone;
+        this.equipamentos = equipamentos;
+        this.vendas = vendas;
+    }
+
     public Responsavel() {
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Responsavel that = (Responsavel) o;
+        return Objects.equals(login, that.login) ;
+    }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(login);
+    }
 
 
 }

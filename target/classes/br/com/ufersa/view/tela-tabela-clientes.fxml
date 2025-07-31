@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<TableView fx:id="tabelaClientes" prefHeight="400.0" prefWidth="594.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.ufersa.presenter.clientes.TelaTabelaClientesPresenter">
+   <columns>
+      <TableColumn fx:id="colNomeCliente" prefWidth="159.0" text="Nome" />
+      <TableColumn fx:id="colEnderecoCliente" prefWidth="140.0" text="Endereço" />
+      <TableColumn fx:id="colCpfCliente" prefWidth="155.0" text="Cpf" />
+      <TableColumn fx:id="colAcoes" prefWidth="104.0" text="Açoes" />
+   </columns>
+</TableView>

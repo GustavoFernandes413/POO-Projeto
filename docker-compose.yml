@@ -1,0 +1,17 @@
+services:
+  mysql_db:
+    image: mysql:8.0
+    container_name: mysql_poo
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: jdbc_poo
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: always
+
+volumes:
+  mysql_data:

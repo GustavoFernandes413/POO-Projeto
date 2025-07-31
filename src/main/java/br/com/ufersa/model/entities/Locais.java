@@ -4,9 +4,12 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
-@Table(name = "Locais")
+@Table(name = "Locais",  uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"nomeCasa", "nomeCompartimento"})
+})
 
 public class Locais {
     @Id
@@ -18,8 +21,6 @@ public class Locais {
     private String nomeCompartimento;
     @OneToMany(mappedBy = "local",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Equipamentos> equipamentos = new ArrayList<>();
-    @OneToMany(mappedBy = "local", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    private List<Vendas> vendas = new ArrayList<>();
 
     public String getNomeCasa() {
         return nomeCasa;
@@ -64,11 +65,19 @@ public class Locais {
     }
     @Override
     public String toString() {
-        return (
-                "Nome da Casa: " +
-                        getNomeCasa() +
-                        "Compartimento: " +
-                        getNomeCompartimento()
-        );
+        return  this.getNomeCasa() + "," +this.getNomeCompartimento();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Locais locais = (Locais) o;
+        return Objects.equals(id, locais.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
+

@@ -1,5 +1,7 @@
 package br.com.ufersa.model.services;
 
+import br.com.ufersa.exceptions.AutenticacaoException;
+import br.com.ufersa.exceptions.PessoaExisteException;
 import br.com.ufersa.model.dao.ResponsavelDAO;
 import br.com.ufersa.model.dao.ResponsavelDAOImpl;
 import br.com.ufersa.model.entities.Cliente;
@@ -11,11 +13,29 @@ public class ResponsavelServiceImpl implements ResponsavelService {
 
     private final ResponsavelDAO responsavelDAO ;
     private final PessoaService pessoaService;
+
     // é feita a injecao de dependencia via construtor
     public ResponsavelServiceImpl(ResponsavelDAO responsavelDAO, PessoaService pessoaService) {
         this.responsavelDAO = responsavelDAO;
         this.pessoaService = pessoaService;
     }
+
+    @Override
+    public Responsavel autenticar(Responsavel responsavel) throws AutenticacaoException {
+        Responsavel responsavelogin = responsavelDAO.findByLogin(responsavel);
+       if (responsavelogin != null){
+            if(responsavelogin.getSenha().equals(responsavel.getSenha()) ) {
+                responsavel.setLogin(responsavel.getLogin());
+                responsavel.setSenha(responsavel.getSenha());
+                return responsavel;
+           }else {
+                throw new AutenticacaoException("Senha incorreta.");
+            }
+       }else  {
+           throw  new AutenticacaoException("Responsavel não encontrado.");
+        }
+    }
+
 
     @Override
     public void mudarTelefone(Responsavel responsavel) {
@@ -25,11 +45,11 @@ public class ResponsavelServiceImpl implements ResponsavelService {
             throw new IllegalArgumentException("Telefone informado é inválido");
         }
     }
+    // = metodo para registro de responsaveis
     @Override
-    public void cadastrarResponsavel(Responsavel responsavel){
-        // TODO implementar metodo que verifica se o cliente ja existe
+    public void cadastrarResponsavel(Responsavel responsavel) throws PessoaExisteException {
         if( responsavelDAO.findById(responsavel) != null){
-            throw new IllegalArgumentException("Cliente já existente");
+            throw new PessoaExisteException("Cliente já existente");
         }
         responsavelDAO.save(responsavel);
     }
@@ -44,8 +64,10 @@ public class ResponsavelServiceImpl implements ResponsavelService {
     public Responsavel getPessoaById(Responsavel responsavel) {
         return responsavelDAO.findById(responsavel);
     }
-    public List<Pessoa> getAllPessoas() {
-        return pessoaService.getAllPessoas();
+
+    public List<Responsavel> getAllPessoas() {
+        return responsavelDAO.getAll();
     }
+
 
 }

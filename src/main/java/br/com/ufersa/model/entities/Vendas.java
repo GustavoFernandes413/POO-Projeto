@@ -1,8 +1,13 @@
 package br.com.ufersa.model.entities;
 
 import jakarta.persistence.*;
+import org.controlsfx.control.PropertySheet;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Vendas")
@@ -12,26 +17,36 @@ public class Vendas {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "cod_venda")
-    private Long codigoVenda;
-    @Column(name = "status", nullable = false)
-    private String status;
+    private String codigoVenda;
+    @Enumerated(EnumType.STRING)
+    private StatusCompra status;
     @Column(name = "data")
     private Timestamp data;
+    @Column(name = "preco")
+    private double preco;
 
-    // TODO verificar se o cascade é adequado
+    // regra: uma venda pertence a um único cliente
     @ManyToOne
-    @JoinColumn(name= "fk_cliente")
+    @JoinColumn(name = "fk_cliente")
     private Cliente cliente;
 
+    // regra: uma venda possui múltiplos itens
+    @OneToMany(mappedBy = "venda", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<ItemVenda> itens = new ArrayList<>();
+
+    // regra: uma venda pertence a um único responsável
     @ManyToOne
-    @JoinColumn(name = "fk_equipamentos")
-    private Equipamentos equipamento;
-    @ManyToOne
-    @JoinColumn(name = "fk_locais")
-    private Locais local;
-    @ManyToOne
-    @JoinColumn(name="fk_responsavel")
+    @JoinColumn(name = "fk_responsavel")
     private Responsavel responsavel;
+
+
+    public List<ItemVenda> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItemVenda> itens) {
+        this.itens = itens;
+    }
 
     public Long getId() {
         return id;
@@ -41,11 +56,11 @@ public class Vendas {
         this.id = id;
     }
 
-    public Long getCodigoVenda() {
+    public String getCodigoVenda() {
         return codigoVenda;
     }
 
-    public void setCodigoVenda(Long codigoVenda) {
+    public void setCodigoVenda(String codigoVenda) {
         if (validarVendas(codigoVenda)) {
             this.codigoVenda = codigoVenda;
         } else {
@@ -53,29 +68,20 @@ public class Vendas {
         }
     }
 
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
+
     public Cliente getCliente() {
         return cliente;
     }
 
     public void setCliente(Cliente cliente) {
-         this.cliente = cliente;
-    }
-
-    public Equipamentos getEquipamento() {
-        return equipamento;
-    }
-
-    public void setEquipamento(Equipamentos equipamento) {
-         this.equipamento = equipamento;
-    }
-
-    public Locais getLocal() {
-        return local;
-    }
-
-    public void setLocal(Locais local) {
-        if (validarVendas(local)) this.local = local;
-        else System.out.println("Erro! Objeto não pode estar indefinido");
+        this.cliente = cliente;
     }
 
     public Responsavel getResponsavel() {
@@ -87,11 +93,11 @@ public class Vendas {
         else System.out.println("Erro! Objeto não pode estar indefinido");
     }
 
-    public String getStatus() {
+    public StatusCompra getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusCompra status) {
         if (validarVendas(status)) {
             this.status = status;
         } else {
@@ -116,23 +122,7 @@ public class Vendas {
         //construtor vazio
     }
 
-    public Vendas(
-        Long codigoVenda,
-        Cliente cliente,
-        Equipamentos equipamento,
-        Locais local,
-        Responsavel responsavel,
-        String status,
-        Timestamp data
-    ) {
-        setCodigoVenda(codigoVenda);
-        setCliente(cliente);
-        setEquipamento(equipamento);
-        setLocal(local);
-        setResponsavel(responsavel);
-        setStatus(status);
-        setData(data);
-    }
+
     // mesmo método é usado para os tipos Responsavel, Local e Equipamentos, por isso o uso de generics.
     public static <T> boolean validarVendas(T objeto) {
         return (objeto != null);
@@ -146,26 +136,109 @@ public class Vendas {
         return (codigoVenda > 0);
     }
 
+    @Override
     public String toString() {
-        return (
-                "Venda: " +
-                        "codigoVenda: " +
-                        getCodigoVenda() +
-                        ", status:" +
-                        getStatus() +
-                        '\'' +
-                        ", data: " +
-                        getData() +
-                        '\'' +
-                        ", cliente: " +
-                        getCliente() +
-                        ", equipamento: " +
-                        getEquipamento().toString() +
-                        ", local: " +
-                        getLocal().toString() +
-                        ", responsavel: " +
-                        getResponsavel().toString() +
-                        '}'
-        );
+        return
+                "Codigo da Venda:'" + codigoVenda + '\'' +
+                        ", status:" + status +
+                        ", data:" + data +
+                        ", Cliente:" + cliente.getNome() +
+                        '}';
+    }
+
+    // metodos para garantir integridade bidirecional
+    public void addItem(ItemVenda item) {
+        if (item != null) {
+            this.itens.add(item);
+            item.setVenda(this); // Garante a ligação bidirecional
+        }
+    }
+
+    public void removeItem(ItemVenda item) {
+        if (item != null) {
+            this.itens.remove(item);
+            item.setVenda(null); // Garante a ligação bidirecional
+        }
+    }
+
+
+// Aplicacao do patter builder: motivação objeto Vendas é bastante complexo e exige vários argumentos no construtor
+
+    Vendas(Builder builder) {
+        this.codigoVenda = builder.codigoVenda;
+        this.cliente = builder.cliente;
+        this.responsavel = builder.responsavel;
+        this.status = builder.status;
+        this.data = builder.data;
+        if (builder.itens != null) {
+            for (ItemVenda item : builder.itens) {
+                this.addItem(item); // Usando um método auxiliar para adicionar um por um
+            }
+        }
+        this.preco = builder.preco;
+    }
+
+    public static class Builder {
+        private String codigoVenda;
+        private StatusCompra status;
+        private Timestamp data;
+        private double preco = 0;
+
+        private Cliente cliente;
+
+        private List<ItemVenda> itens = new ArrayList<>();
+
+        private Responsavel responsavel;
+
+        public Builder codigoVenda() {
+            SimpleDateFormat formatador = new SimpleDateFormat("ddMMyyyyHHmm");
+
+            this.codigoVenda = this.cliente.getNome().toUpperCase().substring(0,3) + formatador.format(this.data);// TODO implementar para colher a dataDAVenda
+            return this;
+        }
+
+        public Builder status(StatusCompra status) {
+            this.status = status;
+            return this;
+        }
+
+        public Builder data(Timestamp data) {
+            this.data = data;
+            return this;
+        }
+
+        public Builder cliente(Cliente cliente) {
+            this.cliente = cliente;
+            return this;
+        }
+
+        public Builder responsavel(Responsavel responsavel) {
+            this.responsavel = responsavel;
+            return this;
+        }
+
+        public Builder addItem(ItemVenda item) {
+            this.itens.add(item);
+            return this;
+        }
+
+        public Builder addItens(List<ItemVenda> itens) {
+            if (itens != null) {
+                for (ItemVenda itemVenda : itens) {
+                    this.addItem(itemVenda);
+                    this.preco = this.preco + itemVenda.getPreco();
+                }
+            }
+            return this;
+        }
+
+        public Builder preco(Vendas preco) {
+            this.preco = preco.getPreco();
+            return this;
+        }
+
+        public Vendas build() {
+            return new Vendas(this);
+        }
     }
 }
