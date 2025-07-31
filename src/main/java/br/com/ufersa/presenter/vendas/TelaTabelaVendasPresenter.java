@@ -6,6 +6,7 @@ import br.com.ufersa.model.entities.StatusCompra;
 import br.com.ufersa.model.entities.Vendas;
 import br.com.ufersa.model.services.VendasService;
 import br.com.ufersa.model.services.VendasServiceImpl;
+import br.com.ufersa.presenter.util.NavigationManager;
 import br.com.ufersa.presenter.util.PresenterUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,8 +38,10 @@ public class TelaTabelaVendasPresenter implements Initializable {
     @FXML
     private TableColumn<Vendas, Initializable> colIdVenda;
 
+    // Ainda não sei como implementar DI aqui, por isso esse alto acoplamento
     VendasService vendasService = new VendasServiceImpl(new VendasDAOImpl());
-    PresenterUtil presenterUtil = new PresenterUtil(vendasService);
+    NavigationManager navegationManager = new NavigationManager();
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -73,6 +76,7 @@ public class TelaTabelaVendasPresenter implements Initializable {
                                 presenter.carregarVendaParaEdicao(vendaParaEditar);
                                 presenter.cancelamento();
                                 JOptionPane.showMessageDialog(null, " Venda Devolvida com sucesso! Novo status: ");
+                                PresenterUtil.carregarVendas(minhaTabelaVendas,vendasService.getAllVendas());
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
@@ -81,7 +85,7 @@ public class TelaTabelaVendasPresenter implements Initializable {
                         btnNota.setOnAction(event -> {
                             Vendas vendaParaAbrirNota = getTableRow().getItem();
                             try {
-                                presenterUtil.abrirNota(vendaParaAbrirNota);
+                                navegationManager.abrirNota(vendaParaAbrirNota);
                             }catch (Exception e) {
                                 throw new RuntimeException(e);
                             }
@@ -101,7 +105,6 @@ public class TelaTabelaVendasPresenter implements Initializable {
                 };
                 return cell;
             }
-
         };
         colAcoes.setCellFactory(cellFactory);
     }

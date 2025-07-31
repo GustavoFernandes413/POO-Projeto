@@ -1,9 +1,6 @@
 package br.com.ufersa.presenter.util;
 
-import br.com.ufersa.model.entities.Cliente;
-import br.com.ufersa.model.entities.Equipamentos;
-import br.com.ufersa.model.entities.ItemVenda;
-import br.com.ufersa.model.entities.Vendas;
+import br.com.ufersa.model.entities.*;
 import br.com.ufersa.model.services.ClienteService;
 import br.com.ufersa.model.services.VendasService;
 import br.com.ufersa.presenter.vendas.TelaCadastroItemVendas;
@@ -84,21 +81,7 @@ public class PresenterUtil {
             erro.setVisible(true);
         }
     }
-    public  void abrirNota(Vendas venda ) throws IOException {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/ufersa/view/tela-nota-venda.fxml"));
-            Parent root = loader.load();
-            TelaNotaVendaPresenter modalController = loader.getController();
-            modalController.setVendaCriada(venda);
-            Stage modalStage = new Stage();
-            modalStage.setTitle("Nota da  Venda");
-            modalStage.setScene(new Scene(root));
-            modalStage.initModality(Modality.APPLICATION_MODAL);
-            modalStage.showAndWait(); // Pausa a execução aqui até o modal ser fechado
-        }catch (Exception e){
-            JOptionPane.showMessageDialog(null, "Erro ao abrir nota!");
-        }
-    }
+
 
     public static void exibirAlerta(String titulo, String mensagem) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -125,6 +108,11 @@ public class PresenterUtil {
     public static void carregarTabelaEquipamentos(TableView<Equipamentos> equipamentos, List<Equipamentos> equipamentosList) {
         ObservableList<Equipamentos> observablelEquipamentos  = FXCollections.observableArrayList(equipamentosList);
         equipamentos.setItems(observablelEquipamentos);
+    }
+
+    public static void carregarTabelaLocais(TableView<Locais> tabelaLocais, List<Locais> listaLocais) {
+        ObservableList<Locais> observableListLocais = FXCollections.observableArrayList(listaLocais);
+        tabelaLocais.setItems(observableListLocais);
     }
 
     // metodos de renderizacao de tabelas

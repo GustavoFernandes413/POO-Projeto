@@ -4,6 +4,7 @@ import br.com.ufersa.model.dao.LocaisDAOImpl;
 import br.com.ufersa.model.entities.Locais;
 import br.com.ufersa.model.services.LocaisService;
 import br.com.ufersa.model.services.LocaisServiceImpl;
+import br.com.ufersa.presenter.util.PresenterUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -41,13 +42,7 @@ public class TelaTabelaLocaisPresenter implements Initializable {
         colNomeCasa.setCellValueFactory(new PropertyValueFactory<Locais, String>("nomeCasa"));
         colNomeCompartimento.setCellValueFactory(new PropertyValueFactory<Locais, String>("nomeCompartimento"));
         renderizarColunaAcoes();
-        dadosLocais();
-    }
-
-    public void dadosLocais() {
-        List<Locais> listaLocais = locaisService.getAllLocais();
-        ObservableList<Locais> observableListLocais = FXCollections.observableArrayList(listaLocais);
-        tabelaLocais.setItems(observableListLocais);
+        PresenterUtil.carregarTabelaLocais(tabelaLocais,locaisService.getAllLocais());
     }
 
     public void renderizarColunaAcoes() {
@@ -56,8 +51,6 @@ public class TelaTabelaLocaisPresenter implements Initializable {
             public TableCell<Locais, Void> call(final TableColumn<Locais, Void> param) {
                 final TableCell<Locais, Void> cell = new TableCell<>() {
                     private final Hyperlink linkEditar = new Hyperlink("Editar");
-//                    private final Button btnExcluir = new Button("Excluir");
-
                     {
                         linkEditar.setOnAction(event -> {
                             Locais localParaEditar = getTableRow().getItem();                        // Cria tela para edicao
@@ -71,22 +64,12 @@ public class TelaTabelaLocaisPresenter implements Initializable {
                                 stage.setScene(new Scene(root));
                                 stage.showAndWait(); // Use showAndWait() para bloquear a janela da tabela até fechar a de edição
 
-                                // 6. (Opcional) Atualize a tabela após a edição ser salva e a janela fechada
-                                dadosLocais();
+                                // Atualize a tabela após a edição ser salva e a janela fechada
+                                PresenterUtil.carregarTabelaLocais(tabelaLocais,locaisService.getAllLocais());
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
-
                         });
-
-//                        btnExcluir.setOnAction(event -> {
-//                            Locais local = getTableView().getItems().get(getIndex());
-//                            try {
-//                                locaisService.deletarLocais(local);
-//                            } catch (Exception e) {
-//                                throw new RuntimeException(e);
-//                            }
-//                        });
                     }
 
                     @Override
