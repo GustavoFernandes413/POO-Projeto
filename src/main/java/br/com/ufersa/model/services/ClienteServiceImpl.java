@@ -1,5 +1,6 @@
 package br.com.ufersa.model.services;
 
+import br.com.ufersa.exceptions.PessoaExisteException;
 import br.com.ufersa.model.dao.ClienteDAO;
 import br.com.ufersa.model.entities.Cliente;
 import br.com.ufersa.model.entities.Pessoa;
@@ -34,18 +35,18 @@ public class ClienteServiceImpl  implements ClienteService{
         }
         // TODO adicionar validacoes aqui
         @Override
-        public void editarCliente(Cliente cliente){
+        public void editarCliente(Cliente cliente) throws PessoaExisteException {
             if( clienteDAO.findByCPF(cliente) == null){
-                throw new IllegalArgumentException("Cliente não existente");
+                throw new PessoaExisteException("Cliente não existente");
             }
             clienteDAO.update(cliente);
         }
 
         @Override
-        public void cadastrarCliente(Cliente cliente){
+        public void cadastrarCliente(Cliente cliente) throws PessoaExisteException {
             // TODO implementar metodo que verifica se o cliente ja existe
             if( clienteDAO.findByCPF(cliente) != null){
-               throw new IllegalArgumentException("Cliente já existente");
+               throw new PessoaExisteException("Cliente já existente");
             }
             clienteDAO.save(cliente);
         }

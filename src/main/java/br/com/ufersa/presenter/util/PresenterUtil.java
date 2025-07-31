@@ -8,6 +8,7 @@ import br.com.ufersa.model.services.ClienteService;
 import br.com.ufersa.model.services.VendasService;
 import br.com.ufersa.presenter.vendas.TelaCadastroItemVendas;
 import br.com.ufersa.presenter.vendas.TelaCadastroVendasPresenter;
+import br.com.ufersa.presenter.vendas.TelaNotaVendaPresenter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -24,7 +26,7 @@ import org.controlsfx.control.PropertySheet;
 import javax.swing.*;
 import java.io.IOException;
 import java.util.List;
-
+// Essa classe possui metodos que uso com frequência em toda a UI da aplicação
 public class PresenterUtil {
     private  ClienteService clienteService;
     private  VendasService vendasService;
@@ -41,13 +43,7 @@ public class PresenterUtil {
         this.vendasService = vendasService;
     }
 
-    public static void exibirAlerta(String titulo, String mensagem) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.setContentText(mensagem);
-        alert.showAndWait();
-    }
+
 
     // TODO pode ser uma forma de refatoracao
     public <T> T  getPresenter(String caminhoPresenter, T tipoController, Button donoModal) throws IOException {
@@ -67,6 +63,49 @@ public class PresenterUtil {
     public static void fecharJanela(Node node) {
         Stage stage = (Stage) node.getScene().getWindow();
         stage.close();
+    }
+    public void abrirNota(Vendas venda, Node node, Label erro){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/ufersa/view/tela-nota-venda.fxml"));
+            Parent root = loader.load();
+
+            TelaNotaVendaPresenter modalController = loader.getController();
+            modalController.setVendaCriada(venda);
+
+            Stage modalStage = new Stage();
+            modalStage.setTitle("Nota da  Venda");
+            modalStage.setScene(new Scene(root));
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            modalStage.initOwner(node.getScene().getWindow());
+            modalStage.showAndWait(); // Pausa a execução aqui até o modal ser fechado
+        }catch (Exception e){
+            erro.setText(e.getMessage());
+            erro.setTextFill(Color.RED);
+            erro.setVisible(true);
+        }
+    }
+    public  void abrirNota(Vendas venda ) throws IOException {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/ufersa/view/tela-nota-venda.fxml"));
+            Parent root = loader.load();
+            TelaNotaVendaPresenter modalController = loader.getController();
+            modalController.setVendaCriada(venda);
+            Stage modalStage = new Stage();
+            modalStage.setTitle("Nota da  Venda");
+            modalStage.setScene(new Scene(root));
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            modalStage.showAndWait(); // Pausa a execução aqui até o modal ser fechado
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Erro ao abrir nota!");
+        }
+    }
+
+    public static void exibirAlerta(String titulo, String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensagem);
+        alert.showAndWait();
     }
 
     // util apenas para comboBox
@@ -90,49 +129,5 @@ public class PresenterUtil {
 
     // metodos de renderizacao de tabelas
 
-    public void renderizarColunaAcoesVendas(TableColumn<Vendas, Void> colAcoes) {
-        Callback<TableColumn<Vendas, Void>, TableCell<Vendas, Void>> cellFactory = new Callback<>() {
-            @Override
-            public TableCell<Vendas, Void> call(final TableColumn<Vendas, Void> param) {
-                final TableCell<Vendas, Void> cell = new TableCell<>() {
-                    private final Button btnCancelar = new Button("Cancelar");
-
-                    {
-                        // TODO implementar chamada ao servico cancelamento de compra
-                        btnCancelar.setOnAction(event -> {
-                            Vendas vendaParaEditar = getTableRow().getItem();                        // Cria tela para edicao
-
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/ufersa/view/tela-cadastro-venda.fxml"));
-                            try {
-                                Parent root = loader.load();
-                                TelaCadastroVendasPresenter presenter = loader.getController();
-                                presenter.carregarVendaParaEdicao(vendaParaEditar);
-                                presenter.cancelamento(); // TODO corrigir para salvar no BD
-                                JOptionPane.showMessageDialog(null, " Venda Devolvida com sucesso! Novo status: ");
-
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void updateItem(Void item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                        } else {
-                            HBox painelAcoes = new HBox(btnCancelar);
-                            painelAcoes.setSpacing(10);
-                            setGraphic(painelAcoes);
-                        }
-                    }
-                };
-                return cell;
-            }
-
-        };
-        colAcoes.setCellFactory(cellFactory);
-    }
 
 }

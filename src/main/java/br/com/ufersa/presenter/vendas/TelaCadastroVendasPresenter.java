@@ -113,6 +113,7 @@ public class TelaCadastroVendasPresenter implements Initializable {
                 .cliente(clienteVenda.getSelectionModel().getSelectedItem())
                 .status(StatusCompra.CONCLUIDA)
                 .preco(vendasService.calcularPrecoVenda(this.itensDaVenda))
+                .codigoVenda()
                 .addItens(this.itensDaVenda)
                 .build();
         try {
@@ -131,9 +132,11 @@ public class TelaCadastroVendasPresenter implements Initializable {
 
     public void cancelamento() {
         vendasService.addObserver(vendasObserver);
-
-        vendaSelecionada.setStatus(StatusCompra.CANCELADA);
+        Vendas vendaCancelamento = new Vendas();
+       vendaCancelamento= vendasService.getVendaById(vendaSelecionada);
+        vendaCancelamento.setStatus(StatusCompra.CANCELADA);
         try {
+
             vendasService.cancelamento(vendaSelecionada);
             JOptionPane.showMessageDialog(null, " Equipamento devolvido com sucesso! Novo status: "+ vendaSelecionada.getStatus());
             vendasService.removeObserver(vendasObserver); // retira

@@ -48,7 +48,6 @@ public class ResponsavelServiceImpl implements ResponsavelService {
     // = metodo para registro de responsaveis
     @Override
     public void cadastrarResponsavel(Responsavel responsavel) throws PessoaExisteException {
-        // TODO implementar metodo que verifica se o cliente ja existe
         if( responsavelDAO.findById(responsavel) != null){
             throw new PessoaExisteException("Cliente já existente");
         }

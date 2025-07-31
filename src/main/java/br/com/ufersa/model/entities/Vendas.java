@@ -5,6 +5,7 @@ import org.controlsfx.control.PropertySheet;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -181,7 +182,7 @@ public class Vendas {
         private String codigoVenda;
         private StatusCompra status;
         private Timestamp data;
-        private double preco;
+        private double preco = 0;
 
         private Cliente cliente;
 
@@ -190,7 +191,9 @@ public class Vendas {
         private Responsavel responsavel;
 
         public Builder codigoVenda() {
-            this.codigoVenda = this.cliente.getNome().toUpperCase().substring(0,3) ;// TODO implementar para colher a dataDAVenda
+            SimpleDateFormat formatador = new SimpleDateFormat("ddMMyyyyHHmm");
+
+            this.codigoVenda = this.cliente.getNome().toUpperCase().substring(0,3) + formatador.format(this.data);// TODO implementar para colher a dataDAVenda
             return this;
         }
 
@@ -223,7 +226,7 @@ public class Vendas {
             if (itens != null) {
                 for (ItemVenda itemVenda : itens) {
                     this.addItem(itemVenda);
-                    // Use the single addItem for null check
+                    this.preco = this.preco + itemVenda.getPreco();
                 }
             }
             return this;

@@ -42,7 +42,7 @@ public class ResponsavelPresenter {
                 RespCadEmail.getText(), RespCadSenha.getText(), RespCadTelefone.getText());
         try {
             responsavelService.cadastrarResponsavel(novoResp);
-            JOptionPane.showConfirmDialog(null, "Usuário cadastrado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
             LoginResponsavel.telaLogin();
         } catch (PessoaExisteException e) {
             erro.setText(e.getMessage());

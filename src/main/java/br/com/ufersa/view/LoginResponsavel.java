@@ -48,17 +48,6 @@ public class LoginResponsavel extends Application {
         stageTemporario.show();
     }
 
-    // TODO Quando precisar criar um novo palco
-    public static void carregarPalcoComRaiz(Parent raiz, String titulo) {
-        Stage stageTemporario = new Stage();
-        Scene scene = null;
-        scene = new Scene(raiz, 800, 600);
-        stageTemporario.initModality(Modality.WINDOW_MODAL); // Bloqueia a janela principal
-        stageTemporario.showAndWait();
-        stageTemporario.setTitle(titulo);
-        stageTemporario.setScene(scene);
-        stageTemporario.show();
-    }
 
     public static void telaPrincipal() {
         carregarCena("TelaPrincipal.fxml", "tela-principal.fxml");
