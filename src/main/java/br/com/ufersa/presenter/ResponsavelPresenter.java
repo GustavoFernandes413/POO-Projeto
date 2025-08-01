@@ -24,15 +24,7 @@ public class ResponsavelPresenter {
     @FXML private TextField RespCadEndereco;
     @FXML private Label erro;
 
-
-
-
     ResponsavelService responsavelService = new ResponsavelServiceImpl(new ResponsavelDAOImpl(), new PessoaServiceImpl(new PessoaDAOImpl()));
-    //Responsavel novoResp = new Responsavel();
-
-
-
-
     @FXML public void retornar(){
         LoginResponsavel.telaLogin();
     }

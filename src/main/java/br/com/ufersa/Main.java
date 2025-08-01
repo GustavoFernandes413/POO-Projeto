@@ -11,13 +11,13 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-       PessoaService pessoaService = new PessoaServiceImpl(new PessoaDAOImpl());
+        PessoaService pessoaService = new PessoaServiceImpl(new PessoaDAOImpl());
         LocaisService locaisService = new LocaisServiceImpl(new LocaisDAOImpl());
         ResponsavelService responsavelService = new ResponsavelServiceImpl(new ResponsavelDAOImpl(), pessoaService);
-      EquipamentosService equipamentosService = new EquipamentosServiceImpl(new EquipamentosDAOImpl());
+        EquipamentosService equipamentosService = new EquipamentosServiceImpl(new EquipamentosDAOImpl());
         ClienteService clienteService = new ClienteServiceImpl(pessoaService, new ClienteDAOImpl());
         VendasService vendasService = new VendasServiceImpl(new VendasDAOImpl());
-       ObserverVendas vendasObserver = new EquipamentosServiceImpl(new EquipamentosDAOImpl());
+        ObserverVendas vendasObserver = new EquipamentosServiceImpl(new EquipamentosDAOImpl());
 
         Locais locais = new Locais("Quarto", "Casa do Perna-Longa");
         locaisService.cadastrarLocal(locais);
@@ -29,23 +29,23 @@ public class Main {
         Responsavel responsavel = new Responsavel("Kanalense", "Casa do Kanalense", "kanalense@gmail.com", "123456", "85 9 8899-0011");
         responsavelService.cadastrarResponsavel(responsavel);
 
-       Cliente clienteVen = new Cliente();
-       clienteVen.setId(1L);
-       Cliente clienteId = clienteService.getPessoaById(clienteVen);
-       Locais localEq = new Locais();
-       localEq.setId(1L);
+        Cliente clienteVen = new Cliente();
+        clienteVen.setId(1L);
+        Cliente clienteId = clienteService.getPessoaById(clienteVen);
+        Locais localEq = new Locais();
+        localEq.setId(1L);
         Locais locId = locaisService.getLocalById(3L);
         Responsavel responsavelEq = new Responsavel();
         responsavelEq.setId(2L);
         Responsavel responsavelId = responsavelService.getPessoaById(responsavelEq);
-       Equipamentos equipamentos = new Equipamentos();
-       equipamentos.setId(2L);
-       Equipamentos equipamentoId = equipamentosService.getEquipamentoById(equipamentos);
+        Equipamentos equipamentos = new Equipamentos();
+        equipamentos.setId(2L);
+        Equipamentos equipamentoId = equipamentosService.getEquipamentoById(equipamentos);
 
-       vendasService.addObserver(vendasObserver);
+        vendasService.addObserver(vendasObserver);
 
-       Equipamentos equipamento = new Equipamentos("Tecl", "MOU12398230",
-              139.99, 14, locId, responsavelId);
+        Equipamentos equipamento = new Equipamentos("Tecl", "MOU12398230",
+                139.99, 14, locId, responsavelId);
         equipamentosService.cadastraEquipamento(equipamento);
 
 //        Equipamentos equi01 =  new Equipamentos();
@@ -53,10 +53,6 @@ public class Main {
 //        Equipamentos equi03 =  new Equipamentos();
 //        equi01.setId(1L);
 //        equi02.setId(2L);
-
-
-
-
 
 
 //        Vendas venda02 = new Vendas.Builder().data(Timestamp.valueOf("2021-04-04 08:30:00"))
@@ -70,8 +66,8 @@ public class Main {
 //        vendasService.criarVenda(venda02);
         //Vendas vendaCancelamento = new Vendas();
         //vendaCancelamento.setId(3L);
-       // Vendas vendaId = vendasService.getVendaById(vendaCancelamento);
-      // vendasService.cancelamento(vendaId);
+        // Vendas vendaId = vendasService.getVendaById(vendaCancelamento);
+        // vendasService.cancelamento(vendaId);
 //
 //        Vendas dataInicio = new Vendas();
 //        dataInicio.setData(Timestamp.from(Instant.from(Instant.now())));

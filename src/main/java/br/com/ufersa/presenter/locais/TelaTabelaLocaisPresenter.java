@@ -42,7 +42,7 @@ public class TelaTabelaLocaisPresenter implements Initializable {
         colNomeCasa.setCellValueFactory(new PropertyValueFactory<Locais, String>("nomeCasa"));
         colNomeCompartimento.setCellValueFactory(new PropertyValueFactory<Locais, String>("nomeCompartimento"));
         renderizarColunaAcoes();
-        PresenterUtil.carregarTabelaLocais(tabelaLocais,locaisService.getAllLocais());
+        PresenterUtil.popularTabela(tabelaLocais,locaisService.getAllLocais());
     }
 
     public void renderizarColunaAcoes() {
@@ -65,7 +65,7 @@ public class TelaTabelaLocaisPresenter implements Initializable {
                                 stage.showAndWait(); // Use showAndWait() para bloquear a janela da tabela até fechar a de edição
 
                                 // Atualize a tabela após a edição ser salva e a janela fechada
-                                PresenterUtil.carregarTabelaLocais(tabelaLocais,locaisService.getAllLocais());
+                                PresenterUtil.popularTabela(tabelaLocais,locaisService.getAllLocais());
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }

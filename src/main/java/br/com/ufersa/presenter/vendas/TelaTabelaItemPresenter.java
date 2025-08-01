@@ -36,7 +36,7 @@ public class TelaTabelaItemPresenter implements Initializable {
 
 
     public void popularTabelaItemVendas(Vendas vendas){
-        PresenterUtil.carregarTabelaItemVendas(tabelaItemVendas, vendas.getItens());
+        PresenterUtil.popularTabela(tabelaItemVendas, vendas.getItens());
     }
 
 

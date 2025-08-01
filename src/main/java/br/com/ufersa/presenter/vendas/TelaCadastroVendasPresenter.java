@@ -59,7 +59,7 @@ public class TelaCadastroVendasPresenter implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        presenterUtil.carregarClientes(clienteVenda);
+        PresenterUtil.popularComboBox(clienteVenda, clienteService.getAllPessoas());
         this.itensDaVenda = FXCollections.observableArrayList();
 
         equipamentosVenda.setCellValueFactory(new PropertyValueFactory<>("equipamento"));

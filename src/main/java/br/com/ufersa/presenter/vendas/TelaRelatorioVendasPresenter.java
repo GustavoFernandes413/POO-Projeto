@@ -41,7 +41,7 @@ public class TelaRelatorioVendasPresenter implements Initializable
             PresenterUtil.exibirAlerta("Erro ao carregar relatório", "Nenhuma venda feita neste período");
         }
         else {
-            PresenterUtil.carregarVendas(minhaTabelaVendasController.getMinhaTabelaVendas(), dadosRelatorio);
+            PresenterUtil.popularTabela(minhaTabelaVendasController.getMinhaTabelaVendas(), dadosRelatorio);
         }
     }
     private List<Vendas> carregarDadosRelatorio(){

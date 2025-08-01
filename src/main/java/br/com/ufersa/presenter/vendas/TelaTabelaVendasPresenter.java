@@ -51,7 +51,7 @@ public class TelaTabelaVendasPresenter implements Initializable {
         colIdVenda.setCellValueFactory(new PropertyValueFactory<>("id"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
         renderizarColunaAcoesVendas(colAcoes);
-        PresenterUtil.carregarVendas(minhaTabelaVendas, vendasService.getAllVendas());
+        PresenterUtil.popularTabela(minhaTabelaVendas, vendasService.getAllVendas());
     }
 
     public TableView<Vendas> getMinhaTabelaVendas() {
@@ -76,7 +76,7 @@ public class TelaTabelaVendasPresenter implements Initializable {
                                 presenter.carregarVendaParaEdicao(vendaParaEditar);
                                 presenter.cancelamento();
                                 JOptionPane.showMessageDialog(null, " Venda Devolvida com sucesso! Novo status: ");
-                                PresenterUtil.carregarVendas(minhaTabelaVendas,vendasService.getAllVendas());
+                                PresenterUtil.popularTabela(minhaTabelaVendas,vendasService.getAllVendas());
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }

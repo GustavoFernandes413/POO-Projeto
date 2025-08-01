@@ -65,7 +65,7 @@ public class TelaPesquisarEquipamentoPresenter implements Initializable {
                         break;
                 }
             }
-            PresenterUtil.carregarTabelaEquipamentos(minhaTabelaEquipamentosController.getTabelaEquipamentos(), resultados);
+            PresenterUtil.popularTabela(minhaTabelaEquipamentosController.getTabelaEquipamentos(), resultados);
         } catch (Exception e) {
             PresenterUtil.exibirAlerta("Erro na pesquisa", "Não foi possíve realizar a busca");
         }

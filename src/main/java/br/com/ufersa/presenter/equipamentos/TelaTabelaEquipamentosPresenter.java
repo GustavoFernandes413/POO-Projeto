@@ -7,6 +7,7 @@ import br.com.ufersa.model.entities.Responsavel;
 import br.com.ufersa.model.services.EquipamentosService;
 import br.com.ufersa.model.services.EquipamentosServiceImpl;
 import br.com.ufersa.presenter.locais.TelaCadastroLocaisPresenter;
+import br.com.ufersa.presenter.util.PresenterUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -44,7 +45,7 @@ public class TelaTabelaEquipamentosPresenter implements Initializable {
     private TableColumn<Equipamentos, Void> colAcoes;
 
     private final EquipamentosService equipamentosService = new EquipamentosServiceImpl(new EquipamentosDAOImpl());
-
+    // necessario pois a tabela será inclusa em outras telas
     public TableView<Equipamentos> getTabelaEquipamentos() {
         return tabelaEquipamentos;
     }
@@ -57,10 +58,8 @@ public class TelaTabelaEquipamentosPresenter implements Initializable {
         colEstoque.setCellValueFactory(new PropertyValueFactory<Equipamentos, Integer>("quantidadeEstoque"));
         colLocal.setCellValueFactory(new PropertyValueFactory<Equipamentos, Locais>("local"));
         colResponsavel.setCellValueFactory(new PropertyValueFactory<Equipamentos, Responsavel>("responsavel"));
-
-
         renderizarColunaAcoes();
-        dadosEquipamentos();
+        PresenterUtil.popularTabela(tabelaEquipamentos, equipamentosService.getAllEquipamentos());
     }
 
     public void dadosEquipamentos() {
@@ -69,16 +68,12 @@ public class TelaTabelaEquipamentosPresenter implements Initializable {
         tabelaEquipamentos.setItems(observableListEquipamentos);
     }
 
-
-
     public void renderizarColunaAcoes() {
         Callback<TableColumn<Equipamentos, Void>, TableCell<Equipamentos, Void>> cellFactory = new Callback<>() {
             @Override
             public TableCell<Equipamentos, Void> call(final TableColumn<Equipamentos, Void> param) {
                 final TableCell<Equipamentos, Void> cell = new TableCell<>() {
                     private final Hyperlink linkEditar = new Hyperlink("Editar");
-                   // private final Button btnExcluir = new Button("Excluir");
-
                     {
                         linkEditar.setOnAction(event -> {
                             Equipamentos EquipamentoParaEditar = getTableRow().getItem();                        // Cria tela para edicao
@@ -93,18 +88,12 @@ public class TelaTabelaEquipamentosPresenter implements Initializable {
                                 stage.setScene(new Scene(root));
                                 stage.showAndWait(); // Use showAndWait() para bloquear a janela da tabela até fechar a de edição
 
-                                // 6. (Opcional) Atualize a tabela após a edição ser salva e a janela fechada
-                                dadosEquipamentos();
+                                PresenterUtil.popularTabela(tabelaEquipamentos, equipamentosService.getAllEquipamentos());
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
 
                         });
-//                        // TODO implementar chamada ao servico de exclusao
-//                        btnExcluir.setOnAction(event -> {
-////                            Equipamentos equipamento = getTableView().getItem();
-////                             deletarRegistro(produto);
-//                        });
                     }
 
                     @Override

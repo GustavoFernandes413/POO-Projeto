@@ -91,29 +91,15 @@ public class PresenterUtil {
         alert.showAndWait();
     }
 
-    // util apenas para comboBox
-    public  void carregarClientes(ComboBox<Cliente> clienteVenda) {
-        List<Cliente> clienteList = clienteService.getAllPessoas();
-        ObservableList<Cliente> observableLocais = FXCollections.observableArrayList(clienteList);
-        clienteVenda.setItems(observableLocais);
+    public static <T> void popularComboBox(ComboBox<T> comboBox, List<T> listaObjetos) {
+        ObservableList<T> observableListObjetos = FXCollections.observableArrayList(listaObjetos);
+        comboBox.setItems(observableListObjetos);
     }
-    public static void carregarVendas(TableView<Vendas> Venda, List<Vendas> vendasList) {
-        ObservableList<Vendas> observableLocais = FXCollections.observableArrayList(vendasList);
-        Venda.setItems(observableLocais);
-    }
-    public static void carregarTabelaItemVendas(TableView<ItemVenda> itemVenda, List<ItemVenda> itemVendaList) {
-        ObservableList<ItemVenda> observableItemVenda  = FXCollections.observableArrayList(itemVendaList);
-        itemVenda.setItems(observableItemVenda);
-    }
-    public static void carregarTabelaEquipamentos(TableView<Equipamentos> equipamentos, List<Equipamentos> equipamentosList) {
-        ObservableList<Equipamentos> observablelEquipamentos  = FXCollections.observableArrayList(equipamentosList);
-        equipamentos.setItems(observablelEquipamentos);
+    public static <T>  void popularTabela(TableView<T> registrosTabela, List<T> listaRegistros) {
+        ObservableList<T> observableListObjetos = FXCollections.observableArrayList(listaRegistros);
+        registrosTabela.setItems(observableListObjetos);
     }
 
-    public static void carregarTabelaLocais(TableView<Locais> tabelaLocais, List<Locais> listaLocais) {
-        ObservableList<Locais> observableListLocais = FXCollections.observableArrayList(listaLocais);
-        tabelaLocais.setItems(observableListLocais);
-    }
 
     // metodos de renderizacao de tabelas
 
