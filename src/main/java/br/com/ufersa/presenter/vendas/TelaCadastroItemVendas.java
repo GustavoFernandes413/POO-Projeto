@@ -6,6 +6,8 @@ import br.com.ufersa.model.entities.ItemVenda;
 import br.com.ufersa.model.entities.Vendas;
 import br.com.ufersa.model.services.EquipamentosService;
 import br.com.ufersa.model.services.EquipamentosServiceImpl;
+import br.com.ufersa.presenter.util.NavigationManager;
+import br.com.ufersa.presenter.util.PresenterUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -33,6 +35,10 @@ public class TelaCadastroItemVendas implements Initializable {
     // Mantém o item que será retornado para a tela principal
     private ItemVenda itemAdicionado = null;
 
+    public ItemVenda getItemAdicionado() {
+        return this.itemAdicionado;
+    }
+
     @FXML
     public void adicionarItemVenda(ActionEvent event) {
         // Validação para garantir que algo foi selecionado
@@ -47,22 +53,17 @@ public class TelaCadastroItemVendas implements Initializable {
         item.setQuantidade(quantidadeItens.getSelectionModel().getSelectedItem());
         // Guarda o item criado para que a outra tela possa pegá-lo
         this.itemAdicionado = item;
-        fecharJanela(botaoAdicionar);
+        NavigationManager.fecharJanela(botaoAdicionar);
     }
-
-    public ItemVenda getItemAdicionado() {
-        return this.itemAdicionado;
-    }
-
     @FXML
     private void cancelar(ActionEvent event) { // Adicionado ActionEvent para consistência
         this.itemAdicionado = null;
-        fecharJanela(cancelarAdicao);
+        NavigationManager.fecharJanela(cancelarAdicao);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        carregarEquipamentos();
+        PresenterUtil.popularComboBox(equipamentoItens,equipamentosService.getAllEquipamentos());
 
         // Listener para atualizar a quantidade disponível quando um equipamento é selecionado
         equipamentoItens.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -85,15 +86,4 @@ public class TelaCadastroItemVendas implements Initializable {
         quantidadeItens.setItems(numeros);
     }
 
-    public void carregarEquipamentos() {
-        List<Equipamentos> equipamentos = equipamentosService.getAllEquipamentosDisponiveis();
-        ObservableList<Equipamentos> equipamentosObservableList = FXCollections.observableArrayList(equipamentos);
-        equipamentoItens.setItems(equipamentosObservableList);
-        equipamentoItens.setPromptText("Selecione um Equipamento");
-    }
-
-    private void fecharJanela(Node node) {
-        Stage stage = (Stage) node.getScene().getWindow();
-        stage.close();
-    }
 }

@@ -4,6 +4,7 @@ import br.com.ufersa.model.dao.VendasDAOImpl;
 import br.com.ufersa.model.entities.Vendas;
 import br.com.ufersa.model.services.VendasService;
 import br.com.ufersa.model.services.VendasServiceImpl;
+import br.com.ufersa.presenter.util.NavigationManager;
 import br.com.ufersa.presenter.util.PresenterUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -26,7 +27,6 @@ public class TelaRelatorioVendasPresenter implements Initializable
     @FXML private Button botaoGerarRelatorio;
 
     VendasService vendasService = new VendasServiceImpl(new VendasDAOImpl());
-    PresenterUtil presenterUtil = new PresenterUtil(vendasService);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -35,18 +35,16 @@ public class TelaRelatorioVendasPresenter implements Initializable
 
      public void  gerarRelatorioVendas(ActionEvent event)
     {
-        List<Vendas> dadosRelatorio = carregarDadosRelatorio();
+        List<Vendas> dadosRelatorio = carregarDadosRelatorio(dataInicial.getValue(), dataFinal.getValue());
         if (dadosRelatorio.isEmpty())
         {
-            PresenterUtil.exibirAlerta("Erro ao carregar relatório", "Nenhuma venda feita neste período");
+            NavigationManager.exibirAlerta("Erro ao carregar relatório", "Nenhuma venda feita neste período");
         }
         else {
             PresenterUtil.popularTabela(minhaTabelaVendasController.getMinhaTabelaVendas(), dadosRelatorio);
         }
     }
-    private List<Vendas> carregarDadosRelatorio(){
-        LocalDate inicio = dataInicial.getValue();
-        LocalDate fim = dataFinal.getValue();
+    private List<Vendas> carregarDadosRelatorio(LocalDate inicio, LocalDate fim){
 
         Vendas vendaInicio = new Vendas();
         Vendas vendaFim = new Vendas();

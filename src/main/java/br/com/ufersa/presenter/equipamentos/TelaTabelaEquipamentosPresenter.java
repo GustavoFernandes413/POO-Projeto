@@ -62,12 +62,6 @@ public class TelaTabelaEquipamentosPresenter implements Initializable {
         PresenterUtil.popularTabela(tabelaEquipamentos, equipamentosService.getAllEquipamentos());
     }
 
-    public void dadosEquipamentos() {
-        List<Equipamentos> listaEquipamentos = equipamentosService.getAllEquipamentos();
-        ObservableList<Equipamentos> observableListEquipamentos = FXCollections.observableArrayList(listaEquipamentos);
-        tabelaEquipamentos.setItems(observableListEquipamentos);
-    }
-
     public void renderizarColunaAcoes() {
         Callback<TableColumn<Equipamentos, Void>, TableCell<Equipamentos, Void>> cellFactory = new Callback<>() {
             @Override

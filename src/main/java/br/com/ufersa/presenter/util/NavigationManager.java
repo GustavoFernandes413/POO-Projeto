@@ -3,6 +3,7 @@ package br.com.ufersa.presenter.util;
 import br.com.ufersa.model.entities.Vendas;
 import br.com.ufersa.presenter.vendas.TelaNotaVendaPresenter;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -14,9 +15,9 @@ import java.io.IOException;
 
 public class NavigationManager {
 
-    public  void abrirNota(Vendas venda ) throws IOException {
+    public static void abrirNota(Vendas venda ) throws IOException {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/ufersa/view/tela-nota-venda.fxml"));
+            FXMLLoader loader = new FXMLLoader(NavigationManager.class.getResource("/br/com/ufersa/view/tela-nota-venda.fxml"));
             Parent root = loader.load();
             TelaNotaVendaPresenter modalController = loader.getController();
             modalController.setVendaCriada(venda);
@@ -36,6 +37,11 @@ public class NavigationManager {
         alert.setHeaderText(null);
         alert.setContentText(mensagem);
         alert.showAndWait();
+    }
+
+    public static void fecharJanela(Node node) {
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.close();
     }
 
 }

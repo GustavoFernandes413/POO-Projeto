@@ -8,6 +8,7 @@ import br.com.ufersa.model.entities.Responsavel;
 import br.com.ufersa.model.services.ClienteService;
 import br.com.ufersa.model.services.ClienteServiceImpl;
 import br.com.ufersa.model.services.PessoaServiceImpl;
+import br.com.ufersa.presenter.util.NavigationManager;
 import br.com.ufersa.presenter.util.PresenterUtil;
 import br.com.ufersa.view.LoginResponsavel;
 import javafx.collections.FXCollections;
@@ -55,7 +56,7 @@ public class TelaCadastroClientesPresenter {
         try {
             clienteService.cadastrarCliente(cliente);
             JOptionPane.showMessageDialog(null, "Novo Cliente cadastrado com sucesso!");
-            PresenterUtil.fecharJanela(salvarButton);
+            NavigationManager.fecharJanela(salvarButton);
         } catch (Exception e) {
             erro.setText(e.getMessage());
             erro.setTextFill(Color.RED);
@@ -69,7 +70,7 @@ public class TelaCadastroClientesPresenter {
         try {
             clienteService.editarCliente(clienteSelecionado);
             JOptionPane.showMessageDialog(null, "Cliente editado com sucesso!");
-            PresenterUtil.fecharJanela(salvarButton);
+            NavigationManager.fecharJanela(salvarButton);
         } catch (Exception e) {
             erro.setText(e.getMessage());
             erro.setTextFill(Color.RED);
@@ -88,7 +89,7 @@ public class TelaCadastroClientesPresenter {
 
     @FXML
     public void voltar(ActionEvent event) {
-        PresenterUtil.fecharJanela(voltarButton);
+        NavigationManager.fecharJanela(voltarButton);
     }
 
 

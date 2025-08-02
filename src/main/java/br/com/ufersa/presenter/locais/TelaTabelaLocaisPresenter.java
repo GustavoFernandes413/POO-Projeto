@@ -26,10 +26,8 @@ import java.util.ResourceBundle;
 public class TelaTabelaLocaisPresenter implements Initializable {
     @FXML
     private TableView<Locais> tabelaLocais;
-
     @FXML
     private TableColumn<Locais, String> colNomeCasa;
-
     @FXML
     private TableColumn<Locais, String> colNomeCompartimento;
     @FXML
@@ -64,7 +62,6 @@ public class TelaTabelaLocaisPresenter implements Initializable {
                                 stage.setScene(new Scene(root));
                                 stage.showAndWait(); // Use showAndWait() para bloquear a janela da tabela até fechar a de edição
 
-                                // Atualize a tabela após a edição ser salva e a janela fechada
                                 PresenterUtil.popularTabela(tabelaLocais,locaisService.getAllLocais());
                             } catch (IOException e) {
                                 throw new RuntimeException(e);

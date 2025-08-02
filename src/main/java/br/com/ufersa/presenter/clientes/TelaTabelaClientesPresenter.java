@@ -3,11 +3,8 @@ package br.com.ufersa.presenter.clientes;
 import br.com.ufersa.model.dao.ClienteDAOImpl;
 import br.com.ufersa.model.dao.PessoaDAOImpl;
 import br.com.ufersa.model.entities.Cliente;
-import br.com.ufersa.model.entities.Locais;
 import br.com.ufersa.model.services.*;
-import br.com.ufersa.presenter.locais.TelaCadastroLocaisPresenter;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import br.com.ufersa.presenter.util.PresenterUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,7 +18,6 @@ import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class TelaTabelaClientesPresenter implements Initializable {
@@ -48,12 +44,7 @@ public class TelaTabelaClientesPresenter implements Initializable {
         colEnderecoCliente.setCellValueFactory(new PropertyValueFactory<Cliente, String>("endereco"));
         colCpfCliente.setCellValueFactory(new PropertyValueFactory<Cliente, String>("cpf"));
         renderizarColunaAcoes();
-        dadosClientes();
-    }
-    public void dadosClientes(){
-        List<Cliente> listaCliente = clienteService.getAllPessoas();
-        ObservableList<Cliente> observableListCliente = FXCollections.observableArrayList(listaCliente);
-        tabelaClientes.setItems(observableListCliente);
+        PresenterUtil.popularTabela(tabelaClientes, clienteService.getAllPessoas());
     }
 
     public void renderizarColunaAcoes() {
@@ -76,8 +67,7 @@ public class TelaTabelaClientesPresenter implements Initializable {
                                 stage.setTitle("Editar Local");
                                 stage.setScene(new Scene(root));
                                 stage.showAndWait(); // Use showAndWait() para bloquear a janela da tabela até fechar a de edição
-
-                                dadosClientes();
+                                PresenterUtil.popularTabela(tabelaClientes, clienteService.getAllPessoas());
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }

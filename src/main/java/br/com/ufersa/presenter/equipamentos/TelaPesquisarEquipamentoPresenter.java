@@ -6,6 +6,7 @@ import br.com.ufersa.model.entities.Locais;
 import br.com.ufersa.model.entities.Responsavel;
 import br.com.ufersa.model.services.EquipamentosService;
 import br.com.ufersa.model.services.EquipamentosServiceImpl;
+import br.com.ufersa.presenter.util.NavigationManager;
 import br.com.ufersa.presenter.util.PresenterUtil;
 import br.com.ufersa.presenter.vendas.TelaTabelaItemPresenter;
 import br.com.ufersa.presenter.vendas.TelaTabelaVendasPresenter;
@@ -67,7 +68,7 @@ public class TelaPesquisarEquipamentoPresenter implements Initializable {
             }
             PresenterUtil.popularTabela(minhaTabelaEquipamentosController.getTabelaEquipamentos(), resultados);
         } catch (Exception e) {
-            PresenterUtil.exibirAlerta("Erro na pesquisa", "Não foi possíve realizar a busca");
+            NavigationManager.exibirAlerta("Erro na pesquisa", "Não foi possíve realizar a busca");
         }
     }
     }
