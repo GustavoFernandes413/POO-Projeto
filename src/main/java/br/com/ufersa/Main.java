@@ -22,7 +22,7 @@ public class Main {
         Locais locais = new Locais("Quarto", "Casa do Perna-Longa");
         locaisService.cadastrarLocal(locais);
 
-        Pessoa pessoa = new Pessoa("Patolino", "Warner Bros");
+        Pessoa pessoa = new Pessoa("Patolinoo", "Warner Bros");
         Cliente cliente = new Cliente(pessoa.getNome(), pessoa.getEndereco(), "111.222.333-44");
         clienteService.cadastrarCliente(cliente);
 
